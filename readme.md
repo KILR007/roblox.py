@@ -25,7 +25,7 @@ created()
 descrition()
 id()
 ```
-*If The User Don't Exist Each Attribute Will Return "User Not Found"*
+
 
 ### Documentation
 `avatar()` -- For User Avatar Url  
