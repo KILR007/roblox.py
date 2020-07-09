@@ -65,7 +65,7 @@ async def roblox(ctx,*,username):
  - If User Don't Have A Description Then It Will Return `*No Description*`
  - If User Don't Have Any Roblox Badges Then It Will Return `*No Roblox Badges*`
  
-**Note-** *This Library Is Still In Development
+**Note-** *This Library Is Still In Development*
 
 
 
