@@ -41,7 +41,7 @@ This Module Is Very Useful When Your Creating A Discord Bot That Finds Roblox Ac
 import discord
 from discord.ext import commands
 from Roblox import Player
-@.command()
+@bot.command()
 async def roblox(ctx,*,username):
     epic = Player(f"{username}")
     ee = epic.id()
