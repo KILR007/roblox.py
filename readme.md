@@ -28,12 +28,12 @@ id()
 *If The User Don't Exist Each Attribute Will Return "User Not Found"*
 
 ### Documentation
-`avatar()` -- For User Avatar Url
-`url()` --  For User Roblox Profile User
-`badges()` --  For User Roblox Badges
-`created()`-- For User Join Date
-`descrition()` --  For User Roblox Description 
-`id()` --  For User Roblox ID
+`avatar()` -- For User Avatar Url  
+`url()` --  For User Roblox Profile User  
+`badges()` --  For User Roblox Badges  
+`created()`-- For User Join Date  
+`descrition()` --  For User Roblox Description  
+`id()` --  For User Roblox ID  
 ### [Discord](https://discord.com) Example
 This Module Is Very Useful When Your Creating A Discord Bot That Finds Roblox Account Info
 ###### Quick Example
