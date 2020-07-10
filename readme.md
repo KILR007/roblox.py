@@ -25,8 +25,8 @@ created_at()
 description()
 id()
 ```
-### Installation
-###### Pip Installation
+###  [Pip](https://pypi.org/project/Pyroblox3/) Installation
+
 ```pip install Pyroblox3```
 
 ### Documentation
