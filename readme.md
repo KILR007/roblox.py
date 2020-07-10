@@ -42,7 +42,7 @@ This Module Is Very Useful When Your Creating A Discord Bot That Finds Roblox Ac
 ```python
 import discord
 from discord.ext import commands
-from Roblox import Player
+from Pyroblox3 import Players 
 @bot.command()
 async def roblox(ctx,*,username):
     epic = Player(f"{username}")
