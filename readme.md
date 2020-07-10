@@ -45,7 +45,7 @@ from discord.ext import commands
 from Pyroblox3 import Players 
 @bot.command()
 async def roblox(ctx,*,username):
-    epic = Player(f"{username}")
+    epic = Players(f"{username}")
     ee = epic.id()
     if ee == "User Not Found":
         await ctx.send("Account No Longer Exists Or It Is Banned") 
