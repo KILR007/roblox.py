@@ -7,8 +7,8 @@ pyroblox Is A library Written In [Python](https://www.python.org/)
   - Very Easy To Use
 ###  Library Usage With Examples
 ```py
-from pyroblox3 import Player
-epic = Player(f"Kilr007") #Player Name Here 
+from  Pyroblox3 import Players
+epic = Players(f"Kilr007") #Player Name Here 
 Desc = epic.descrition()
 avatar = epic.avatar()
 created_at = epic.created()
