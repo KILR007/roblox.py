@@ -25,7 +25,9 @@ created()
 descrition()
 id()
 ```
-
+### Installation
+###### Pip Installation
+```pip install Pyroblox3```
 
 ### Documentation
 `avatar()` -- For User Avatar Url  
