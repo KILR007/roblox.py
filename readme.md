@@ -9,9 +9,9 @@ pyroblox Is A library Written In [Python](https://www.python.org/)
 ```py
 from  Pyroblox3 import Players
 epic = Players(f"Kilr007") #Player Name Here 
-Desc = epic.descrition()
+Desc = epic.description()
 avatar = epic.avatar()
-created_at = epic.created()
+created_at = epic.created_at()
 print(created_at)
 print(avatar)
 print(Desc)
@@ -21,8 +21,8 @@ print(Desc)
 avatar() 
 url()
 badges()
-created()
-descrition()
+created_at()
+description()
 id()
 ```
 ### Installation
@@ -33,8 +33,8 @@ id()
 `avatar()` -- For User Avatar Url  
 `url()` --  For User Roblox Profile User  
 `badges()` --  For User Roblox Badges  
-`created()`-- For User Join Date  
-`descrition()` --  For User Roblox Description  
+`created_at()`-- For User Join Date  
+`description()` --  For User Roblox Description  
 `id()` --  For User Roblox ID  
 ### [Discord](https://discord.com) Example
 This Module Is Very Useful When Your Creating A Discord Bot That Finds Roblox Account Info
@@ -54,9 +54,9 @@ async def roblox(ctx,*,username):
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="Username:", value=username)
     embed.add_field(name="Roblox Id", value=epic.id())
-    embed.add_field(name="Account Created on:", value=epic.created())
+    embed.add_field(name="Account Created on:", value=epic.created_at())
     embed.add_field(name="Roblox Badges:", value=epic.badge())
-    embed.add_field(name="Description:", value=epic.descrition(), inline=False)
+    embed.add_field(name="Description:", value=epic.description(), inline=False)
     embed.add_field(name="Roblox Profile URL:", value="e", inline=False)
     embed.set_thumbnail(url=epic.avatar())
     await ctx.send(embed=embed)
