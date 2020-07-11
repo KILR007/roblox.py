@@ -1,13 +1,13 @@
-# **Pyroblox3**
+# **pyrblx**
 
 
 
-pyroblox Is A library Written In [Python](https://www.python.org/)
+pyrblx Is A library Written In [Python](https://www.python.org/)
   - Made For Finding [Roblox](https://www.roblox.com) Accounts(Info)
   - Very Easy To Use
 ###  Library Usage With Examples
 ```py
-from  Pyroblox3 import Players
+from  pyrblx import Players
 epic = Players(f"Kilr007") #Player Name Here 
 Desc = epic.description()
 avatar = epic.avatar()
@@ -42,7 +42,7 @@ This Module Is Very Useful When Your Creating A Discord Bot That Finds Roblox Ac
 ```python
 import discord
 from discord.ext import commands
-from Pyroblox3 import Players 
+from pyrblx import Players 
 @bot.command()
 async def roblox(ctx,*,username):
     epic = Players(f"{username}")
