@@ -25,9 +25,9 @@ created_at()
 description()
 id()
 ```
-###  [Pip](https://pypi.org/project/Pyroblox3/) Installation
+###  [Pip](https://pypi.org/project/pyrblx/) Installation
 
-```pip install Pyroblox3```
+```pip install pyrblx```
 
 ### Documentation
 `avatar()` -- For User Avatar Url  
