@@ -18,7 +18,7 @@ except:
 
 ````
 #### Possible Attributes-
-````python
+````yaml
 Players
 user_id() - Returns UserID
 description() - Returns description
