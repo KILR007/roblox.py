@@ -18,7 +18,7 @@ except:
 
 ````
 #### Possible Attributes-
-````text
+````python
 Players
 user_id() - Returns UserID
 description() - Returns description
@@ -71,7 +71,6 @@ type() - Returns The Type Of Bundle
 
 
 #### Other
-Visit  [Github](https://github.com/KILR007/pyrblx)  
 *This Library Is Still In Development*
 
 
