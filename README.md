@@ -2,7 +2,8 @@
 
 
 pyrblx Is An API Wrapper Written In [Python](https://www.python.org/) For [Roblox](https://www.roblox.com)
-
+#### PIP INSTALLATION
+``pip install pyrblx``
 ###  Quick Examples
 ````python
 import pyrblx 
