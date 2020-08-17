@@ -63,10 +63,14 @@ isforsale() - Returns A Boolean
 type() - Returns The Type Of Bundle
 ````
 #### Exceptions 
-`Badarguement` -  Raised When The Site Return Status Code Other Than 200  
-`Groupnotfound` - Raised When Group ID Is Invalid aka Not Found  
-`Bundlenotfound` - Raised When Bundle ID Is Invalid aka Not Found  
-`Playernotfound` - Raised When Player Username Is Invalid aka Not Found  
+````python
+Badarguement```` -  Raised When The Site Return Status Code Other Than 200  
+````pytho
+nGroupnotfound```` - Raised When Group ID Is Invalid aka Not Found  
+````python
+Bundlenotfound```` - Raised When Bundle ID Is Invalid aka Not Found  
+````python
+Playernotfound```` - Raised When Player Username Is Invalid aka Not Found  
 
 
 #### Other
