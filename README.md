@@ -17,7 +17,7 @@ except pyrblx.Playernotfound:
 
 ````
 #### Possible Attributes-
-````yaml
+````python
 Players
 user_id() - Returns UserID
 description() - Returns description
