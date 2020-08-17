@@ -12,8 +12,7 @@ try:
     print(epic.roblox_badges())
     print(epic.latest_friend())
     print(epic.groups_count())
-except:
-    pyrblx.Playernotfound:
+except pyrblx.Playernotfound:
     print("User Not Found")
 
 ````
