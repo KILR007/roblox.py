@@ -8,7 +8,7 @@ pyrblx Is An API Wrapper Written In [Python](https://www.python.org/) For [Roblo
 ````python
 import pyrblx 
 try:
-    epic = pyrblx.Players("kilr007") #Takes Name Of User
+    epic = pyrblx.Players("kilr007") #Insert Name Here
     print(epic.roblox_badges())
     print(epic.latest_friend())
     print(epic.groups_count())
