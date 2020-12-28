@@ -89,11 +89,11 @@ class AssetInfo:
         return self.link["IsForSale"]
 
     @property
-    def isLimited(self):
+    def is_Limited(self):
         return self.link["IsLimited"]
 
     @property
-    def isLimitedUnique(self):
+    def is_Limited_Unique(self):
         return self.link["IsLimitedUnique"]
 
     @property
@@ -110,5 +110,5 @@ class AssetInfo:
         return f"https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid={self.ID}&fmt=png&wd=420&ht=420"
 
     @property
-    def direct_url(self):
-        return f"https://www.roblox.com/games/{self.ID}/{self.name}"
+    def product_id(self):
+        return self.link['ProductId']
