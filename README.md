@@ -1,16 +1,21 @@
 
+
 # **roblox.py**
 
-Modern async API wrapper for Roblox  
-[![Support Server](https://img.shields.io/discord/591914197219016707.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/vpEv3HJ)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/KILR007/pyrblx/blob/master/LICENSE.txt)[![Downloads](https://static.pepy.tech/badge/roblox.py)](https://static.pepy.tech/badge/roblox.py)
+[![Support Server](https://img.shields.io/discord/591914197219016707.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/vpEv3HJ)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/KILR007/pyrblx/blob/master/LICENSE.txt)[![Downloads](https://static.pepy.tech/badge/roblox.py)](https://static.pepy.tech/badge/roblox.py)  
+**Modern async API wrapper for Roblox**  
 
-
+### Key Features
+- Easy to Use
+- Alot of Features
+- Asynchronous
 
 #### [PIP INSTALLATION](https://pypi.org/project/roblox.py/)
 `pip install roblox.py`
 
 
 ###  Quick Examples
+
 #### Playerinfo example
 ````python
 import asyncio
@@ -44,7 +49,9 @@ async def main():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ```` 
+
 #### Authenticated User Example
+
 ````python
 import asyncio
 from roblox_py import Client
@@ -53,11 +60,12 @@ async def main():
     auth_user = await client.get_auth_user()
     await auth_user.follow(TargetId=1) # input user ID
     await auth_user.send_friend_request(TargetId=2) # input user ID 
-    await auth_user.claim_group(2323) # clamins group if possible
+    await auth_user.claim_group_owner(2323) # clamins group if possible
     
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ````
+
 #### Authenticated User Group Example
 
 ````python
@@ -74,21 +82,21 @@ loop.run_until_complete(main())
 ````
 ##### *For more example see Example Folder*
 
-
-# TODO LIST 
+### TODO LIST 
 - Improve Code Speed  
 - Write  Docs (ofc)  
 - Improve Code quality  
 - PEP8 Code  
 
-# Important Links
+### Important Links
 - Docs (not made yes see example folder)  
 - [Examples](https://github.com/KILR007/roblox.py/tree/master/Examples)  
 - [Discord Server](https://discord.gg/vpEv3HJ)  
 - [Github](https://github.com/KILR007/roblox.py)  
 
-### Note - 
-*docs is not written yet, the upcomming updates might include breaking code changes, so please consider joining discord support server*
+### Dev Note
+ - *docs is not written yet, the upcomming updates might include breaking code changes, so please consider joining discord support server*
+-  the library is still in beta, bugs may occurs
 
 
 
