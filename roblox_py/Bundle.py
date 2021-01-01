@@ -9,16 +9,16 @@ class BundleInfo:
         if idkdd:
             raise TypeError(f"{bundleID} must be an integer")
         self._id = bundleID
-        self.Noob = None
+        self.json_obj = None
 
     async def update(self):
         Noob = await self.request.request(url=f"https://catalog.roblox.com/v1/bundles/{self._id}/details",method='get')
         if "id" not in Noob.keys():
             raise BundleNotFound
-        self.Noob = Noob
+        self.json_obj = Noob
     @property
     def name(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["name"]
 
     def __repr__(self):
@@ -30,7 +30,7 @@ class BundleInfo:
 
     @property
     def description(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["description"]
 
     @property
@@ -40,7 +40,7 @@ class BundleInfo:
 
     @property
     def bundle_creator(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["creator"]["name"]
 
     @property
@@ -49,15 +49,15 @@ class BundleInfo:
 
     @property
     def price(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["product"]["priceInRobux"] if not None else 0
 
     @property
     def Is_for_sale(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["product"]["isForSale"]
 
     @property
     def type(self):
-        idk = self.Noob
+        idk = self.json_obj
         return idk["bundleType"]
