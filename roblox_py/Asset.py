@@ -10,25 +10,25 @@ class AssetInfo:
             raise TypeError(f"{assetID} must be an integer")
 
         self.ID = assetID
-        self.link = None
+        self._json_obj = None
 
     async def update(self):
         r = await self.request.request(url=f"http://api.roblox.com/Marketplace/ProductInfo?assetId={self.ID}",method='get')
         if "AssetId" not in r.keys():
             raise AssetNotFound
-        self.link = r
+        self._json_obj = r
 
     @property
     def product_type(self):
-        return self.link["ProductType"]
+        return self._json_obj["ProductType"]
 
     @property
     def name(self):
-        return self.link["Name"]
+        return self._json_obj["Name"]
 
     @property
     def id(self):
-        return self.link["TargetId"]
+        return self._json_obj["TargetId"]
 
 
     def __repr__(self):
@@ -36,27 +36,27 @@ class AssetInfo:
 
     @property
     def description(self):
-        return self.link["Description"]
+        return self._json_obj["Description"]
 
     @property
     def creator(self):
-        return self.link["Creator"]["Name"]
+        return self._json_obj["Creator"]["Name"]
 
     @property
     def creator_type(self):
-        return self.link["Creator"]["CreatorType"]
+        return self._json_obj["Creator"]["CreatorType"]
 
     @property
     def price_in_robux(self):
-        return self.link["PriceInRobux"] if not None else 0
+        return self._json_obj["PriceInRobux"] if not None else 0
 
     @property
     def created_at(self):
-        return self.link["Created"]
+        return self._json_obj["Created"]
 
     @property
     def created_age(self):
-        date_time_str = self.link["Created"]
+        date_time_str = self._json_obj["Created"]
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
         now = datetime.datetime.utcnow()
@@ -68,11 +68,11 @@ class AssetInfo:
 
     @property
     def updated_at(self):
-        return self.link["Updated"]
+        return self._json_obj["Updated"]
 
     @property
     def update_age(self):
-        date_time_str = self.link["Updated"]
+        date_time_str = self._json_obj["Updated"]
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
         now = datetime.datetime.utcnow()
@@ -84,27 +84,27 @@ class AssetInfo:
 
     @property
     def sales(self):
-        return self.link["Sales"]
+        return self._json_obj["Sales"]
 
     @property
     def buyable(self):
-        return self.link["IsForSale"]
+        return self._json_obj["IsForSale"]
 
     @property
     def is_Limited(self):
-        return self.link["IsLimited"]
+        return self._json_obj["IsLimited"]
 
     @property
     def is_Limited_Unique(self):
-        return self.link["IsLimitedUnique"]
+        return self._json_obj["IsLimitedUnique"]
 
     @property
     def remaining(self):
-        return self.link["Remaining"]
+        return self._json_obj["Remaining"]
 
     @property
     def creator_id(self):
-        return self.link["Creator"]["Id"]
+        return self._json_obj["Creator"]["Id"]
     @property
     async def icon(self):
         _ok = await self.request.request(url=f"https://www.roblox.com/item-thumbnails?params=%5B%7BassetId:{self.ID}%7D%5D",method='get')
@@ -116,4 +116,4 @@ class AssetInfo:
 
     @property
     def product_id(self):
-        return self.link['ProductId']
+        return self._json_obj['ProductId']
