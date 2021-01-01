@@ -1,12 +1,11 @@
 
 
 class GroupAuth:
-    def __init__(self,request,groupID:int,cookies=None):
+    def __init__(self,request,groupID:int):
         self.request = request
         idkdd = isinstance(groupID, str)
         if idkdd:
             raise TypeError(f"{groupID} must be an integer")
-        self.cookies = cookies
         self.Target_grp_id = groupID
 
     async def pay(self, TargetId: int, amount: int):
@@ -68,5 +67,26 @@ class GroupAuth:
     async def get_funds(self):
         r = await self.request.request(url=f'https://economy.roblox.com/v1/groups/{self.Target_grp_id}/currency', method='get')
         return r['robux']
+    async def change_owner(self,user_id:int):
+        data = {"userId": user_id}
 
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/4680721/change-owner',method='post',
+                                       data=data)
+        return r
+    async def exile(self,user_id:int):
+        r =  await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/users/{user_id}',method='delete')
+        return r
+    async def get_social_link(self):
+        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',method='get')
+        return r['data'][0]
+    async def change_social_link(self,type:str,url:str,title:str):
+        data = {
+                "type": type,
+                "url": url,
+                "title": title}
+        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',method='post',data=data)
+        return r
+    async def delete_all_post(self,user_id:int):
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/wall/users/{user_id}/posts',method='delete')
+        return r
     # TODO: get join request
