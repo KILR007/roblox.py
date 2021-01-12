@@ -29,7 +29,7 @@ class GroupAuth:
 
     async def change_shout(self, status=None):
         data = {"message": status}
-        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/1/status", method='patch', data=data)
+        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/status", method='patch', data=data)
         return e
     async def decline_join_request(self,user_id:int):
         data = {"UserIds": [user_id]}
@@ -70,7 +70,7 @@ class GroupAuth:
     async def change_owner(self,user_id:int):
         data = {"userId": user_id}
 
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/4680721/change-owner',method='post',
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/change-owner',method='post',
                                        data=data)
         return r
     async def exile(self,user_id:int):
