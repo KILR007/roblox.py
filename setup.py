@@ -6,9 +6,9 @@ setuptools.setup(
 name = "roblox.py",
 packages = setuptools.find_packages(),
 include_package_data=True,
-version = "0.2.3",
+version = "0.2.4",
 license = "MIT",
-description = "Modern async API wrapper for Roblox",
+description = "Modern async API wrapper for Roblox with game client support",
 long_description = desc,
 project_urls={
         "Discord": "https://discord.com/invite/vpEv3HJ",
@@ -19,8 +19,8 @@ project_urls={
 long_description_content_type="text/markdown",
 author = "KILR",
 url = "https://github.com/KILR007/roblox.py",
-keywords = ["roblox","roblox api","roblox wrapper","roblox api wrapper",'async api wrapper','roblox.py'],
-install_requires = ["aiohttp",'aiohttp[speedups]'],
+keywords = ["roblox","roblox api","roblox wrapper","roblox api wrapper",'roblox game client','roblox.py'],
+install_requires = ["aiohttp"],
 classifiers = [
 'Development Status :: 4 - Beta',
 'License :: OSI Approved :: MIT License',
