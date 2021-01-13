@@ -57,7 +57,7 @@ import asyncio
 from roblox_py import Client
 client = Client(cookies="Your Cookies here") 
 async def main():
-    auth_game = await client.join_game(6237170604)
+    auth_game = await client.join_game(6237170604) # takes in server ID
     await auth_game.join_game() #joins an random server
     await asyncio.sleep(30) #wait for the game to load (depends on u)
     await auth_game.kill_game() #closes the roblox
