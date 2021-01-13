@@ -3,14 +3,15 @@
 # **roblox.py**
 
 [![Support Server](https://img.shields.io/discord/591914197219016707.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/vpEv3HJ)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/KILR007/pyrblx/blob/master/LICENSE.txt)[![Downloads](https://static.pepy.tech/badge/roblox.py)](https://static.pepy.tech/badge/roblox.py)  
-**Modern async API wrapper for Roblox**  
+**Modern async API wrapper for Roblox with game client support**  
 
 ### Key Features
 - Easy to Use
 - Alot of Features
 - Asynchronous
-
-#### [PIP INSTALLATION](https://pypi.org/project/roblox.py/)
+- Game client support
+#### Installation
+#### [PIP EASY INSTALLATION](https://pypi.org/project/roblox.py/)
 `pip install roblox.py`
 
 
@@ -23,11 +24,11 @@ from roblox_py import Client
 client = Client() 
 async def main():
     user = await client.get_user_info(925355805) # User Id here
-    print(await user.friends)
+    print(await user.friends())
     print(user.name)
     print(user.created_at)
-    print(await user.promotion_channel)
-    print(await user.following_count)
+    print(await user.promotion_channel())
+    print(await user.following_count())
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
@@ -40,15 +41,27 @@ from roblox_py import Client
 client = Client() 
 async def main():
     group = await client.get_group_info(4680721) # Group Id here
-    print(await group.allies)
+    print(await group.allies())
     print(group.name)
     print(group.owner)
-    print(await group.enemies)
-    print(await group.games)
+    print(await group.enemies())
+    print(await group.games())
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ```` 
+#### Game Join Example
+
+````python
+import asyncio
+from roblox_py import Client
+client = Client(cookies="Your Cookies here") 
+async def main():
+    auth_game = await client.join_game(6237170604)
+    await auth_game.join_game() #joins an random server
+    await asyncio.sleep(30) #wait for the game to load (depends on u)
+    await auth_game.kill_game() #closes the roblox
+````
 
 #### Authenticated User Example
 
@@ -87,6 +100,7 @@ loop.run_until_complete(main())
 - Write  Docs (ofc)  
 - Improve Code quality  
 - PEP8 Code  
+- Context Manager In game client
 
 ### Important Links
 - Docs (not made yes see example folder)  
