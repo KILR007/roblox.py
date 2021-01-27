@@ -46,7 +46,9 @@ class PlayerInfo:
             return None
         return oof
 
-
+    @property
+    def is_banned(self):
+        return self._Ascsss["isBanned"]
 
     @property
     def created_at(self):
