@@ -1,7 +1,7 @@
 
 
-from PlayerInfo import PlayerInfo
-from Classes import Time,AccountInformationMetaData,PromotionChannel
+from .PlayerInfo import PlayerInfo
+from .Classes import Time,AccountInformationMetaData,PromotionChannel
 class PlayerAuth:
     def __init__(self,request):
         self.request = request
