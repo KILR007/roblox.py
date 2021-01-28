@@ -294,7 +294,6 @@ class PlayerAuth:
 
         a = await self.request.just_request(url=f'https://groups.roblox.com/v1/groups/{group_id}/users', data=data, method='post')
         json_text = await a.json()
-        print(json_text)
         if a.status == 403:
             if json_text['errors'][0]['message'] == "You must pass the captcha test before joining this group.":
                 et = await captcha_token.solve(ckey=f'63E4117F-E727-42B4-6DAA-C8448E9B137F')
@@ -303,7 +302,6 @@ class PlayerAuth:
                     "captchaProvider": "PROVIDER_ARKOSE_LABS"}
                 b = await self.request.just_request(url=f'https://groups.roblox.com/v1/groups/{group_id}/users',
                                                     data=data, method='post')
-
                 jj = await b.json()
                 return jj
         else:
