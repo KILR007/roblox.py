@@ -1,7 +1,7 @@
 
 
-from .PlayerInfo import PlayerInfo
-from .Classes import Time,AccountInformationMetaData,PromotionChannel
+from PlayerInfo import PlayerInfo
+from Classes import Time,AccountInformationMetaData,PromotionChannel
 class PlayerAuth:
     def __init__(self,request):
         self.request = request
@@ -270,3 +270,62 @@ class PlayerAuth:
         ee = await self.request.request(url=f'https://auth.roblox.com/v2/username',method='post',data=data)
         return ee
     # TODO: get friend request
+    async def post_message_in_wall(self,group_id,message,captcha_token=None):
+        data = {"body": f"{message}"}
+
+        a = await self.request.just_request(url=f'https://groups.roblox.com/v2/groups/{group_id}/wall/posts',data=data,method='post')
+        json_text = await a.json()
+        if a.status == 403:
+            if json_text['errors'][0]['message'] == "Captcha must be solved.":
+                et = await captcha_token.solve(ckey=f'63E4117F-E727-42B4-6DAA-C8448E9B137F')
+                data = {
+                    "body": "string",
+                    "captchaToken": f"{et}",
+                    "captchaProvider": "PROVIDER_ARKOSE_LABS"}
+                b = await self.request.just_request(url=f'https://groups.roblox.com/v2/groups/{group_id}/wall/posts',
+                                                    data=data,method='post')
+                jj = await b.json()
+                return jj
+        else:
+            return json_text
+
+    async def join_group(self,group_id,captcha_token=None):
+        data = {}
+
+        a = await self.request.just_request(url=f'https://groups.roblox.com/v1/groups/{group_id}/users', data=data, method='post')
+        json_text = await a.json()
+        print(json_text)
+        if a.status == 403:
+            if json_text['errors'][0]['message'] == "You must pass the captcha test before joining this group.":
+                et = await captcha_token.solve(ckey=f'63E4117F-E727-42B4-6DAA-C8448E9B137F')
+                data = {
+                    "captchaToken": f"{et}",
+                    "captchaProvider": "PROVIDER_ARKOSE_LABS"}
+                b = await self.request.just_request(url=f'https://groups.roblox.com/v1/groups/{group_id}/users',
+                                                    data=data, method='post')
+
+                jj = await b.json()
+                return jj
+        else:
+            return json_text
+
+    async def redeem_gamecard(self,game_code,captcha_token):
+        data = {"pinCode": f"{game_code}"}
+
+        a = await self.request.just_request(url=f'https://billing.roblox.com/v1/gamecard/redeem', data=data,
+                                            method='post')
+        json_text = await a.json()
+        if a.status == 403:
+            if json_text['errors'][0]['message'] == "Captcha":
+                et = await captcha_token.solve(ckey=f'1B154715-ACB4-2706-19ED-0DC7E3F7D855')
+                data = {
+                    "pinCode": f"{game_code}",
+                    "captchaToken": f"{et}",
+                    "captchaProvider": "PROVIDER_ARKOSE_LABS"}
+                b = await self.request.just_request(url=f'https://billing.roblox.com/v1/gamecard/redeem',
+                                                    data=data, method='post')
+
+                jj = await b.json()
+                return jj
+        else:
+            return json_text
