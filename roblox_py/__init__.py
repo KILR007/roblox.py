@@ -10,7 +10,7 @@ from .AssetInfo import AssetInfo
 from .Auth_Player import PlayerAuth
 from .http_session import Http
 from .utils import Requests
-
+from ._2captcha import TwoCaptcha
 __title__ = 'roblox_py'
 __author__ = 'KILR'
 __license__ = 'MIT'
