@@ -93,21 +93,32 @@ class PlayerInfo:
 
 
 
-    async def get_public_games(self):
+    async def get_public_games(self,limit=None):
+        if limit == 0:
+            return
         payload = {'sortOrder': "Asc", "limit": 50}
         link = f"https://games.roblox.com/v2/users/{self._Id}/games?accessFilter=Public"
-        stuff = await self.request.request(url=link, parms=payload)
-        _lists = []
+        count = 0
 
+        stuff = await self.request.request(url=link, parms=payload)
+        count += 1
+
+        _lists = []
         while True:
             for bill in stuff['data']:
                 pp = bill.get('name')
                 pp1 = bill.get("id")
                 _lists.append(PartialInfo(name=pp, id=pp1))
+
             if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
+                break
+            if count == limit:
                 break
             payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
             stuff = await self.request.request(url=link, parms=payload)
+            count += 1
+
+
         return _lists
     async def _stats_games_public(self, format1):
         parms = {"limit": 50, "sortOrder": f"{format1}"}
@@ -130,27 +141,37 @@ class PlayerInfo:
             return None
 
 
-    async def latest_public_game(self):
+    async def newest_public_game(self):
         _lists = await self._stats_games_public("Desc")
         try:
             return _lists
         except IndexError:
             return None
 
-    async def get_private_games(self):
+    async def get_private_games(self,limit=None):
+        if limit == 0:
+            return
         payload = {'sortOrder': "Asc", "limit": 50}
+        count = 0
+
         link = f"https://games.roblox.com/v2/users/{self._Id}/games?accessFilter=Private"
         stuff = await self.request.request(url=link, parms=payload)
-        _lists = []
+        count += 1
 
+        _lists = []
         while True:
+
             for bill in stuff['data']:
                 pp = bill.get('name')
                 pp1 = bill.get("id")
                 _lists.append(PartialInfo(name=pp, id=pp1))
             if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
                 break
+            if count == limit:
+                break
             payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            count += 1
+
             stuff = await self.request.request(url=link, parms=payload)
         return _lists
 
@@ -175,7 +196,7 @@ class PlayerInfo:
             return None
 
 
-    async def latest_private_game(self):
+    async def newest_private_game(self):
         _lists = await self._stats_games("Desc")
         try:
             return _lists
@@ -234,25 +255,36 @@ class PlayerInfo:
             return None
 
 
-    async def following(self):
+    async def following(self,limit=None):
+        if limit == 0:
+            return
+        count = 0
+
         if self._stuff_following is None:
             parms = {"limit": 100, "sortOrder": "Asc"}
             self._stuff_following = await self.request.request(
                 url=f"https://friends.roblox.com/v1/users/{self._Id}/followings", parms=parms)
+            count += 1
+
 
         link = f"https://friends.roblox.com/v1/users/{self._Id}/followings"
         stuff = self._stuff_following
         _lists = []
-
         while True:
+
             for bill in stuff['data']:
                 pp = bill.get('id')
                 pp1 = bill.get('name')
                 _lists.append(PartialInfo(id=pp,name=pp1))
             if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
                 break
+            if count == limit:
+                break
             payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+
+
             stuff = await self.request.request(link, parms=payload)
+            count += 1
         return _lists
 
     async def newest_following(self):
@@ -344,25 +376,36 @@ class PlayerInfo:
         except IndexError:
             return None
 
-    async def badges(self):
+    async def badges(self,limit=None):
+        if limit == 0:
+            return
+
         f = self._Id
         parms = {"limit": 100, "sortOrder": "Asc"}
         link = f"https://badges.roblox.com/v1/users/{f}/badges"
+        count = 0
 
         stuff = await self.request.request(link, parms=parms)
+        count += 1
+
         _lists = []
         if stuff['data'] is None or stuff['data'] == "null":
             return []
-
         while True:
+
             for bill in stuff['data']:
                 pp = bill.get('name')
                 pp1 = bill.get('id')
                 _lists.append(PartialInfo(name=pp,id=pp1))
             if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
                 break
+            if count == limit:
+                break
             payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+
             stuff = await self.request.request(link, parms=payload)
+            count += 1
+
         return _lists
 
     async def count_roblox_badges(self):
@@ -370,7 +413,7 @@ class PlayerInfo:
             self._badges = await self.request.request(url=f"https://www.roblox.com/badges/roblox?userId={self._Id}")
         return len(self._badges) if not None else 0
 
-    async def latest_badge(self):
+    async def newest_badge(self):
         _lists = await self._stats_badge("Desc")
         if _lists is None:
             return None
@@ -400,25 +443,32 @@ class PlayerInfo:
         except IndexError:
             return None
 
-    async def followers(self):
+    async def followers(self,limit=None):
+        if limit == 0:
+            return
+        count = 0
         if self._stuff_follower is None:
             parms = {"limit": 100, "sortOrder": "Asc"}
             self._stuff_follower = await self.request.request(
                 url=f"https://friends.roblox.com/v1/users/{self._Id}/followers", parms=parms)
-
+            count += 1
         link = f"https://friends.roblox.com/v1/users/{self._Id}/followers"
         stuff = self._stuff_follower
         _lists = []
 
         while True:
+
             for bill in stuff['data']:
                 pp = bill.get('id')
                 pp1 = bill.get('name')
                 _lists.append(PartialInfo(id=pp, name=pp1))
             if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
                 break
+            if count == limit:
+                break
             payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
             stuff = await self.request.request(link, parms=payload)
+            count += 1
         return _lists
     async def newest_followers(self):
         _lists = await self._stats_follower("Desc")
@@ -443,10 +493,9 @@ class PlayerInfo:
         return _count["count"]
 
 
-    async def last_online(self):
-        data = {"userIds": [self._Id]}
-        _online = await self.request.request(url=f'https://presence.roblox.com/v1/presence/users',method='post',data=data)
-        return _online['userPresences'][0]['lastOnline']
+    async def presence(self):
+        _online = await self.request.request(url=f'https://www.roblox.com/search/users/presence?userIds={self._Id}',method='get')
+        return _online['PlayerPresences'][0]
     async def is_premium(self):
         r = await self.request.html_request(url=f'https://premiumfeatures.roblox.com/v1/users/{self._Id}/validate-membership',method='get',data=None)
         if r == "true" or r is True:
