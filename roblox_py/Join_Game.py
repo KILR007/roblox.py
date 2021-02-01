@@ -11,7 +11,6 @@ class JoinGame:
             self.main_game_path = f'C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Roblox'
         else:
             self.main_game_path = roblox_folder_path
-        print(self.main_game_path)
 
         self._id = Game_ID
         self.request = request
