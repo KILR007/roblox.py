@@ -1,5 +1,4 @@
 
-
 class NotFound(Exception):
     """ Not Found """
     pass
@@ -48,4 +47,18 @@ class UnknownError(HttpException):
     """ Unknown Error """
     pass
 class BadRequest(NotFound):
+    pass
+
+class Captcha(Exception):
+	""" Captcha Errors """
+    pass
+
+class InvalidAPIToken(Captcha):
+	"""Raised when the 2captcha api key is invalid"""
+    pass
+class InsufficientCredit(Captcha):
+	"""Raised when there is insufficient credit in 2captcha"""
+    pass
+class NoAvailableWorkers(Captcha):
+	"""Raised when there are no available workers"""
     pass
