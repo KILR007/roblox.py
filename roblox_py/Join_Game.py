@@ -6,11 +6,12 @@ from .exceptions import *
 import subprocess
 
 class JoinGame:
-    def __init__(self,request,Game_ID,roblox_folder_path=None):
+    def __init__(self,request,Game_ID,roblox_game_path=None,roblox_folder_path=None,):
         if roblox_folder_path is None:
             self.main_game_path = f'C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Roblox'
         else:
             self.main_game_path = roblox_folder_path
+        print(self.main_game_path)
 
         self._id = Game_ID
         self.request = request
@@ -23,10 +24,23 @@ class JoinGame:
             browserTrackerId = data['BrowserTrackerId']
         self.browserTrackerId = browserTrackerId
         self.game_path = None
-        for root, dirs, files in os.walk(self.version_path):
-            for names in files:
-                if names.startswith("RobloxPlayerBeta"):
-                    self.game_path = f"{root}"
+        templates = [
+
+            "C:\\Program Files (x86)\\Roblox\\Versions",
+            "C:\\Program Files\\Roblox\\Versions",
+            f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Roblox\\Versions",
+        ]
+        if roblox_game_path is None:
+            for a in templates:
+                for root, dirs, files in os.walk(a):
+                    for names in files:
+                        if names.startswith("RobloxPlayerBeta"):
+                            self.game_path = f"{root}"
+        else:
+            self.game_path = f"{roblox_game_path}"
+
+
+
 
 
 
@@ -72,7 +86,7 @@ class JoinGame:
         self.process.kill()
 
 
-    # time to use context manager
+    # time to use context manager  || change my mind
 
 
 
