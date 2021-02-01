@@ -1,43 +1,51 @@
 
 
 class NotFound(Exception):
+    """ Not Found """
     pass
 
 class PlayerNotFound(NotFound):
-    """ Raised When Player Is Not Found"""
+    """ Raised When Player  Not Found"""
 
 class GamePassNotFound(NotFound):
-    """ Raised When GamePass Is Not Found"""
+    """ Raised When GamePass  Not Found"""
 
 
 class GroupNotFound(NotFound):
-    """ Raised When Group Is Not Found"""
-
+    """ Raised When Group  Not Found"""
 
 class BundleNotFound(NotFound):
-    """ Raised When Bundle Is Not Found"""
+    """ Raised When Bundle  Not Found"""
+
 class BadgeNotFound(NotFound):
-    pass
+     """ Raised When Badge  Not Found"""
 class GameNotFound(NotFound):
-    pass
+     """ Raised When Bundle  Not Found"""
 
 class AssetNotFound(NotFound):
-    """ Raised When Bundle Is Not Found"""
+    """ Raised When Asset Is Not Found"""
 class NotAuthenticated(Exception):
     """ Raised When User Not Authenticated"""
 class HttpException(Exception):
+    """ Http Error """
     pass
 class InternalServiceError(HttpException):
+    """500 HTTP error"""
     pass
 class Unauthorized(HttpException):
+    """401 HTTP error"""
     pass
 class Forbidden(HttpException):
+    """403 HTTP error"""
     pass
 class RateLimited(HttpException):
+    """429 HTTP error"""
     pass
 class ServiceUnavailable(HttpException):
+     """503 HTTP error"""
     pass
 class UnknownError(HttpException):
+    """ Unknown Error """
     pass
 class BadRequest(NotFound):
     pass
