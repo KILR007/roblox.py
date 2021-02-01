@@ -12,7 +12,7 @@ class TwoCaptcha:
             async with f.post(url) as aa:
                 data = await aa.json()
         if data['request'] == "ERROR_ZERO_BALANCE":
-            raise NotEnoughCredit("Insufficient credit in the 2captcha account.")
+            raise InsufficientCredit("Insufficient credit in the 2captcha account.")
         if data['request'] == "ERROR_NO_SLOT_AVAILABLE":
             raise NoAvailableWorkers("There are currently no available workers.")
         if data['request'] == "ERROR_WRONG_USER_KEY" or data['request'] == "ERROR_KEY_DOES_NOT_EXIST":
