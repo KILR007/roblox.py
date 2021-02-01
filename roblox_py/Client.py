@@ -86,11 +86,11 @@ class Client:
         yes = GamepassInfo(gamepassID=gamepass_id,request=self.request)
         await yes.update()
         return yes
-    async def join_game(self,PlaceID,roblox_path=None):
+    async def join_game(self,PlaceID,roblox_folder_path=None,roblox_game_path=None):
         idkdd = isinstance(PlaceID, str)
         if idkdd:
             raise TypeError(f"{PlaceID} must be an integer")
-        return JoinGame(Game_ID=PlaceID,request=self.request,roblox_folder_path=roblox_path)
+        return JoinGame(Game_ID=PlaceID,request=self.request,roblox_folder_path=roblox_folder_path,roblox_game_path=roblox_game_path)
 
 
 
