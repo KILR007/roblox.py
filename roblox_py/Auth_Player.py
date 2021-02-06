@@ -9,7 +9,9 @@ class PlayerAuth:
 
     async def get_self(self):
         e = await self.request.request(url=f'https://users.roblox.com/v1/users/authenticated',method='get')
-        return PlayerInfo(playerID=e['id'],request=self.request)
+        a = PlayerInfo(playerID=e['id'],request=self.request)
+        await a.update()
+        return a
 
     async def is_premium(self):
         e = await self.request.request(url=f'https://www.roblox.com/mobileapi/userinfo',method='get')
@@ -259,9 +261,9 @@ class PlayerAuth:
         return r
 
     async def get_robux(self):
-        r = await self.request.request(url=f"http://api.roblox.com/currency/balance",method='get')
-        return r['robux']
-
+        e = await self.request.request(url=f'https://users.roblox.com/v1/users/authenticated',method='get')
+        P = await self.request.request(url=f'https://economy.roblox.com/v1/users/{e['id']}/currency',method='get')
+        return P['robux']
     async def buy(self,product_id:int):
         ee = self.request.request(url=f'https://economy.roblox.com/v2/user-products/{product_id}/purchase',method='post')
         return ee
@@ -269,7 +271,6 @@ class PlayerAuth:
         data = {"username": f"{new_username}","password": f"{password}"}
         ee = await self.request.request(url=f'https://auth.roblox.com/v2/username',method='post',data=data)
         return ee
-    # TODO: get friend request
     async def post_message_in_wall(self,group_id,message,captcha_token=None):
         data = {"body": f"{message}"}
 
@@ -327,3 +328,4 @@ class PlayerAuth:
                 return jj
         else:
             return json_text
+    # TODO: get friend request
