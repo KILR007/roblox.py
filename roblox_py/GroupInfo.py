@@ -23,21 +23,21 @@ class GroupInfo:
 
 
     async def allies(self):
-        enimes = await self.request.request(url=f"https://api.roblox.com/groups/{self._ID}/allies",method='get')
+        enimes = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",method='get')
         lala = enimes
-        if lala["Groups"] is []:
+        if lala["relatedGroups"] is []:
             return None
         else:
-            _lists = [PartialInfo(name=good.get("Name"),id=good.get('Id')) for good in lala['Groups']]
+            _lists = [PartialInfo(name=good.get("name"),id=good.get('id')) for good in lala['relatedGroups']]
             return _lists
 
     async def enemies(self):
-        enimes = await self.request.request(url=f"https://api.roblox.com/groups/{self._ID}/enemies",method='get')
+         enimes = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",method='get')
         lala = enimes
-        if lala["Groups"] is []:
+        if lala["relatedGroups"] is []:
             return None
         else:
-            _lists = [PartialInfo(name=good.get("Name"),id=good.get('Id')) for good in lala['Groups']]
+            _lists = [PartialInfo(name=good.get("name"),id=good.get('id')) for good in lala['relatedGroups']]
             return _lists
 
     @property
