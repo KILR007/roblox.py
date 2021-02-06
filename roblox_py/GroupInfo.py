@@ -8,6 +8,8 @@ class GroupInfo:
             raise TypeError(f"{groupID} must be an integer")
         groupID = str(groupID).strip()
         self._ID = groupID
+        self._allies = None
+        self._enemies = None
 
         self._groupss = None
         self._link = f"https://groups.roblox.com/v1/groups/{groupID}/users"
@@ -19,12 +21,22 @@ class GroupInfo:
         self._groupss  = eee
 
 
+    async def allies_count(self):
+        if self._allies is None:
+            self._allies = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",method='get')
+        lala = self._allies
+        return lala['totalGroupCount']
 
-
+    async def enemies_count(self):
+        if self._enemies is None:
+            self._enemies = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",method='get')
+        lala = self._enemies
+        return lala['totalGroupCount']
 
     async def allies(self):
-        enimes = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",method='get')
-        lala = enimes
+        if self._allies is None:
+            self._allies = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",method='get')
+        lala = self._allies
         if lala["relatedGroups"] is []:
             return None
         else:
@@ -32,8 +44,9 @@ class GroupInfo:
             return _lists
 
     async def enemies(self):
-         enimes = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",method='get')
-        lala = enimes
+         if self._enemies is None:
+            self._enemies = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",method='get')
+        lala = self._enemies
         if lala["relatedGroups"] is []:
             return None
         else:
