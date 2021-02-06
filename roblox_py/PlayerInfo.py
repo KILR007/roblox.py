@@ -258,12 +258,7 @@ class PlayerInfo:
 
         _count = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/followings/count")
         return _count["count"]
-    async def group_count(self):
-         if self._groups is None:
-            self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
-
-        f = self._groups
-        return len(f['data'])
+   
     async def groups(self):
         if self._groups is None:
             self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
@@ -289,7 +284,7 @@ class PlayerInfo:
         if self._groups is None:
             self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
 
-        n = self._groups
+        n = self._groups['data']
         if len(n) == 0:
             return None
         else:
