@@ -6,17 +6,17 @@ from .exceptions import *
 import subprocess
 
 class JoinGame:
-    def __init__(self,request,Game_ID,roblox_game_path=None,roblox_folder_path=None,):
+    def __init__(self,request,Game_ID,roblox_game_path=None,roblox_folder_path=None):
         if roblox_folder_path is None:
-            self.main_game_path = f'C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Roblox'
+            self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'
         else:
             self.main_game_path = roblox_folder_path
 
         self._id = Game_ID
         self.request = request
-        self.robloxLocalStoragePath = f'{self.main_game_path}\\LocalStorage'
-        self.brower_track_id_path = f'{self.robloxLocalStoragePath}\\appStorage.json'
-        self.version_path = f'{self.main_game_path}\\Versions'
+        self.robloxLocalStoragePath = f'{self.main_game_path}/LocalStorage'
+        self.brower_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
+        self.version_path = f'{self.main_game_path}/Versions'
         self.brower_track_id = None
         with open(self.brower_track_id_path, "r") as f:
             data = json.load(f)
@@ -25,9 +25,9 @@ class JoinGame:
         self.game_path = None
         templates = [
 
-            "C:\\Program Files (x86)\\Roblox\\Versions",
-            "C:\\Program Files\\Roblox\\Versions",
-            f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Roblox\\Versions",
+            "C:/Program Files (x86)/Roblox/Versions",
+            "C:/Program Files/Roblox/Versions",
+            f"C:/Users/{getpass.getuser()}/AppData/Local/Roblox/Versions",
         ]
         if roblox_game_path is None:
             for a in templates:
@@ -59,9 +59,9 @@ class JoinGame:
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
             f"{self.main_game_path}",
             "-id ", str(await self.get_game_info()),
-             "-a", '\"https://www.roblox.com/Login/Negotiate.ashx\"',
+            "-a", '\"https://www.roblox.com/Login/Negotiate.ashx\"',
             "-t", await self._rblx_token(),
-             "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId={self.browserTrackerId}&placeId={self._id}&isPlayTogetherGame=false\"",
+            "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId={self.browserTrackerId}&placeId={self._id}&isPlayTogetherGame=false\"",
             '-b', str(self.browserTrackerId),
             f"--launchtime={int(time.time() * 1000)}",
             "--rloc", "en_us",
@@ -86,11 +86,4 @@ class JoinGame:
 
 
     # time to use context manager  || change my mind
-
-
-
-
-
-
-
 
