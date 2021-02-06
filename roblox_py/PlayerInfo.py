@@ -22,8 +22,11 @@ class PlayerInfo:
 
 
 
-
-
+   
+    
+    @property
+    def display_name(self):
+        return self._Ascsss["displayName"]
 
     @property
     def name(self):
@@ -148,61 +151,8 @@ class PlayerInfo:
         except IndexError:
             return None
 
-    async def get_private_games(self,limit=None):
-        if limit == 0:
-            return
-        payload = {'sortOrder': "Asc", "limit": 50}
-        count = 0
 
-        link = f"https://games.roblox.com/v2/users/{self._Id}/games?accessFilter=Private"
-        stuff = await self.request.request(url=link, parms=payload)
-        count += 1
-
-        _lists = []
-        while True:
-
-            for bill in stuff['data']:
-                pp = bill.get('name')
-                pp1 = bill.get("id")
-                _lists.append(PartialInfo(name=pp, id=pp1))
-            if stuff["nextPageCursor"] is None or stuff["nextPageCursor"] == "null":
-                break
-            if count == limit:
-                break
-            payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
-            count += 1
-
-            stuff = await self.request.request(url=link, parms=payload)
-        return _lists
-
-    async def _stats_games(self, format1):
-        parms = {"limit": 100, "sortOrder": f"{format1}"}
-        link = f"https://games.roblox.com/v2/users/{self._Id}/games?accessFilter=Private"
-        stuff = await self.request.request(url=link, parms=parms)
-        _lists = []
-        if stuff['data'] is None or stuff['data'] == "null":
-            return None
-        try:
-            return PartialInfo(name=stuff['data'][0]["name"], id=stuff['data'][0]["id"])
-        except IndexError:
-            return None
-
-
-    async def oldest_private_game(self):
-        _lists = await self._stats_games("Asc")
-        try:
-            return _lists
-        except IndexError:
-            return None
-
-
-    async def newest_private_game(self):
-        _lists = await self._stats_games("Desc")
-        try:
-            return _lists
-        except IndexError:
-            return None
-
+   
 
 
 
@@ -308,45 +258,46 @@ class PlayerInfo:
 
         _count = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/followings/count")
         return _count["count"]
-
+   
     async def groups(self):
         if self._groups is None:
-            self._groups = await self.request.request(url=f"https://api.roblox.com/users/{self._Id}/groups")
+            self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
 
         f = self._groups
-        _lists = [PartialInfo(id=bill.get('Id'),name=bill.get('Name')) for bill in f]
+
+        _lists = [PartialInfo(id=bill['group']['id'],name=bill['group']['name']) for bill in f['data']]
         if _lists is []:
             return None
         return _lists
 
     async def newest_group(self):
         if self._groups is None:
-            self._groups = await self.request.request(url=f"https://api.roblox.com/users/{self._Id}/groups")
+            self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
         f = self._groups
 
         try:
-            return PartialInfo(id=f[0]["Id"],name=f[0]['Name'])
+            return PartialInfo(id=f['data'][0]['group']['id'],name=f['data'][0]['group']['name'])
         except IndexError:
             return None
 
     async def oldest_group(self):
         if self._groups is None:
-            self._groups = await self.request.request(url=f"https://api.roblox.com/users/{self._Id}/groups")
+            self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
 
-        n = self._groups
+        n = self._groups['data']
         if len(n) == 0:
             return None
         else:
             D = len(n) - 1
-            return PartialInfo(id=n[D]["Id"],name=n[D]['Name'])
+            return PartialInfo(id=f['data'][D]['group']['id'],name=f['data'][D]['group']['name'])
 
     async def group_count(self):
         if self._groups is None:
-            self._groups = await self.request.request(url=f"https://api.roblox.com/users/{self._Id}/groups")
-        if len(self._groups) == 0:
+            self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
+        if len(self._groups['data']) == 0:
             return 0
         else:
-            return len(self._groups)
+            return len(self._groups['data'])
 
     async def primary_group(self):
         ok = await self.request.request(f"https://groups.roblox.com/v1/users/{self._Id}/groups/primary/role")
