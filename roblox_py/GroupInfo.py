@@ -43,7 +43,7 @@ class GroupInfo:
             return _lists
 
     async def enemies(self):
-         if self._enemies is None:
+        if self._enemies is None:
             self._enemies = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",method='get')
         lala = self._enemies
         if lala["relatedGroups"] is []:
