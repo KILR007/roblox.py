@@ -262,8 +262,8 @@ class PlayerAuth:
 
     async def get_robux(self):
         e = await self.request.request(url=f'https://users.roblox.com/v1/users/authenticated',method='get')
-        P = await self.request.request(url=f'https://economy.roblox.com/v1/users/{e['id']}/currency',method='get')
-        return P['robux']
+        p = await self.request.request(url=f'https://economy.roblox.com/v1/users/{e['id']}/currency',method='get')
+        return p['robux']
     async def buy(self,product_id:int):
         ee = self.request.request(url=f'https://economy.roblox.com/v2/user-products/{product_id}/purchase',method='post')
         return ee
