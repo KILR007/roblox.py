@@ -1,7 +1,7 @@
-from .exceptions import *
+from exceptions import *
 import warnings
 import json
-from .http_session import Http
+from http_session import Http
 class Requests:
     def __init__(self,cookies=None):
         self.cookies = cookies
@@ -24,14 +24,14 @@ class Requests:
                 if smth.headers["X-CSRF-TOKEN"] is not None:
                 	xcrsftoken = smth.headers["X-CSRF-TOKEN"]
                 	self.xcrsftoken = xcrsftoken
-                	return 
                 	
                 
-                self.xcrsftoken = None
+                self.xcrsftoken = ""
     async def request(self,url, method=None,  data=None, parms=None):
         if method is None:
             method = 'get'
-        
+        if self.xcrsftoken is None:
+            await self.get_xcrsftoken()
         if data is not None:
             data = json.dumps(data)
         header = {
@@ -264,7 +264,8 @@ class Requests:
 
 
     async def return_headers(self,url,method,data=None,parms=None):
-        
+        if self.xcrsftoken is None:
+            await self.get_xcrsftoken()
         if data is not None:
             data = json.dumps(data)
         header = {
@@ -380,7 +381,8 @@ class Requests:
                         raise BadRequest()
                 return rep.headers
     async def html_request(self,url,method,data,parms=None):
-        
+        if self.xcrsftoken is None:
+            await self.get_xcrsftoken()
         if data is not None:
             data = json.dumps(data)
         header = {
