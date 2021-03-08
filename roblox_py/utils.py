@@ -21,8 +21,13 @@ class Requests:
     async def get_xcrsftoken(self):
         async with self.session as ses:
             async with ses.fetch.post(url="https://www.roblox.com/favorite/toggle") as smth:
-                xcrsftoken = smth.headers["X-CSRF-TOKEN"]
-                self.xcrsftoken = xcrsftoken
+                if smth.headers["X-CSRF-TOKEN"] is not None:
+                	xcrsftoken = smth.headers["X-CSRF-TOKEN"]
+                	self.xcrsftoken = xcrsftoken
+                	return 
+                	
+                
+                self.xcrsftoken = None
     async def request(self,url, method=None,  data=None, parms=None):
         if method is None:
             method = 'get'
@@ -498,3 +503,12 @@ class Requests:
                     if rep.status == 400:
                         raise BadRequest()
                 return r.decode()
+
+
+
+
+
+
+
+
+
