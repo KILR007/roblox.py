@@ -1,7 +1,7 @@
-from exceptions import *
+from .exceptions import *
 import warnings
 import json
-from http_session import Http
+from .http_session import Http
 class Requests:
     def __init__(self,cookies=None):
         self.cookies = cookies
