@@ -381,6 +381,56 @@ class Requests:
                     if rep.status == 400:
                         raise BadRequest()
                 return rep.headers
+                
+                              
+    async def just_request(self,url, method=None,  data=None, parms=None):
+        
+        if method is None:
+            method = 'get'
+        if self.xcrsftoken is None:
+            await self.get_xcrsftoken()
+        if data is not None:
+            data = json.dumps(data)
+        header = {
+            'X-CSRF-TOKEN': self.xcrsftoken,
+            'DNT': '1',
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            'referer': 'www.roblox.com',
+        }
+        if method == 'post':
+            async with self.session as ses:
+
+                async with ses.fetch.post(url=url, data=data, params=parms,headers=header) as rep:
+                	return rep
+                
+        if method == 'patch':
+              async with self.session as ses:
+                  async with ses.fetch.patch(url=url, data=data, params=parms,headers=header) as rep:
+                  	return rep
+        if method == 'get':
+            async with self.session as ses:
+
+                async with ses.fetch.post(url=url, data=data, params=parms,headers=header) as rep:
+                	return rep
+                	
+                	
+        if method == 'delete':
+            async with self.session as ses:
+                async with ses.fetch.delete(url=url, data=data, params=parms,headers=header) as rep:
+                	return rep
+                	
+                	
+                	
+                	
+                	
+                	
+                	
+                	
+                	
+                	
+                	           
     async def html_request(self,url,method,data,parms=None):
         if self.xcrsftoken is None:
             await self.get_xcrsftoken()
@@ -503,12 +553,3 @@ class Requests:
                     if rep.status == 400:
                         raise BadRequest()
                 return r.decode()
-
-
-
-
-
-
-
-
-
