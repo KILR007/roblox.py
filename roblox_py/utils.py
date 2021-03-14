@@ -403,23 +403,28 @@ class Requests:
             async with self.session as ses:
 
                 async with ses.fetch.post(url=url, data=data, params=parms,headers=header) as rep:
-                	return rep
+                	ok = rep
+                	return ok
                 
         if method == 'patch':
               async with self.session as ses:
                   async with ses.fetch.patch(url=url, data=data, params=parms,headers=header) as rep:
-                  	return rep
+                  	
+                  	ok = rep
+                  	return ok
         if method == 'get':
             async with self.session as ses:
 
                 async with ses.fetch.post(url=url, data=data, params=parms,headers=header) as rep:
-                	return rep
+                	ok = rep
+                	return ok
                 	
                 	
         if method == 'delete':
             async with self.session as ses:
                 async with ses.fetch.delete(url=url, data=data, params=parms,headers=header) as rep:
-                	return rep
+                	ok = rep
+                	return ok
                 	
                 	
                 	
