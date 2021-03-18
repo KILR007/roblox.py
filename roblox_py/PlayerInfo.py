@@ -21,7 +21,7 @@ class PlayerInfo:
                 if "id" not in xd.keys():
                     raise PlayerNotFound
                 self._Ascsss = xd
-            except JSONDecodeError:
+            except ValueError:
                 raise PlayerNotFound
                 
             
