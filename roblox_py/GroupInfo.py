@@ -70,7 +70,7 @@ class GroupInfo:
 
 
     @property
-    def count(self):
+    def member_count(self):
         return self._groupss["memberCount"]
 
     @property
