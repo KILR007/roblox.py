@@ -20,7 +20,7 @@ class PlayerInfo:
         try:
             ok = xd['data'][0]
         
-            if "id" not in ok:
+            if "id" not in ok.keys():
                 raise PlayerNotFound
             self._Ascsss = xd
         except Indexerror:
