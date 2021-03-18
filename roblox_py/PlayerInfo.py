@@ -17,7 +17,8 @@ class PlayerInfo:
     async def update(self):
         p = {"userIds": [self._Id],"excludeBannedUsers": True}
         xd = await self.request.request(url=f"https://users.roblox.com/v1/users",method='post',data=p)
-        if "id" not in xd.keys():
+        ok = xd['data']
+        if "id" not in ok.keys():
             raise PlayerNotFound
         self._Ascsss = xd
 
