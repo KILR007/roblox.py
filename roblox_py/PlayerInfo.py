@@ -15,7 +15,8 @@ class PlayerInfo:
         self._stuff_follower = None
 
     async def update(self):
-        xd = await self.request.request(url=f"https://users.roblox.com/v1/users/{self._Id}",method='get')
+        p = {"userIds": [self._Id],"excludeBannedUsers": true}
+        xd = await self.request.request(url=f"https://users.roblox.com/v1/users",method='post',data=)
         if "id" not in xd.keys():
             raise PlayerNotFound
         self._Ascsss = xd
