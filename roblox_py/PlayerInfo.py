@@ -16,7 +16,7 @@ class PlayerInfo:
 
     async def update(self):
             xd = await self.request.request(url=f"https://users.roblox.com/v1/users/{self._Id}",method='get')
-            if "id" not in ok.keys():
+            if "id" not in xd.keys():
                 raise PlayerNotFound
             self._Ascsss = xd
             
