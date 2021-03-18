@@ -17,12 +17,16 @@ class PlayerInfo:
     async def update(self):
         p = {"userIds": [self._Id],"excludeBannedUsers": True}
         xd = await self.request.request(url=f"https://users.roblox.com/v1/users",method='post',data=p)
-        ok = xd['data']
-        print(ok)
-        print(xd)
-        if "id" not in ok:
+        try:
+            ok = xd['data'][0]
+        
+            if "id" not in ok:
+                raise PlayerNotFound
+            self._Ascsss = xd
+        except Indexerror:
             raise PlayerNotFound
-        self._Ascsss = xd
+            
+        
 
 
 
