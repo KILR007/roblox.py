@@ -289,7 +289,7 @@ class PlayerInfo:
             return None
         else:
             D = len(n) - 1
-            return PartialInfo(id=f['data'][D]['group']['id'],name=f['data'][D]['group']['name'])
+            return PartialInfo(id=n[D]['group']['id'],name=n[D]['group']['name'])
 
     async def group_count(self):
         if self._groups is None:
