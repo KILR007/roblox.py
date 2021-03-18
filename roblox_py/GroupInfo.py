@@ -111,7 +111,7 @@ class GroupInfo:
         return dc[0]["thumbnailUrl"]
 
     @property
-    async def direct_url(self):
+    def direct_url(self):
         return f'https://www.roblox.com/groups/group.aspx?gid={self._ID}'
     @property
     def description(self):
