@@ -112,7 +112,6 @@ loop.run_until_complete(main())
 ### Dev Note
 - *docs is not written yet, the upcoming updates might include breaking code changes, so please consider joining discord support server*
 - the library is still in beta, bugs may occur
-- also special thanks to [nsg](https://github.com/nsg-mfd) for helping me with the game client
 
 ###
 - [nsg](https://github.com/nsg-mfd) :: Helped in game client & Endpoints.
