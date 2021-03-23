@@ -113,7 +113,7 @@ loop.run_until_complete(main())
 - *docs is not written yet, the upcoming updates might include breaking code changes, so please consider joining discord support server*
 - the library is still in beta, bugs may occur
 
-###
+### Credits
 - [nsg](https://github.com/nsg-mfd) :: Helped in game client & Endpoints.
 - Inspired from [robloxapi](https://github.com/iranathan/robloxapi).
 - Took some help from [rockblox](https://pypi.org/project/rockblox/) in game client.
