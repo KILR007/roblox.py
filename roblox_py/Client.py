@@ -10,12 +10,65 @@ from .Join_Game import JoinGame
 from .GamepassInfo import GamepassInfo
 from .BadgeInfo import BadgeInfo
 from .PlaceInfo import PlaceInfo
+import aiohttp
+import json
 class Client:
 
     def __init__(self, cookies=None):
         self.cookies = cookies
         self.request = Requests(cookies=cookies)
+        
+    async def get_cookies_from_credentials(self, username_or_email, password, type, token):
+        type = type.lower()
+        dict_e = None
+        if type == "email":
+            dict_e = {
+                "ctype": "Email",
+                "cvalue": f"{username_or_email}",
+                "password": f"{password}",
+            }
+        if type == "username":
+            dict_e = {
+                "ctype": "Username",
+                "cvalue": username_or_email,
+                "password": password
+            }
+        async with aiohttp.ClientSession() as ses:
+            async with ses.post(url="https://www.roblox.com/favorite/toggle") as smth:
+                try:
+                    xcrsftoken = smth.headers["X-CSRF-TOKEN"]
+                except KeyError:
+                    xcrsftoken = ""
+            dict_e = json.dumps(dict_e)
 
+            async with ses.post(url=f'https://auth.roblox.com/v2/login', data=dict_e, headers={
+                'X-CSRF-TOKEN': xcrsftoken,
+                'DNT': '1',
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'referer': 'www.roblox.com', }) as f:
+                josn = await f.json()
+            if f.status == 403:
+                if josn['errors'][0]['message'] == 'You must pass the robot test before logging in.':
+                    et = await token.solve(ckey=f'476068BF-9607-4799-B53D-966BE98E2B81')
+                    if type == "email":
+                        dict_e = {
+                            "ctype": "Email",
+                            "cvalue": username_or_email,
+                            "password": password,
+                            'captchaToken': et,
+                            "captchaProvider": 'PROVIDER_ARKOSE_LABS'}
+                    if type == 'username':
+                        dict_e = {
+                            "ctype": "Username",
+                            "cvalue": username_or_email,
+                            "password": password,
+                            'captchaToken': et,
+                            "captchaProvider": 'PROVIDER_ARKOSE_LABS'}
+                    dict_e = json.dumps(dict_e)
+                    async with ses.post(url=f'https://auth.roblox.com/v2/login', data=dict_e) as no:
+                        return no.cookies
     async def get_group_info(self, group_id: int):
         idkdd = isinstance(group_id, str)
         if idkdd:
