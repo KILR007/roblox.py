@@ -59,7 +59,7 @@ class JoinGame:
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
             f"{self.main_game_path}",
             "-id ", str(await self.get_game_info()),
-            "-a", '\"https://www.roblox.com/Login/Negotiate.ashx\"',
+            "-a", '\"https://www.roblox.com\"',
             "-t", await self._rblx_token(),
             "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId={self.browserTrackerId}&placeId={self._id}&isPlayTogetherGame=false\"",
             '-b', str(self.browserTrackerId),
