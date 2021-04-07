@@ -13,6 +13,8 @@ class AssetInfo:
     
     Attributes
     ----------
+    NAME  RETURN TYPE
+    _________________
     product_type | int 
         Returns the asset's type ID.
     
@@ -25,7 +27,7 @@ class AssetInfo:
     description | str
         Returns the asset's description.
     
-    creator | PartialInfo
+    creator | roblox_py.PartialInfo
         Returns a partial info instance which contains the asset creator's name and ID.
     
     creator_type | str
@@ -34,6 +36,47 @@ class AssetInfo:
     price_in_robux | int
         Returns the asset's price.
     
+    created_at | str
+        Returns the asset's creation date.
+     
+    updated_at | str
+        Returns the time of the asset's late update.
+    
+    sales | int
+        Returns the asset's amount of sales.
+    
+    buyable | bool
+        Returns if the asset is available for purchase.
+        
+    is_Limited | bool
+        Returns if the asset is limited.
+    
+    is_Limited_Unique | bool
+        Returns if the asset is limited unique.
+    
+    remaining | int
+        Returns how many of the asset are left. Will return None if the asset is not limited.
+    
+    product_id | int
+        Returns the asset's product ID.
+       
+    
+    
+    Methods
+    -------
+    TYPE      NAME       RETURN TYPE
+    __________________________________
+    def | created_age | roblox_py.Time
+        Returns a Time instance which contains the years, months, and days the account has been up for.
+    
+    def | updated_age | roblox_py.Time
+        Returns a Time instance which contains the years, months, and days since the asset's last update.
+    
+    def | thumbnail| str
+        Returns the asset's thumbnail image link.
+        
+    async | icon | str
+        Returns the asset's icon image link. 
     """
     
     def __init__(self,request,assetID:int):
