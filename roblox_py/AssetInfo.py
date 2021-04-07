@@ -6,6 +6,11 @@ class AssetInfo:
     """
     Represents a ROBLOX asset.
     
+    Supported Operations
+    --------------------
+    str(a)
+        Returns the asset's name
+    
     Attributes
     ----------
     product_type | int 
