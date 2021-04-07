@@ -131,6 +131,17 @@ class AssetInfo:
         return self._json_obj["Created"]
 
     def created_age(self):
+        """
+        Method
+        ------
+        Will return how long the asset has been up for.
+        
+        Returns
+        ------
+        roblox_py.Time 
+            An instance of the Time class which contains the years, months and days attributes.
+        
+        """
         date_time_str = self._json_obj["Created"]
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
