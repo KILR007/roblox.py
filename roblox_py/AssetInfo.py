@@ -3,6 +3,34 @@ from .exceptions import AssetNotFound
 from .Classes import Time,PartialInfo
 
 class AssetInfo:
+    """
+    Represents a ROBLOX asset.
+    
+    Attributes
+    ----------
+    product_type | int 
+        Returns the asset's type ID.
+    
+    name | str
+        Returns the asset's name.
+    
+    id | int
+        Returns the asset's ID.
+    
+    description | str
+        Returns the asset's description.
+    
+    creator | PartialInfo
+        Returns a partial info instance which contains the asset creator's name and ID.
+    
+    creator_type | str
+        Returns the asset creator's user type.
+    
+    price_in_robux | int
+        Returns the asset's price.
+    
+    """
+    
     def __init__(self,request,assetID:int):
         self.request = request
 
