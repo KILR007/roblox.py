@@ -3,6 +3,10 @@ from .PlaceInfo import PlaceInfo
 import datetime
 from .Classes import Time
 class BadgeInfo:
+    """
+    Represents a ROBLOX Badge.
+    
+    """
     def __init__(self,badge_id,request):
         self.request = request
         self.badge_id = badge_id

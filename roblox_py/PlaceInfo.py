@@ -3,6 +3,11 @@ from .exceptions import GameNotFound
 import datetime
 from .Classes import Time
 class PlaceInfo:
+     """
+
+    Represents a ROBLOX Place.
+    
+    """
     def __init__(self,universe_id,request):
         self.request = request
         self.universe_id = universe_id

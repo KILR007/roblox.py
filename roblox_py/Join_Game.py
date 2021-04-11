@@ -6,6 +6,10 @@ from .exceptions import *
 import subprocess
 
 class JoinGame:
+    """
+    Represents a Game Join class.
+
+    """
     def __init__(self,request,Game_ID,roblox_game_path=None,roblox_folder_path=None):
         if roblox_folder_path is None:
             self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'

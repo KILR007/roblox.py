@@ -1,6 +1,11 @@
 from .exceptions import GroupNotFound
 from .Classes import PartialInfo
 class GroupInfo:
+    """
+
+    Represents a ROBLOX Group.
+    
+    """
     def __init__(self, request,groupID: int):
         self.request = request
         idkdd = isinstance(groupID, str)

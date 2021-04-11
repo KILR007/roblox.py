@@ -13,7 +13,11 @@ from .PlaceInfo import PlaceInfo
 import aiohttp
 import json
 class Client:
+    """ 
+    
+    Represents a roblox.py Main Client.
 
+    """
     def __init__(self, cookies=None):
         self.cookies = cookies
         self.request = Requests(cookies=cookies)

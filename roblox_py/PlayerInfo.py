@@ -2,6 +2,11 @@ import datetime
 from .exceptions import PlayerNotFound
 from .Classes import *
 class PlayerInfo:
+     """
+
+    Represents a ROBLOX User.
+    
+    """
     def __init__(self, request,playerID: int):
         self.request = request
         self._Id = playerID

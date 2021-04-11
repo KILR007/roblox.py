@@ -2,6 +2,11 @@
 from .exceptions import BundleNotFound
 from .Classes import PartialInfo
 class BundleInfo:
+    """
+    
+    Represents a ROBLOX Bundle.
+    
+    """
     def __init__(self, request,bundleID:int):
         self.request = request
 

@@ -3,6 +3,9 @@
 from .PlayerInfo import PlayerInfo
 from .Classes import Time,AccountInformationMetaData,PromotionChannel
 class PlayerAuth:
+    """
+   Represents a authenticated User.
+    """
     def __init__(self,request):
         self.request = request
         

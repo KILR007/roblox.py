@@ -5,6 +5,11 @@ import datetime
 from .exceptions import GamePassNotFound
 from .Classes import Time,PartialInfo
 class GamepassInfo:
+     """
+
+    Represents a ROBLOX Game Pass.
+    
+    """
     def __init__(self,request,gamepassID:int):
         self.request = request
         idkdd = isinstance(gamepassID, str)
