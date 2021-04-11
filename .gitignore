@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# roblox.py stuff
+roblox.py/testing.py
