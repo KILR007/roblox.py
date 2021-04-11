@@ -2,6 +2,7 @@ from .GroupInfo import GroupInfo
 
 class GroupAuth:
     """
+    
     Represents a authenticated Group.
     
     """
