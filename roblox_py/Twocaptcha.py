@@ -1,11 +1,13 @@
 import asyncio
 import aiohttp
 from .exceptions import *
+
+
 class TwoCaptcha:
     def __init__(self, api_key):
         self.api_key = api_key
 
-    async def solve(self,ckey):
+    async def solve(self, ckey):
 
         url = f'https://2captcha.com/in.php?key={self.api_key}&method=funcaptcha&publickey={ckey}&surl=https://roblox-api.arkoselabs.com&pageurl=https://www.roblox.com&json=1'
         async with aiohttp.ClientSession() as f:

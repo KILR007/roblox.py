@@ -1,16 +1,18 @@
 
 
-
 import datetime
 from .exceptions import GamePassNotFound
-from .Classes import Time,PartialInfo
+from .Classes import Time, PartialInfo
+
+
 class GamepassInfo:
-     """
+    """
 
     Represents a ROBLOX Game Pass.
-    
+
     """
-    def __init__(self,request,gamepassID:int):
+
+    def __init__(self, request, gamepassID: int):
         self.request = request
         idkdd = isinstance(gamepassID, str)
         if idkdd:
@@ -20,10 +22,11 @@ class GamepassInfo:
         self._json_obj = None
 
     async def update(self):
-        r = await self.request.request(url=f"http://api.roblox.com/marketplace/game-pass-product-info?gamePassId={self._id}",method='get')
+        r = await self.request.request(url=f"http://api.roblox.com/marketplace/game-pass-product-info?gamePassId={self._id}", method='get')
         if "TargetId" not in r.keys():
             raise GamePassNotFound
         self._json_obj = r
+
     @property
     def product_type(self):
         return self._json_obj["ProductType"]
@@ -72,7 +75,7 @@ class GamepassInfo:
         days = diff.days
         months, days = divmod(days, 30)
         yrs, months = divmod(months, 12)
-        return Time(yrs=yrs,month=months,day=days)
+        return Time(yrs=yrs, month=months, day=days)
 
     @property
     def updated_at(self):
@@ -88,8 +91,7 @@ class GamepassInfo:
         days = diff.days
         months, days = divmod(days, 30)
         yrs, months = divmod(months, 12)
-        return Time(yrs=yrs,month=months,day=days)
-
+        return Time(yrs=yrs, month=months, day=days)
 
     @property
     def sales(self):
@@ -102,9 +104,11 @@ class GamepassInfo:
     @property
     def is_Limited(self):
         return self._json_obj["IsLimited"]
+
     @property
     def direct_url(self):
         return f'https://www.roblox.com/game-pass/{self._id}/'
+
     @property
     def is_Limited_Unique(self):
         return self._json_obj["IsLimitedUnique"]
@@ -115,9 +119,8 @@ class GamepassInfo:
 
     @property
     async def thumbnail(self):
-        _ok = await self.request.request(url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}&size=150x150&format=Png",method='get')
+        _ok = await self.request.request(url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}&size=150x150&format=Png", method='get')
         return _ok["data"][0]['imageUrl']
-
 
     @property
     def product_id(self):

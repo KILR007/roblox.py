@@ -1,13 +1,14 @@
 from .GroupInfo import GroupInfo
 
+
 class GroupAuth:
     """
     
     Represents a authenticated Group.
     
     """
-    def __init__(self,request,groupID:int):
-        
+
+    def __init__(self, request, groupID: int):
         """
          Parameters
         ----------
@@ -18,14 +19,15 @@ class GroupAuth:
         """
         self.request = request
         self.Target_grp_id = groupID
+
     async def group_info(self) -> GroupInfo:
         """ Returns Group Info class 
 
             Returns
             -------
             roblox.py.GroupInfo
-         """ 
-        return GroupInfo(groupID=self.Target_grp_id,request=self.request)
+         """
+        return GroupInfo(groupID=self.Target_grp_id, request=self.request)
 
     async def pay(self, user_id: int, amount: int):
         """ Pays the user robux from the group 
@@ -37,7 +39,7 @@ class GroupAuth:
         amount : int
             Amount to pay
 
-        """ 
+        """
         data = {
             "PayoutType": "FixedAmount",
             "Recipients": [
@@ -48,9 +50,11 @@ class GroupAuth:
                 }
             ]
         }
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/payouts', data=data,method="post")
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/payouts',
+                                       data=data, method="post")
         return r
-    async def change_description(self,description:str=None):
+
+    async def change_description(self, description: str = None):
         """ Changes group description
 
         Parameters
@@ -58,12 +62,13 @@ class GroupAuth:
         description : str
             New description
 
-         """ 
+         """
         data = {"description": description}
-        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/description",method='patch',data=data)
+        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/description",
+                                       method='patch', data=data)
         return e
 
-    async def change_shout(self, status:str=None):
+    async def change_shout(self, status: str = None):
         """ Posts a new group shout
 
         Parameters
@@ -73,9 +78,11 @@ class GroupAuth:
 
         """
         data = {"message": status}
-        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/status", method='patch', data=data)
+        e = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/status",
+                                       method='patch', data=data)
         return e
-    async def decline_join_request(self,user_id:int):
+
+    async def decline_join_request(self, user_id: int):
         """ Declines user join request 
 
         Parameters
@@ -85,7 +92,8 @@ class GroupAuth:
         """
 
         data = {"UserIds": [user_id]}
-        e = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/join-requests',method='delete',data=data)
+        e = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/join-requests',
+                                       method='delete', data=data)
         return e
 
     async def accept_join_request(self, user_id: int):
@@ -96,7 +104,6 @@ class GroupAuth:
         user_id : int
             User id
         """
-
 
         data = {"UserIds": [user_id]}
         e = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/join-requests',
@@ -110,7 +117,7 @@ class GroupAuth:
         ----------
         user_id : int
             User's id to pay 
-        amount : int
+        percent : int
             Amount to pay robux percentage
 
         """
@@ -124,11 +131,11 @@ class GroupAuth:
                 }
             ]
         }
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/payouts', data=data,method="post")
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/payouts',
+                                       data=data, method="post")
         return r
 
     async def change_rank(self, user_id: int, roleId: int):
-        
         """ Changes a user Role
 
         Parameters
@@ -146,6 +153,7 @@ class GroupAuth:
         r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/users/{user_id}',
                                        method="patch", data=data)
         return r
+
     async def get_funds(self) -> int:
         """ Gets Group's funds
 
@@ -155,9 +163,11 @@ class GroupAuth:
             Group's Robux 
 
         """
-        r = await self.request.request(url=f'https://economy.roblox.com/v1/groups/{self.Target_grp_id}/currency', method='get')
+        r = await self.request.request(url=f'https://economy.roblox.com/v1/groups/{self.Target_grp_id}/currency',
+                                       method='get')
         return r['robux']
-    async def change_owner(self,user_id:int):
+
+    async def change_owner(self, user_id: int):
         """ Changes Group Owner
 
 
@@ -168,10 +178,12 @@ class GroupAuth:
 
         """
         data = {"userId": user_id}
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/change-owner',method='post',
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/change-owner',
+                                       method='post',
                                        data=data)
         return r
-    async def exile(self,user_id:int):
+
+    async def exile(self, user_id: int):
         """
         Removes User from a group
 
@@ -180,8 +192,10 @@ class GroupAuth:
         user_id : int
             User's id to remove
         """
-        r =  await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/users/{user_id}',method='delete')
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/users/{user_id}',
+                                       method='delete')
         return r
+
     async def get_social_link(self) -> dict:
         """
         Gets social links of the group
@@ -191,10 +205,12 @@ class GroupAuth:
         dict
             Dict  containing all social links
 
-        """ 
-        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',method='get')
+        """
+        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
+                                 method='get')
         return r['data'][0]
-    async def change_social_link(self,type:str,url:str,title:str):
+
+    async def change_social_link(self, type: str, url: str, title: str):
         """
         Posts a Social link
 
@@ -204,17 +220,19 @@ class GroupAuth:
             Social link type (i.e facebook,twitter)
         url : str
             Social Media link
-        titel : str 
+        title : str
             Social Media Title
         """
         data = {
-                "type": type,
-                "url": url,
-                "title": title
-                }
-        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',method='post',data=data)
+            "type": type,
+            "url": url,
+            "title": title
+        }
+        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
+                                 method='post', data=data)
         return r
-    async def delete_all_post(self,user_id:int):
+
+    async def delete_all_post(self, user_id: int):
         """
         Removes all post from the user
 
@@ -223,9 +241,11 @@ class GroupAuth:
         user_id : int
             User's id to remove posts
         """
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/wall/users/{user_id}/posts',method='delete')
+        r = await self.request.request(
+            url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/wall/users/{user_id}/posts', method='delete')
         return r
-    async def exile_and_remove_posts(self,user_id:int):
+
+    async def exile_and_remove_posts(self, user_id: int):
         """
         Removes all posts from the user & exiles him
 
@@ -235,6 +255,6 @@ class GroupAuth:
             ID of the user
         """
         remove_res = await self.delete_all_post(user_id=user_id)
-        exile_user  = await self.exile(user_id=user_id)
-        return exile_user,remove_res
+        exile_user = await self.exile(user_id=user_id)
+        return exile_user, remove_res
     # TODO: get join request

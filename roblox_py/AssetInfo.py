@@ -1,6 +1,7 @@
 import datetime
 from .exceptions import AssetNotFound
-from .Classes import Time,PartialInfo
+from .Classes import Time, PartialInfo
+
 
 class AssetInfo:
     """
@@ -78,15 +79,16 @@ class AssetInfo:
     async | icon | str
         Returns the asset's icon image link. 
     """
-    
-    def __init__(self,request,assetID:int):
+
+    def __init__(self, request, assetID: int):
         self.request = request
 
         self.ID = assetID
         self._json_obj = None
 
     async def update(self):
-        r = await self.request.request(url=f"http://api.roblox.com/Marketplace/ProductInfo?assetId={self.ID}",method='get')
+        r = await self.request.request(url=f"http://api.roblox.com/Marketplace/ProductInfo?assetId={self.ID}",
+                                       method='get')
         if "AssetId" not in r.keys():
             raise AssetNotFound
         self._json_obj = r
@@ -103,7 +105,6 @@ class AssetInfo:
     def id(self):
         return self._json_obj["TargetId"]
 
-
     def __str__(self):
         return self.name
 
@@ -114,11 +115,10 @@ class AssetInfo:
     @property
     def creator(self):
         if self.creator_type == 'Group':
-            return PartialInfo(name=self._json_obj["Creator"]["Name"],id=self._json_obj["Creator"]["CreatorTargetId"])
+            return PartialInfo(name=self._json_obj["Creator"]["Name"], id=self._json_obj["Creator"]["CreatorTargetId"])
         if self.creator_type == 'User':
+            return PartialInfo(name=self._json_obj["Creator"]["Name"], id=self._json_obj["Creator"]["CreatorTargetId"])
 
-            return PartialInfo(name=self._json_obj["Creator"]["Name"],id=self._json_obj["Creator"]["CreatorTargetId"])
-            
     @property
     def creator_type(self):
         return self._json_obj["Creator"]["CreatorType"]
@@ -151,7 +151,7 @@ class AssetInfo:
         days = diff.days
         months, days = divmod(days, 30)
         yrs, months = divmod(months, 12)
-        return Time(yrs=yrs,month=months,day=days)
+        return Time(yrs=yrs, month=months, day=days)
 
     @property
     def updated_at(self):
@@ -166,7 +166,7 @@ class AssetInfo:
         days = diff.days
         months, days = divmod(days, 30)
         yrs, months = divmod(months, 12)
-        return Time(yrs=yrs,month=months,day=days)
+        return Time(yrs=yrs, month=months, day=days)
 
     @property
     def sales(self):
@@ -189,7 +189,8 @@ class AssetInfo:
         return self._json_obj["Remaining"]
 
     async def icon(self):
-        _ok = await self.request.request(url=f"https://www.roblox.com/item-thumbnails?params=%5B%7BassetId:{self.ID}%7D%5D",method='get')
+        _ok = await self.request.request(
+            url=f"https://www.roblox.com/item-thumbnails?params=%5B%7BassetId:{self.ID}%7D%5D", method='get')
         return _ok[0]["thumbnailUrl"]
 
     def thumbnail(self):
