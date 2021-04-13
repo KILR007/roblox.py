@@ -305,7 +305,7 @@ class GroupInfo:
                 break
             payload = {"limit": 100, "sortOrder": "Asc", 'cursor': res["nextPageCursor"]}
             res = await self.request.request(url=link, method='get', parms=payload)
-            return _list
+        return _list
             
     async def get_roles_info(self):
         link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles"
