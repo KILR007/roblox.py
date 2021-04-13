@@ -306,3 +306,14 @@ class GroupInfo:
                 payload = {"limit": 100, "sortOrder": "Asc", 'cursor': res["nextPageCursor"]}
                 res = await self.request.request(url=link, method='get', parms=payload)
             return _list
+            
+    async def get_roles_info(self):
+        link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles"
+        res = await self.request.request(url=link, method='get')
+        _list = []
+        for stuff in res['roles']:
+            name = stuff.get('name')
+            id = stuff.get('id')
+            inst = PartialInfo(name=name, id=id)
+            _list.append(inst)
+        return _list
