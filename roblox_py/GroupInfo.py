@@ -301,10 +301,10 @@ class GroupInfo:
                 userID = info.get('userId')
                 inst = PartialInfo(name=username, id=userID)
                 _list.append(inst)
-                if res["nextPageCursor"] is None or res["nextPageCursor"] == "null":
-                    break
-                payload = {"limit": 100, "sortOrder": "Asc", 'cursor': res["nextPageCursor"]}
-                res = await self.request.request(url=link, method='get', parms=payload)
+            if res["nextPageCursor"] is None or res["nextPageCursor"] == "null":
+                break
+            payload = {"limit": 100, "sortOrder": "Asc", 'cursor': res["nextPageCursor"]}
+            res = await self.request.request(url=link, method='get', parms=payload)
             return _list
             
     async def get_roles_info(self):
