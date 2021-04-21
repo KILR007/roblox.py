@@ -308,7 +308,7 @@ class PlayerAuth:
         return e
 
     async def change_phone(self, code, prefix, phone, password):
-         """
+        """
 
         Changes User birth date
 
