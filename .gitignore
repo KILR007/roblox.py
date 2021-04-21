@@ -131,3 +131,7 @@ dmypy.json
 
 # pychram
 .idea/
+
+# testing stuff
+/roblox_py/testing.py
+.testing.py

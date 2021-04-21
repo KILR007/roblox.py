@@ -1,4 +1,3 @@
-import json
 import os
 import time
 import getpass
@@ -30,10 +29,7 @@ class JoinGame:
         self.brower_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
         self.version_path = f'{self.main_game_path}/Versions'
         self.brower_track_id = None
-        with open(self.brower_track_id_path, "r") as f:
-            data = json.load(f)
-            browserTrackerId = data['BrowserTrackerId']
-        self.browserTrackerId = browserTrackerId
+
         self.game_path = None
         templates = [
 
@@ -56,7 +52,7 @@ class JoinGame:
         Returns Roblox Auth Ticket
 
         """
-        e = await self.request.return_headers(url='https://auth.roblox.com/v1/authentication-ticket/', method='post')
+        e = await self.request.return_headers(url="https://auth.roblox.com/v1/authentication-ticket/", method='post')
         return str(e['rbx-authentication-ticket'])
 
     async def check_if_game_exist(self):
@@ -73,16 +69,14 @@ class JoinGame:
     async def join_game(self):
         """ Joins a server """
         self.process = subprocess.Popen([
+
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
+            "--play"
             f"{self.main_game_path}",
-            "-id ", str(await self.check_if_game_exist()),
-            "-a", '\"https://www.roblox.com\"',
+            "-a", "https://auth.roblox.com/v1/authentication-ticket/redeem",
             "-t", await self.get_roblox_auth_ticket(),
-            "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId={self.browserTrackerId}&placeId={self._id}&isPlayTogetherGame=false\"",
-            '-b', str(self.browserTrackerId),
-            f"--launchtime={int(time.time() * 1000)}",
-            "--rloc", "en_us",
-            "--gloc", "en_us"
+            "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId={self._id}"
+                  f"&isPlayTogetherGame=false\"",
         ])
 
     async def join_game_server(self, server_id):
@@ -98,16 +92,11 @@ class JoinGame:
 
         self.process = subprocess.Popen([
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
+            "--play"
             f"{self.main_game_path}",
-            "-id ", str(await self.check_if_game_exist()),
-            "-a", '\"roblox.com"',
+            "-a", "https://auth.roblox.com/v1/authentication-ticket/redeem",
             "-t", await self.get_roblox_auth_ticket(),
-            "-j",
-            f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&browserTrackerId={self.browserTrackerId}&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
-            '-b', str(self.browserTrackerId),
-            f"--launchtime={int(time.time() * 1000)}",
-            "--rloc", "en_us",
-            "--gloc", "en_us"
+            "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
         ])
 
     async def kill_game(self):

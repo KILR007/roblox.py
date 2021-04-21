@@ -333,10 +333,11 @@ class Requests:
             'Accept': 'application/json',
             'referer': 'www.roblox.com',
             'Origin': 'www.roblox.com',
-        }
+            'RBXAuthenticationNegotiation': 'https://www.roblox.com'}
         if method == 'post':
             async with self.session as ses:
                 async with ses.fetch.post(url=url, data=data, params=parms, headers=header) as rep:
+
                     if rep.status == 401:
                         try:
                             raise Unauthorized()
