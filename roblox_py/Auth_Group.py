@@ -1,4 +1,5 @@
 from .GroupInfo import GroupInfo
+from .Classes import PartialInfo
 
 
 class GroupAuth:

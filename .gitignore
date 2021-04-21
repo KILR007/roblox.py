@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 
-# roblox.py stuff
-roblox.py/testing.py
+# pychram
+.idea/

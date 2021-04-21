@@ -308,20 +308,20 @@ class PlayerAuth:
         return e
 
     async def change_phone(self, code, prefix, phone, password):
-         """
+        """
 
-        Changes User birth date
+                Changes User birth date
 
-        Parameters
-        ----------
-        code : int
-            Country code
-        prefix : str
-            Country Phone Number Prefix
-        phone : int
-            Phone Number to change
-        password : str
-            Password of the Autenticated Account
+                Parameters
+                ----------
+                code : int
+                    Country code
+                prefix : str
+                    Country Phone Number Prefix
+                phone : int
+                    Phone Number to change
+                password : str
+                    Password of the Autenticated Account
         """
         data = {
             "countryCode": code,

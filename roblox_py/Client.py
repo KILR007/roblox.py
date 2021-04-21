@@ -26,7 +26,6 @@ class Client:
         self.request = Requests(cookies=cookies)
 
     async def get_cookies_from_credentials(self, username_or_email, password, type, token):
-        self.request = request
         """
         Returns Cookies using Username/Email and Password
 
@@ -118,7 +117,7 @@ class Client:
         await yes.update()
         return yes
 
-    async def get_group_by_name(self, group_name: str) -> dict:
+    async def get_group_by_name(self, group_name: str) -> list[dict]:
         """
 
         Returns a dict of group by name
@@ -134,7 +133,9 @@ class Client:
 
         """
 
-        _eep = await self.request.request(url=f"https://groups.roblox.com/v1/groups/search/lookup?groupName={group_name}", method='get')
+        _eep = await self.request.request(
+            url=f"https://groups.roblox.com/v1/groups/search/lookup?groupName={group_name}",
+            method='get')
         _lis = []
         if _eep['data'] is []:
             raise GroupNotFound
@@ -333,7 +334,8 @@ class Client:
         idkdd = isinstance(place_id, str)
         if idkdd:
             raise TypeError(f"{place_id} must be an integer")
-        r = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={place_id}', method='get')
+        r = await self.request.request(
+            url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={place_id}', method='get')
 
         if r is []:
             raise GameNotFound("Invalid Game ID")

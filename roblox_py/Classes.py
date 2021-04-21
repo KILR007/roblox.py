@@ -60,17 +60,17 @@ class PartialInfo:
     """
 
     def __init__(self, id, name):
-    """
-    Parameters
-    ----------
-    name : str
-        Name of the Object
-    id : int
-        ID of the Object
-    """
+        """
+           Parameters
+           ----------
+           name : str
+               Name of the Object
+           id : int
+               ID of the Object
+        """
 
-    self.id = id
-    self.name = name
+        self.id = id
+        self.name = name
 
     def __repr__(self):
         return self.name
