@@ -260,4 +260,16 @@ class GroupAuth:
         remove_res = await self.delete_all_post(user_id=user_id)
         exile_user = await self.exile(user_id=user_id)
         return exile_user, remove_res
+
+    async def get_roles_info(self):
+        link = f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/roles"
+        res = await self.request.request(url=link, method='get')
+        _list = []
+        for stuff in res['roles']:
+            name = stuff.get('name')
+            id = stuff.get('id')
+            inst = PartialInfo(name=name, id=id)
+            _list.append(inst)
+        return _list
+
     # TODO: get join request
