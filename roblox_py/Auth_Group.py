@@ -3,9 +3,9 @@ from .GroupInfo import GroupInfo
 
 class GroupAuth:
     """
-    
+
     Represents a authenticated Group.
-    
+
     """
 
     def __init__(self, request, groupID: int):
@@ -13,7 +13,7 @@ class GroupAuth:
          Parameters
         ----------
         request : roblox_py.Requests
-            The name of the animal
+            Request class to request from
         groupID : int
             Group Id
         """
@@ -21,21 +21,21 @@ class GroupAuth:
         self.Target_grp_id = groupID
 
     async def group_info(self) -> GroupInfo:
-        """ Returns Group Info class 
+        """ Returns Group Info class
 
             Returns
             -------
             roblox.py.GroupInfo
-         """
+        """
         return GroupInfo(groupID=self.Target_grp_id, request=self.request)
 
     async def pay(self, user_id: int, amount: int):
-        """ Pays the user robux from the group 
+        """ Pays the user robux from the group
 
         Parameters
         ----------
         user_id : int
-            User's id to pay 
+            User's id to pay
         amount : int
             Amount to pay
 
@@ -83,7 +83,7 @@ class GroupAuth:
         return e
 
     async def decline_join_request(self, user_id: int):
-        """ Declines user join request 
+        """ Declines user join request
 
         Parameters
         ----------
@@ -97,7 +97,7 @@ class GroupAuth:
         return e
 
     async def accept_join_request(self, user_id: int):
-        """ Acceptes user join request 
+        """ Acceptes user join request
 
         Parameters
         ----------
@@ -111,12 +111,12 @@ class GroupAuth:
         return e
 
     async def pay_percentage(self, user_id: int, percent: int):
-        """ Pays the user robux percentage from the group 
+        """ Pays the user robux percentage from the group
 
         Parameters
         ----------
         user_id : int
-            User's id to pay 
+            User's id to pay
         percent : int
             Amount to pay robux percentage
 
@@ -141,9 +141,9 @@ class GroupAuth:
         Parameters
         ----------
         user_id : int
-            User's id to pay 
+            User's id to pay
         roleId : int
-           New role id 
+           New role id
 
         """
 
@@ -160,7 +160,7 @@ class GroupAuth:
         Returns
         -------
         int
-            Group's Robux 
+            Group's Robux
 
         """
         r = await self.request.request(url=f'https://economy.roblox.com/v1/groups/{self.Target_grp_id}/currency',
@@ -174,7 +174,7 @@ class GroupAuth:
         Parameters
         ----------
         user_id : int
-            User id 
+            User id
 
         """
         data = {"userId": user_id}
@@ -206,8 +206,9 @@ class GroupAuth:
             Dict  containing all social links
 
         """
-        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
-                                 method='get')
+        r = self.request.request(
+            url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
+            method='get')
         return r['data'][0]
 
     async def change_social_link(self, type: str, url: str, title: str):
@@ -228,8 +229,10 @@ class GroupAuth:
             "url": url,
             "title": title
         }
-        r = self.request.request(url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
-                                 method='post', data=data)
+        r = self.request.request(
+            url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
+            method='post',
+            data=data)
         return r
 
     async def delete_all_post(self, user_id: int):

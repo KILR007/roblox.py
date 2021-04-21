@@ -5,12 +5,20 @@ import getpass
 from .exceptions import *
 import subprocess
 
+
 class JoinGame:
     """
     Represents a Game Join class.
 
     """
-    def __init__(self,request,Game_ID,roblox_game_path=None,roblox_folder_path=None):
+
+    def __init__(
+            self,
+            request,
+            Game_ID,
+            roblox_game_path=None,
+            roblox_folder_path=None):
+
         if roblox_folder_path is None:
             self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'
         else:
@@ -42,42 +50,58 @@ class JoinGame:
         else:
             self.game_path = f"{roblox_game_path}"
 
+    async def get_roblox_auth_ticket(self):
+        """
 
+        Returns Roblox Auth Ticket
 
-
-
-
-
-    async def _rblx_token(self):
-        e = await self.request.return_headers(url='https://auth.roblox.com/v1/authentication-ticket/',method='post')
+        """
+        e = await self.request.return_headers(url='https://auth.roblox.com/v1/authentication-ticket/', method='post')
         return str(e['rbx-authentication-ticket'])
-    async def get_game_info(self):
-        e  = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={self._id}',method='get')
+
+    async def check_if_game_exist(self):
+        """
+        Checks if Game exists
+        """
+
+        e = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={self._id}', method='get')
         if 'placeId' not in e[0]:
             raise GameNotFound("Invalid Game")
         else:
             return self._id
 
     async def join_game(self):
+        """ Joins a server """
         self.process = subprocess.Popen([
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
             f"{self.main_game_path}",
-            "-id ", str(await self.get_game_info()),
+            "-id ", str(await self.check_if_game_exist()),
             "-a", '\"https://www.roblox.com\"',
-            "-t", await self._rblx_token(),
+            "-t", await self.get_roblox_auth_ticket(),
             "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId={self.browserTrackerId}&placeId={self._id}&isPlayTogetherGame=false\"",
             '-b', str(self.browserTrackerId),
             f"--launchtime={int(time.time() * 1000)}",
             "--rloc", "en_us",
             "--gloc", "en_us"
         ])
-    async def join_game_server(self,server_id):
+
+    async def join_game_server(self, server_id):
+        """
+
+        Joins a specefic server by server ID
+        Parameters
+        ----------
+        server_id : str
+            Server Id
+
+        """
+
         self.process = subprocess.Popen([
             os.path.join(self.game_path, "RobloxPlayerBeta.exe"),
             f"{self.main_game_path}",
-            "-id ",str(await self.get_game_info()),
-            "-a", '\"https://www.roblox.com/Login/Negotiate.ashx\"',
-            "-t", await self._rblx_token(),
+            "-id ", str(await self.check_if_game_exist()),
+            "-a", '\"roblox.com"',
+            "-t", await self.get_roblox_auth_ticket(),
             "-j",
             f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&browserTrackerId={self.browserTrackerId}&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
             '-b', str(self.browserTrackerId),
@@ -85,9 +109,9 @@ class JoinGame:
             "--rloc", "en_us",
             "--gloc", "en_us"
         ])
+
     async def kill_game(self):
+        """ Kills the Roblox Players """
         self.process.kill()
 
-
     # time to use context manager  || change my mind
-

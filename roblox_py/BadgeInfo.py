@@ -7,7 +7,7 @@ from .Classes import Time
 class BadgeInfo:
     """
     Represents a ROBLOX Badge.
-    
+
     """
 
     def __init__(self, badge_id, request):
@@ -81,7 +81,9 @@ class BadgeInfo:
 
     @property
     def game(self):
-        return PlaceInfo(universe_id=self._json_obj['awardingUniverse']['id'], request=self.request)
+        return PlaceInfo(
+            universe_id=self._json_obj['awardingUniverse']['id'],
+            request=self.request)
 
     async def thumbnail(self):
         r = await self.request.request(

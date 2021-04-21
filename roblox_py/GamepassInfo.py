@@ -50,9 +50,13 @@ class GamepassInfo:
     def creator(self):
         if self._json_obj["Creator"]['CreatorType'] == "Group":
 
-            return PartialInfo(id=self._json_obj["Creator"]["CreatorTargetId"], name=self._json_obj["Creator"]["Name"])
+            return PartialInfo(
+                id=self._json_obj["Creator"]["CreatorTargetId"],
+                name=self._json_obj["Creator"]["Name"])
         else:
-            return PartialInfo(name=self._json_obj["Creator"]["Name"], id=self._json_obj["Creator"]["CreatorTargetId"])
+            return PartialInfo(
+                name=self._json_obj["Creator"]["Name"],
+                id=self._json_obj["Creator"]["CreatorTargetId"])
 
     @property
     def creator_type(self):

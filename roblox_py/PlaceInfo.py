@@ -36,12 +36,14 @@ class PlaceInfo:
     @property
     def creator(self):
         if self._json_obj['data'][0]['creator']['type'] == 'User':
-            return PartialInfo(id=self._json_obj['data'][0]['creator']['id'],
-                               name=self._json_obj['data'][0]['creator']['name'])
+            return PartialInfo(
+                id=self._json_obj['data'][0]['creator']['id'],
+                name=self._json_obj['data'][0]['creator']['name'])
 
         elif self._json_obj['data'][0]['creator']['type'] == 'Group':
-            return PartialInfo(id=self._json_obj['data'][0]['creator']['id'],
-                               name=self._json_obj['data'][0]['creator']['name'])
+            return PartialInfo(
+                id=self._json_obj['data'][0]['creator']['id'],
+                name=self._json_obj['data'][0]['creator']['name'])
 
     @property
     def price(self):

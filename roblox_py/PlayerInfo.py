@@ -121,7 +121,10 @@ class PlayerInfo:
                 break
             if count == limit:
                 break
-            payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': stuff["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             stuff = await self.request.request(url=link, parms=payload)
             count += 1
 
@@ -135,7 +138,9 @@ class PlayerInfo:
         if stuff['data'] is None or stuff['data'] == "null":
             return None
         try:
-            return PartialInfo(name=stuff['data'][0]["name"], id=stuff['data'][0]["id"])
+            return PartialInfo(
+                name=stuff['data'][0]["name"],
+                id=stuff['data'][0]["id"])
         except IndexError:
             return None
 
@@ -156,7 +161,8 @@ class PlayerInfo:
     async def friends(self):
         if self._friendship is None:
             self._friendship = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/friends")
-        _lists = [PartialInfo(id=bill.get('id'), name=bill.get('name')) for bill in self._friendship["data"]]
+        _lists = [PartialInfo(id=bill.get('id'), name=bill.get('name'))
+                  for bill in self._friendship["data"]]
         return _lists
 
     async def newest_friend(self):
@@ -165,7 +171,9 @@ class PlayerInfo:
                 self._friendship = await self.request.request(
                     url=f"https://friends.roblox.com/v1/users/{self._Id}/friends")
 
-            return PartialInfo(id=self._friendship["data"][0]["id"], name=self._friendship['data'][0]['name'])
+            return PartialInfo(
+                id=self._friendship["data"][0]["id"],
+                name=self._friendship['data'][0]['name'])
         except IndexError:
             return None
 
@@ -181,7 +189,9 @@ class PlayerInfo:
             return None
         else:
             D = len(f["data"]) - 1
-            return PartialInfo(id=self._friendship["data"][D]["id"], name=self._friendship['data'][D]['name'])
+            return PartialInfo(
+                id=self._friendship["data"][D]["id"],
+                name=self._friendship['data'][D]['name'])
 
     async def _stats_following(self, format1):
         parms = {"limit": 100, "sortOrder": f"{format1}"}
@@ -191,7 +201,9 @@ class PlayerInfo:
         if stuff['data'] is None or stuff['data'] == "null":
             return None
         try:
-            return PartialInfo(id=stuff["data"][0]["id"], name=stuff['data'][0]['name'])
+            return PartialInfo(
+                id=stuff["data"][0]["id"],
+                name=stuff['data'][0]['name'])
         except IndexError:
             return None
 
@@ -219,7 +231,10 @@ class PlayerInfo:
                 break
             if count == limit:
                 break
-            payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': stuff["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
 
             stuff = await self.request.request(link, parms=payload)
             count += 1
@@ -254,7 +269,10 @@ class PlayerInfo:
 
         f = self._groups
 
-        _lists = [PartialInfo(id=bill['group']['id'], name=bill['group']['name']) for bill in f['data']]
+        _lists = [
+            PartialInfo(
+                id=bill['group']['id'],
+                name=bill['group']['name']) for bill in f['data']]
         if _lists is []:
             return None
         return _lists
@@ -265,7 +283,9 @@ class PlayerInfo:
         f = self._groups
 
         try:
-            return PartialInfo(id=f['data'][0]['group']['id'], name=f['data'][0]['group']['name'])
+            return PartialInfo(
+                id=f['data'][0]['group']['id'],
+                name=f['data'][0]['group']['name'])
         except IndexError:
             return None
 
@@ -278,7 +298,9 @@ class PlayerInfo:
             return None
         else:
             D = len(n) - 1
-            return PartialInfo(id=n[D]['group']['id'], name=n[D]['group']['name'])
+            return PartialInfo(
+                id=n[D]['group']['id'],
+                name=n[D]['group']['name'])
 
     async def group_count(self):
         if self._groups is None:
@@ -312,7 +334,9 @@ class PlayerInfo:
         if stuff['data'] is None or stuff['data'] == "null":
             return None
         try:
-            return PartialInfo(name=stuff['data'][0]["name"], id=stuff['data'][0]["id"])
+            return PartialInfo(
+                name=stuff['data'][0]["name"],
+                id=stuff['data'][0]["id"])
         except IndexError:
             return None
 
@@ -341,7 +365,10 @@ class PlayerInfo:
                 break
             if count == limit:
                 break
-            payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': stuff["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
 
             stuff = await self.request.request(link, parms=payload)
             count += 1
@@ -379,7 +406,9 @@ class PlayerInfo:
         if stuff['data'] is None or stuff['data'] == "null":
             return None
         try:
-            return PartialInfo(id=stuff["data"][0]["id"], name=stuff['data'][0]['name'])
+            return PartialInfo(
+                id=stuff["data"][0]["id"],
+                name=stuff['data'][0]['name'])
         except IndexError:
             return None
 
@@ -406,7 +435,10 @@ class PlayerInfo:
                 break
             if count == limit:
                 break
-            payload = {'cursor': stuff["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': stuff["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             stuff = await self.request.request(link, parms=payload)
             count += 1
         return _lists

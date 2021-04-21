@@ -6,78 +6,78 @@ from .Classes import Time, PartialInfo
 class AssetInfo:
     """
     Represents a ROBLOX asset.
-    
+
     Supported Operations
     --------------------
     str(a)
         Returns the asset's name
-    
+
     Attributes
     ----------
     NAME  RETURN TYPE
     _________________
-    product_type | int 
+    product_type | int
         Returns the asset's type ID.
-    
+
     name | str
         Returns the asset's name.
-    
+
     id | int
         Returns the asset's ID.
-    
+
     description | str
         Returns the asset's description.
-    
+
     creator | roblox_py.PartialInfo
         Returns a partial info instance which contains the asset creator's name and ID.
-    
+
     creator_type | str
         Returns the asset creator's user type.
-    
+
     price_in_robux | int
         Returns the asset's price.
-    
+
     created_at | str
         Returns the asset's creation date.
-     
+
     updated_at | str
         Returns the time of the asset's late update.
-    
+
     sales | int
         Returns the asset's amount of sales.
-    
+
     buyable | bool
         Returns if the asset is available for purchase.
-        
+
     is_Limited | bool
         Returns if the asset is limited.
-    
+
     is_Limited_Unique | bool
         Returns if the asset is limited unique.
-    
+
     remaining | int
         Returns how many of the asset are left. Will return None if the asset is not limited.
-    
+
     product_id | int
         Returns the asset's product ID.
-       
-    
-    
+
+
+
     Methods
     -------
     TYPE      NAME       RETURN TYPE
     __________________________________
     def | created_age | roblox_py.Time
         Returns a Time instance which contains the years, months, and days the account has been up for.
-    
+
     def | updated_age | roblox_py.Time
         Returns a Time instance which contains the years, months, and days since the asset's last update.
-    
+
     def | thumbnail| str
         Returns the asset's thumbnail image link.
-        
+
     async | icon | str
-        Returns the asset's icon image link. 
+        Returns the asset's icon image link.
     """
 
     def __init__(self, request, assetID: int):
@@ -115,9 +115,13 @@ class AssetInfo:
     @property
     def creator(self):
         if self.creator_type == 'Group':
-            return PartialInfo(name=self._json_obj["Creator"]["Name"], id=self._json_obj["Creator"]["CreatorTargetId"])
+            return PartialInfo(
+                name=self._json_obj["Creator"]["Name"],
+                id=self._json_obj["Creator"]["CreatorTargetId"])
         if self.creator_type == 'User':
-            return PartialInfo(name=self._json_obj["Creator"]["Name"], id=self._json_obj["Creator"]["CreatorTargetId"])
+            return PartialInfo(
+                name=self._json_obj["Creator"]["Name"],
+                id=self._json_obj["Creator"]["CreatorTargetId"])
 
     @property
     def creator_type(self):
@@ -136,12 +140,12 @@ class AssetInfo:
         Method
         ------
         Will return how long the asset has been up for.
-        
+
         Returns
         ------
-        roblox_py.Time 
+        roblox_py.Time
             An instance of the Time class which contains the years, months and days attributes.
-        
+
         """
         date_time_str = self._json_obj["Created"]
         noob = date_time_str[:10]

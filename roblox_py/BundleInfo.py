@@ -4,9 +4,9 @@ from .Classes import PartialInfo
 
 class BundleInfo:
     """
-    
+
     Represents a ROBLOX Bundle.
-    
+
     """
 
     def __init__(self, request, bundleID: int):
@@ -48,9 +48,13 @@ class BundleInfo:
     def bundle_creator(self):
         idk = self._json_obj
         if idk["creator"]['type'] == "Group":
-            return PartialInfo(id=idk["creator"]["id"], name=idk["creator"]["name"])
+            return PartialInfo(
+                id=idk["creator"]["id"],
+                name=idk["creator"]["name"])
         elif idk["creator"]['type'] == "User":
-            return PartialInfo(name=idk["creator"]["name"], id=idk["creator"]["id"])
+            return PartialInfo(
+                name=idk["creator"]["name"],
+                id=idk["creator"]["id"])
 
     @property
     def direct_url(self):

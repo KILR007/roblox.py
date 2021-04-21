@@ -8,17 +8,25 @@ class TwoCaptcha:
         self.api_key = api_key
 
     async def solve(self, ckey):
+        """
+
+        Solves the captcha With the Token
+
+        """
 
         url = f'https://2captcha.com/in.php?key={self.api_key}&method=funcaptcha&publickey={ckey}&surl=https://roblox-api.arkoselabs.com&pageurl=https://www.roblox.com&json=1'
         async with aiohttp.ClientSession() as f:
             async with f.post(url) as aa:
                 data = await aa.json()
         if data['request'] == "ERROR_ZERO_BALANCE":
-            raise InsufficientCredit("Insufficient credit in the 2captcha account.")
+            raise InsufficientCredit(
+                "Insufficient credit in the 2captcha account.")
         if data['request'] == "ERROR_NO_SLOT_AVAILABLE":
-            raise NoAvailableWorkers("There are currently no available workers.")
+            raise NoAvailableWorkers(
+                "There are currently no available workers.")
         if data['request'] == "ERROR_WRONG_USER_KEY" or data['request'] == "ERROR_KEY_DOES_NOT_EXIST":
-            raise InvalidAPIToken("The provided 2captcha api key was incorrect.")
+            raise InvalidAPIToken(
+                "The provided 2captcha api key was incorrect.")
         task_id = data['request']
 
         while True:

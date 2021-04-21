@@ -6,7 +6,7 @@ class GroupInfo:
     """
 
     Represents a ROBLOX Group.
-    
+
     """
 
     def __init__(self, request, groupID: int):
@@ -53,7 +53,10 @@ class GroupInfo:
         if lala["relatedGroups"] is []:
             return None
         else:
-            _lists = [PartialInfo(name=good.get("name"), id=good.get('id')) for good in lala['relatedGroups']]
+            _lists = [
+                PartialInfo(
+                    name=good.get("name"),
+                    id=good.get('id')) for good in lala['relatedGroups']]
             return _lists
 
     async def enemies(self):
@@ -65,7 +68,10 @@ class GroupInfo:
         if lala["relatedGroups"] is []:
             return None
         else:
-            _lists = [PartialInfo(name=good.get("name"), id=good.get('id')) for good in lala['relatedGroups']]
+            _lists = [
+                PartialInfo(
+                    name=good.get("name"),
+                    id=good.get('id')) for good in lala['relatedGroups']]
             return _lists
 
     @property
@@ -81,7 +87,9 @@ class GroupInfo:
 
     @property
     def owner(self):
-        return PartialInfo(name=self._groupss["owner"]["username"], id=self._groupss["owner"]["userId"])
+        return PartialInfo(
+            name=self._groupss["owner"]["username"],
+            id=self._groupss["owner"]["userId"])
 
     @property
     def member_count(self):
@@ -115,8 +123,9 @@ class GroupInfo:
             if self._groupss["shout"]["body"] == "":
                 return None
             else:
-                return PartialInfo(name=self._groupss["shout"]["poster"]["username"],
-                                   id=self._groupss["shout"]["poster"]["userId"])
+                return PartialInfo(
+                    name=self._groupss["shout"]["poster"]["username"],
+                    id=self._groupss["shout"]["poster"]["userId"])
         except TypeError:
             return None
 
@@ -152,7 +161,10 @@ class GroupInfo:
 
             if mem["nextPageCursor"] is None or mem["nextPageCursor"] == "null":
                 break
-            payload = {'cursor': mem["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': mem["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             mem = await self.request.request(link, parms=payload)
         return _lists
 
@@ -166,8 +178,10 @@ class GroupInfo:
         if mem['data'] is None or mem['data'] == "null":
             return None
         try:
-            return PartialInfo(id=mem["data"][0].get("user", {}).get("userId"),
-                               name=mem["data"][0].get("user", {}).get("username"))
+            return PartialInfo(
+                id=mem["data"][0].get(
+                    "user", {}).get("userId"), name=mem["data"][0].get(
+                    "user", {}).get("username"))
 
         except IndexError:
             return None
@@ -181,24 +195,34 @@ class GroupInfo:
         return _lists
 
     async def _stats_games_private(self, format1):
-        parms = {"accessFilter": "Private", "sortOrder": f"{format1}", "limit": 100}
+        parms = {
+            "accessFilter": "Private",
+            "sortOrder": f"{format1}",
+            "limit": 100}
         link = self._link2
         mem = await self.request.request(link, parms=parms)
         if mem['data'] is None or mem['data'] == "null":
             return None
         try:
-            return PartialInfo(name=mem["data"][0]["name"], id=mem["data"][0]["rootPlace"]["id"])
+            return PartialInfo(
+                name=mem["data"][0]["name"],
+                id=mem["data"][0]["rootPlace"]["id"])
         except IndexError:
             return None
 
     async def _stats_games_public(self, format1):
-        parms = {"accessFilter": "Public", "sortOrder": f"{format1}", "limit": 100}
+        parms = {
+            "accessFilter": "Public",
+            "sortOrder": f"{format1}",
+            "limit": 100}
         link = self._link2
         mem = await self.request.request(link, parms=parms)
         if mem['data'] is None or mem['data'] == "null":
             return None
         try:
-            return PartialInfo(name=mem["data"][0]["name"], id=mem["data"][0]["rootPlace"]["id"])
+            return PartialInfo(
+                name=mem["data"][0]["name"],
+                id=mem["data"][0]["rootPlace"]["id"])
         except IndexError:
             return None
 
@@ -210,7 +234,9 @@ class GroupInfo:
         if mem['data'] is None or mem['data'] == "null":
             return None
         try:
-            return PartialInfo(name=mem["data"][0]["name"], id=mem["data"][0]["rootPlace"]["id"])
+            return PartialInfo(
+                name=mem["data"][0]["name"],
+                id=mem["data"][0]["rootPlace"]["id"])
         except IndexError:
             return None
 
@@ -228,7 +254,10 @@ class GroupInfo:
                 _lists.append(pp)
             if gam["nextPageCursor"] is None or gam["nextPageCursor"] == "null":
                 break
-            payload = {'cursor': gam["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': gam["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             gam = await self.request.request(link, parms=payload)
         return _lists
 
@@ -245,7 +274,10 @@ class GroupInfo:
                 _lists.append(pp)
             if gam["nextPageCursor"] is None or gam["nextPageCursor"] == "null":
                 break
-            payload = {'cursor': gam["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': gam["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             gam = await self.request.request(url=link, parms=payload)
         return _lists
 
@@ -262,7 +294,10 @@ class GroupInfo:
                 _lists.append(pp)
             if gam["nextPageCursor"] is None or gam["nextPageCursor"] == "null":
                 break
-            payload = {'cursor': gam["nextPageCursor"], "limit": 100, "sortOrder": "Asc"}
+            payload = {
+                'cursor': gam["nextPageCursor"],
+                "limit": 100,
+                "sortOrder": "Asc"}
             gam = await self.request.request(url=link, parms=payload)
         return _lists
 
@@ -303,10 +338,13 @@ class GroupInfo:
                 _list.append(inst)
             if res["nextPageCursor"] is None or res["nextPageCursor"] == "null":
                 break
-            payload = {"limit": 100, "sortOrder": "Asc", 'cursor': res["nextPageCursor"]}
+            payload = {
+                "limit": 100,
+                "sortOrder": "Asc",
+                'cursor': res["nextPageCursor"]}
             res = await self.request.request(url=link, method='get', parms=payload)
         return _list
-            
+
     async def get_roles_info(self):
         link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles"
         res = await self.request.request(url=link, method='get')

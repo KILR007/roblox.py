@@ -2,9 +2,9 @@ from .utils import Requests
 from .GroupInfo import GroupInfo
 from .Auth_Group import GroupAuth
 from .PlayerInfo import PlayerInfo
-from .exceptions import GroupNotFound,PlayerNotFound,GameNotFound
+from .exceptions import GroupNotFound, PlayerNotFound, GameNotFound
 from .Auth_Player import PlayerAuth
-from .BundleInfo  import BundleInfo
+from .BundleInfo import BundleInfo
 from .AssetInfo import AssetInfo
 from .Join_Game import JoinGame
 from .GamepassInfo import GamepassInfo
@@ -12,17 +12,36 @@ from .BadgeInfo import BadgeInfo
 from .PlaceInfo import PlaceInfo
 import aiohttp
 import json
+
+
 class Client:
-    """ 
-    
+    """
+
     Represents a roblox.py Main Client.
 
     """
+
     def __init__(self, cookies=None):
         self.cookies = cookies
         self.request = Requests(cookies=cookies)
-        
+
     async def get_cookies_from_credentials(self, username_or_email, password, type, token):
+        self.request = request
+        """
+        Returns Cookies using Username/Email and Password
+
+        Parameters
+        ----------
+        username_or_email : str
+            User Email/Password to login in
+        password : str
+            Password of the account
+        type : str
+            If Choosen "email"  - "username_or_email" will be considered as Email
+        token : stc
+            roblox_py.TwoCaptcha
+
+        """
         type = type.lower()
         dict_e = None
         if type == "email":
@@ -51,7 +70,9 @@ class Client:
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
                 'Content-type': 'application/json',
                 'Accept': 'application/json',
-                'referer': 'www.roblox.com', }) as f:
+                'referer': 'www.roblox.com',
+                'Origin': 'www.roblox.com',
+            }) as f:
                 josn = await f.json()
             if f.status == 403:
                 if josn['errors'][0]['message'] == 'You must pass the robot test before logging in.':
@@ -73,16 +94,47 @@ class Client:
                     dict_e = json.dumps(dict_e)
                     async with ses.post(url=f'https://auth.roblox.com/v2/login', data=dict_e) as no:
                         return no.cookies
-    async def get_group_info(self, group_id: int):
+
+    async def get_group_info(self, group_id: int) -> GroupInfo:
+        """
+
+        Returns Group Info Class - Also Calls the update Function
+
+        Parameters
+        ----------
+        group_id : int
+            Group ID
+
+        Returns
+        -------
+        roblox_py.GroupInfo
+
+        """
+
         idkdd = isinstance(group_id, str)
         if idkdd:
             raise TypeError(f"{group_id} must be an integer")
-        yes = GroupInfo(groupID=group_id,request=self.request)
+        yes = GroupInfo(groupID=group_id, request=self.request)
         await yes.update()
         return yes
 
-    async def get_group_by_name(self,group_name:str):
-        _eep = await self.request.request(url=f"https://groups.roblox.com/v1/groups/search/lookup?groupName={group_name}",method='get')
+    async def get_group_by_name(self, group_name: str) -> dict:
+        """
+
+        Returns a dict of group by name
+
+        Parameters
+        ----------
+        group_name : str
+            Group Name
+
+        Returns
+        -------
+        dict
+
+        """
+
+        _eep = await self.request.request(url=f"https://groups.roblox.com/v1/groups/search/lookup?groupName={group_name}", method='get')
         _lis = []
         if _eep['data'] is []:
             raise GroupNotFound
@@ -92,69 +144,179 @@ class Client:
             e = dict(name=name, id=idd)
             _lis.append(e)
         return _lis
-    async def get_user_by_name(self,username:str):
+
+    async def get_user_by_name(self, username: str) -> PlayerInfo:
+        """
+
+        Returns Player Info Class By username - Also Calls the update Function
+
+        Parameters
+        ----------
+        username : str
+            Name of the User
+
+        Returns
+        -------
+        roblox_py.PlayerInfo
+
+        """
         url = f"https://api.roblox.com/users/get-by-username"
         pars = {'username': username}
-        json1 = await self.request.request(url=url, parms=pars,method='get')
+        json1 = await self.request.request(url=url, parms=pars, method='get')
         if "Id" not in json1.keys():
             raise PlayerNotFound("Username is Invalid")
         else:
-            e = PlayerInfo(playerID=json1['Id'],request=self.request)
+            e = PlayerInfo(playerID=json1['Id'], request=self.request)
             await e.update()
             return e
 
+    async def get_user_info(self, Player_Id: int):
+        """
 
-    async def get_user_info(self,Player_Id:int):
+        Returns Player Info Class - Also Calls the update Function
+
+        Parameters
+        ----------
+        Player_Id : int
+            ID of the User
+
+        Returns
+        -------
+        roblox_py.PlayerInfo
+
+        """
         idkdd = isinstance(Player_Id, str)
         if idkdd:
             raise TypeError(f"{Player_Id} must be an integer")
-        yes = PlayerInfo(playerID=Player_Id,request=self.request)
+        yes = PlayerInfo(playerID=Player_Id, request=self.request)
         await yes.update()
         return yes
 
-    async def get_auth_user(self):
+    async def get_auth_user(self) -> PlayerAuth:
+        """
+        Returns Authenticated User class
+
+        Returns
+        -------
+        roblox_py.PlayerAuth
+
+        """
         return PlayerAuth(request=self.request)
 
-    async def get_auth_group(self, Group_Id: int):
+    async def get_auth_group(self, Group_Id: int) -> GroupAuth:
+        """
+        Returns Authenticated Group class
+
+        Parameters
+        ----------
+        Group_Id : int
+            Group Id
+
+        Returns
+        -------
+        roblox_py.GroupAuth
+
+        """
         idkdd = isinstance(Group_Id, str)
         if idkdd:
             raise TypeError(f"{Group_Id} must be an integer")
-        return GroupAuth(groupID=Group_Id,request=self.request)
-    async def get_bundle(self,Bundle_ID:int):
+        return GroupAuth(groupID=Group_Id, request=self.request)
+
+    async def get_bundle(self, Bundle_ID: int) -> BundleInfo:
+        """
+        Returns Bundle Info Class
+
+        Parameters
+        ----------
+        Bundle_ID : int
+            Bundle ID
+
+        Returns
+        -------
+        roblox_py.BundleInfo
+
+        """
         idkdd = isinstance(Bundle_ID, str)
         if idkdd:
             raise TypeError(f"{Bundle_ID} must be an integer")
-        yes = BundleInfo(bundleID=Bundle_ID,request=self.request)
+        yes = BundleInfo(bundleID=Bundle_ID, request=self.request)
         await yes.update()
         return yes
 
+    async def get_asset(self, Asset_id: int) -> AssetInfo:
+        """
 
-    async def get_asset(self, Asset_id: int):
+        Returns Asset Info Class - Also Calls the update Function
+
+        Parameters
+        ----------
+        Asset_id : int
+            Asset id
+
+        Returns
+        -------
+        roblox_py.AssetInfo
+
+        """
         idkdd = isinstance(Asset_id, str)
         if idkdd:
             raise TypeError(f"{Asset_id} must be an integer")
-        yes = AssetInfo(assetID=Asset_id,request=self.request)
+        yes = AssetInfo(assetID=Asset_id, request=self.request)
         await yes.update()
         return yes
-    async def get_gamepass(self,gamepass_id: int):
+
+    async def get_gamepass(self, gamepass_id: int) -> GamepassInfo:
+        """
+
+        Returns Game-pass Info Class - Also Calls the update Function
+
+        Parameters
+        ----------
+        gamepass_id : int
+            gamepass id
+
+        Returns
+        -------
+        roblox_py.GamepassInfo
+
+        """
         idkdd = isinstance(gamepass_id, str)
         if idkdd:
             raise TypeError(f"{gamepass_id} must be an integer")
-        yes = GamepassInfo(gamepassID=gamepass_id,request=self.request)
+        yes = GamepassInfo(gamepassID=gamepass_id, request=self.request)
         await yes.update()
         return yes
-    async def join_game(self,PlaceID,roblox_folder_path=None,roblox_game_path=None):
+
+    async def join_game(self, PlaceID: int, roblox_folder_path=None, roblox_game_path=None) -> JoinGame:
+        """
+
+        Returns the Join Game Class
+
+        Parameters
+        ----------
+        PlaceID : int
+            Place Id to join
+        roblox_folder_path : str
+            Roblox Resource Folder Path
+        roblox_game_path : str
+            Roblox Game Folder Path
+
+
+        Returns
+        -------
+        roblox_py.JoinGame
+
+        """
         idkdd = isinstance(PlaceID, str)
         if idkdd:
             raise TypeError(f"{PlaceID} must be an integer")
-        return JoinGame(Game_ID=PlaceID,request=self.request,roblox_folder_path=roblox_folder_path,roblox_game_path=roblox_game_path)
+        return JoinGame(
+            Game_ID=PlaceID,
+            request=self.request,
+            roblox_folder_path=roblox_folder_path,
+            roblox_game_path=roblox_game_path)
 
-
-
-
-
-
-    async def get_badge(self,badge_id:int):
+    async def get_badge(self, badge_id: int):
         idkdd = isinstance(badge_id, str)
         if idkdd:
             raise TypeError(f"{badge_id} must be an integer")
@@ -162,22 +324,19 @@ class Client:
         await e.update()
         return e
 
-
-    async def get_place(self,unverise_id):
+    async def get_place(self, unverise_id):
         e = PlaceInfo(universe_id=unverise_id, request=self.request)
         await e.update()
         return e
 
-    async def get_place_by_id(self,place_id:int):
+    async def get_place_by_id(self, place_id: int):
         idkdd = isinstance(place_id, str)
         if idkdd:
             raise TypeError(f"{place_id} must be an integer")
-        r = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={place_id}',method='get')
+        r = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={place_id}', method='get')
 
         if r is []:
             raise GameNotFound("Invalid Game ID")
         e = PlaceInfo(universe_id=r[0]['universeId'], request=self.request)
         await e.update()
         return e
-
-

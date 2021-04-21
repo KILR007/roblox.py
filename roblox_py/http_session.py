@@ -3,11 +3,17 @@ import aiohttp
 
 class Http:
     def __init__(self, cookies=None, trust_env=False):
+        """
+
+        A HTTP Class for internal wrapper working for roblox.py
+
+        """
         self.cookies = cookies
         self.trust_env = trust_env
 
     async def __aenter__(self):
-        self._session = aiohttp.ClientSession(cookies=self.cookies, trust_env=self.trust_env)
+        self._session = aiohttp.ClientSession(
+            cookies=self.cookies, trust_env=self.trust_env)
         return self
 
     async def __aexit__(self, *err):
@@ -15,5 +21,11 @@ class Http:
         self._session = None
 
     @property
+    """
+
+    Returns the Concurrent Session
+
+    """
+
     def fetch(self):
         return self._session

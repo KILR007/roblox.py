@@ -5,6 +5,12 @@ from .http_session import Http
 
 
 class Requests:
+    """
+
+    Class Used for Requesting from the Web for roblox_py
+
+    """
+
     def __init__(self, cookies=None):
         self.cookies = cookies
         cookies_list = {'.ROBLOSECURITY': self.cookies}
@@ -17,10 +23,16 @@ class Requests:
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'referer': 'www.roblox.com',
+            'Origin': 'www.roblox.com',
         }
         self.session = Http(cookies=cookies_list)
 
     async def get_xcrsftoken(self):
+        """
+
+        Updates the xcrsftoken
+
+        """
         async with self.session as ses:
             async with ses.fetch.post(url="https://www.roblox.com/favorite/toggle") as smth:
                 try:
@@ -43,6 +55,7 @@ class Requests:
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'referer': 'www.roblox.com',
+            'Origin': 'www.roblox.com',
         }
         if method == 'post':
             async with self.session as ses:
@@ -57,46 +70,57 @@ class Requests:
                             await self.request(url=url, data=data, method=method, parms=parms)
                         else:
                             try:
-                                raise Forbidden(json_text['errors'][0]['message'])
+                                raise Forbidden(
+                                    json_text['errors'][0]['message'])
                             except KeyError:
                                 raise Forbidden(json_text)
 
                     if rep.status == 401:
                         try:
 
-                            raise Unauthorized(json_text['errors'][0]['message'])
+                            raise Unauthorized(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise Unauthorized(json_text)
                     if rep.status == 429:
                         try:
-                            raise RateLimited(json_text['errors'][0]['message'])
+                            raise RateLimited(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise RateLimited(json_text)
                     if rep.status == 503:
                         try:
-                            raise ServiceUnavailable(json_text["errors"][0]['message'])
+                            raise ServiceUnavailable(
+                                json_text["errors"][0]['message'])
                         except KeyError:
                             raise ServiceUnavailable(json_text)
                     if rep.status == 500:
                         try:
-                            raise InternalServiceError(json_text['errors'][0]['message'])
+                            raise InternalServiceError(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise InternalServiceError(json_text)
                     if rep.status == 400:
                         try:
                             if json_text['errors'][0]['message'] == 'The target user is invalid or does not exist.' or \
                                     json_text['errors'][0]['message'] == 'The user id is invalid.':
-                                raise PlayerNotFound(json_text['errors'][0]['message'])
+                                raise PlayerNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Group is invalid or does not exist.':
-                                raise GroupNotFound(json_text['errors'][0]['message'])
+                                raise GroupNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid bundle':
-                                raise BundleNotFound(json_text['errors'][0]['message'])
+                                raise BundleNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid assetId':
-                                raise AssetNotFound(json_text['errors'][0]['message'])
+                                raise AssetNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == "BadgeInfo is invalid or does not exist.":
-                                raise BadgeNotFound(json_text['errors'][0]['message'])
+                                raise BadgeNotFound(
+                                    json_text['errors'][0]['message'])
                             else:
-                                warnings.warn(json_text['errors'][0]['message'])
+                                warnings.warn(
+                                    json_text['errors'][0]['message'])
                         except KeyError:
                             warnings.warn(json_text)
                 return json_text
@@ -112,45 +136,56 @@ class Requests:
                             await self.request(url=url, data=data, method=method, parms=parms)
                         else:
                             try:
-                                raise Forbidden(json_text['errors'][0]['message'])
+                                raise Forbidden(
+                                    json_text['errors'][0]['message'])
                             except KeyError:
                                 raise Forbidden(json_text)
 
                     if rep.status == 401:
                         try:
-                            raise Unauthorized(json_text['errors'][0]['message'])
+                            raise Unauthorized(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise Unauthorized(json_text)
                     if rep.status == 429:
                         try:
-                            raise RateLimited(json_text['errors'][0]['message'])
+                            raise RateLimited(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise RateLimited(json_text)
                     if rep.status == 503:
                         try:
-                            raise ServiceUnavailable(json_text["errors"][0]['message'])
+                            raise ServiceUnavailable(
+                                json_text["errors"][0]['message'])
                         except KeyError:
                             raise ServiceUnavailable(json_text)
                     if rep.status == 500:
                         try:
-                            raise InternalServiceError(json_text['errors'][0]['message'])
+                            raise InternalServiceError(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise InternalServiceError(json_text)
                     if rep.status == 400:
                         try:
                             if json_text['errors'][0]['message'] == 'The target user is invalid or does not exist.' or \
                                     json_text['errors'][0]['message'] == 'The user id is invalid.':
-                                raise PlayerNotFound(json_text['errors'][0]['message'])
+                                raise PlayerNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Group is invalid or does not exist.':
-                                raise GroupNotFound(json_text['errors'][0]['message'])
+                                raise GroupNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid bundle':
-                                raise BundleNotFound(json_text['errors'][0]['message'])
+                                raise BundleNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid assetId':
-                                raise AssetNotFound(json_text['errors'][0]['message'])
+                                raise AssetNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == "BadgeInfo is invalid or does not exist.":
-                                raise BadgeNotFound(json_text['errors'][0]['message'])
+                                raise BadgeNotFound(
+                                    json_text['errors'][0]['message'])
                             else:
-                                warnings.warn(json_text['errors'][0]['message'])
+                                warnings.warn(
+                                    json_text['errors'][0]['message'])
                         except KeyError:
                             warnings.warn(json_text)
                 return json_text
@@ -166,45 +201,56 @@ class Requests:
                             await self.request(url=url, data=data, method=method, parms=parms)
                         else:
                             try:
-                                raise Forbidden(json_text['errors'][0]['message'])
+                                raise Forbidden(
+                                    json_text['errors'][0]['message'])
                             except KeyError:
                                 raise Forbidden(json_text)
 
                     if rep.status == 401:
                         try:
-                            raise Unauthorized(json_text['errors'][0]['message'])
+                            raise Unauthorized(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise Unauthorized(json_text)
                     if rep.status == 429:
                         try:
-                            raise RateLimited(json_text['errors'][0]['message'])
+                            raise RateLimited(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise RateLimited(json_text)
                     if rep.status == 503:
                         try:
-                            raise ServiceUnavailable(json_text["errors"][0]['message'])
+                            raise ServiceUnavailable(
+                                json_text["errors"][0]['message'])
                         except KeyError:
                             raise ServiceUnavailable(json_text)
                     if rep.status == 500:
                         try:
-                            raise InternalServiceError(json_text['errors'][0]['message'])
+                            raise InternalServiceError(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise InternalServiceError(json_text)
                     if rep.status == 400:
                         try:
                             if json_text['errors'][0]['message'] == 'The target user is invalid or does not exist.' or \
                                     json_text['errors'][0]['message'] == 'The user id is invalid.':
-                                raise PlayerNotFound(json_text['errors'][0]['message'])
+                                raise PlayerNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Group is invalid or does not exist.':
-                                raise GroupNotFound(json_text['errors'][0]['message'])
+                                raise GroupNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid bundle':
-                                raise BundleNotFound(json_text['errors'][0]['message'])
+                                raise BundleNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid assetId':
-                                raise AssetNotFound(json_text['errors'][0]['message'])
+                                raise AssetNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == "BadgeInfo is invalid or does not exist.":
-                                raise BadgeNotFound(json_text['errors'][0]['message'])
+                                raise BadgeNotFound(
+                                    json_text['errors'][0]['message'])
                             else:
-                                warnings.warn(json_text['errors'][0]['message'])
+                                warnings.warn(
+                                    json_text['errors'][0]['message'])
                         except KeyError:
                             warnings.warn(json_text)
                 return json_text
@@ -220,45 +266,56 @@ class Requests:
                             await self.request(url=url, data=data, method=method, parms=parms)
                         else:
                             try:
-                                raise Forbidden(json_text['errors'][0]['message'])
+                                raise Forbidden(
+                                    json_text['errors'][0]['message'])
                             except KeyError:
                                 raise Forbidden(json_text)
 
                     if rep.status == 401:
                         try:
-                            raise Unauthorized(json_text['errors'][0]['message'])
+                            raise Unauthorized(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise Unauthorized(json_text)
                     if rep.status == 429:
                         try:
-                            raise RateLimited(json_text['errors'][0]['message'])
+                            raise RateLimited(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise RateLimited(json_text)
                     if rep.status == 503:
                         try:
-                            raise ServiceUnavailable(json_text["errors"][0]['message'])
+                            raise ServiceUnavailable(
+                                json_text["errors"][0]['message'])
                         except KeyError:
                             raise ServiceUnavailable(json_text)
                     if rep.status == 500:
                         try:
-                            raise InternalServiceError(json_text['errors'][0]['message'])
+                            raise InternalServiceError(
+                                json_text['errors'][0]['message'])
                         except KeyError:
                             raise InternalServiceError(json_text)
                     if rep.status == 400:
                         try:
                             if json_text['errors'][0]['message'] == 'The target user is invalid or does not exist.' or \
                                     json_text['errors'][0]['message'] == 'The user id is invalid.':
-                                raise PlayerNotFound(json_text['errors'][0]['message'])
+                                raise PlayerNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Group is invalid or does not exist.':
-                                raise GroupNotFound(json_text['errors'][0]['message'])
+                                raise GroupNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid bundle':
-                                raise BundleNotFound(json_text['errors'][0]['message'])
+                                raise BundleNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == 'Invalid assetId':
-                                raise AssetNotFound(json_text['errors'][0]['message'])
+                                raise AssetNotFound(
+                                    json_text['errors'][0]['message'])
                             if json_text['errors'][0]['message'] == "BadgeInfo is invalid or does not exist.":
-                                raise BadgeNotFound(json_text['errors'][0]['message'])
+                                raise BadgeNotFound(
+                                    json_text['errors'][0]['message'])
                             else:
-                                warnings.warn(json_text['errors'][0]['message'])
+                                warnings.warn(
+                                    json_text['errors'][0]['message'])
                         except KeyError:
                             warnings.warn(json_text)
                 return json_text
@@ -275,6 +332,7 @@ class Requests:
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'referer': 'www.roblox.com',
+            'Origin': 'www.roblox.com',
         }
         if method == 'post':
             async with self.session as ses:
@@ -396,6 +454,7 @@ class Requests:
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'referer': 'www.roblox.com',
+            'Origin': 'www.roblox.com',
         }
         if method == 'post':
             async with self.session as ses:
@@ -432,6 +491,7 @@ class Requests:
             'Content-type': 'application/json',
             'Accept': 'application/json, text/plain, */*',
             'referer': 'www.roblox.com',
+            'Origin': 'www.roblox.com',
         }
         if method == 'post':
             async with self.session as ses:
