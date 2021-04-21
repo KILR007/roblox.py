@@ -21,11 +21,11 @@ class Http:
         self._session = None
 
     @property
-    """
-
-    Returns the Concurrent Session
-
-    """
-
     def fetch(self):
+        """
+
+        Returns the Concurrent Session
+
+        """
+        
         return self._session
