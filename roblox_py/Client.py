@@ -117,7 +117,7 @@ class Client:
         await yes.update()
         return yes
 
-    async def get_group_by_name(self, group_name: str) -> list[dict]:
+    async def get_group_by_name(self, group_name: str):
         """
 
         Returns a dict of group by name
@@ -129,7 +129,7 @@ class Client:
 
         Returns
         -------
-        dict
+        list[dict]
 
         """
 
