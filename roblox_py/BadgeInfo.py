@@ -88,7 +88,7 @@ class BadgeInfo:
         """
         Returns last created time from current time
         """
-        date_time_str = self.created
+        date_time_str = self.created_at
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
         now = datetime.datetime.utcnow()
@@ -135,7 +135,7 @@ class BadgeInfo:
 
     async def thumbnail(self) -> str:
         """
-        Return badge's thumbnail
+        Returns Badge thumbnail
         """
         r = await self.request.request(
             url=f'https://thumbnails.roblox.com/v1/badges/icons?badgeIds={self.id}&size=150x150&format=Png&isCircular=false')

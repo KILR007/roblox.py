@@ -111,7 +111,7 @@ class GamepassInfo:
     @property
     def updated_at(self):
         """
-        Gives the last updated date in iso8601  format
+        Gives the last updated date in iso8601 format
         """
         return self._json_obj["Updated"]
 

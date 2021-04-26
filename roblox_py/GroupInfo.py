@@ -23,12 +23,18 @@ class GroupInfo:
         self._link2 = f"https://games.roblox.com/v2/groups/{groupID}/games"
 
     async def update(self):
+        """
+        Must be called before using the class else the class will misbehave.
+        """
         eee = await self.request.request(url=f"https://groups.roblox.com/v1/groups/{self._ID}", method='get')
         if "name" not in eee.keys():
             raise GroupNotFound
         self._groupss = eee
 
-    async def allies_count(self):
+    async def allies_count(self) -> int:
+        """
+        Gets the Group allies count
+        """
         if self._allies is None:
             self._allies = await self.request.request(
                 url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",
@@ -36,7 +42,10 @@ class GroupInfo:
         lala = self._allies
         return lala['totalGroupCount']
 
-    async def enemies_count(self):
+    async def enemies_count(self) -> int:
+        """
+        Gets the Group enemies  count
+        """
         if self._enemies is None:
             self._enemies = await self.request.request(
                 url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",
@@ -45,6 +54,9 @@ class GroupInfo:
         return lala['totalGroupCount']
 
     async def allies(self):
+        """
+        Gets the Group allies
+        """
         if self._allies is None:
             self._allies = await self.request.request(
                 url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",
@@ -60,6 +72,9 @@ class GroupInfo:
             return _lists
 
     async def enemies(self):
+        """
+        Gets the Group enemies
+        """
         if self._enemies is None:
             self._enemies = await self.request.request(
                 url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",
@@ -75,28 +90,43 @@ class GroupInfo:
             return _lists
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """
+        Gets the Groups Name
+        """
         return self._groupss["name"]
 
     def __str__(self):
         return self.name
 
     @property
-    def id(self):
+    def id(self) -> int:
+        """
+        Gets the Groups ID
+        """
         return self._groupss["id"]
 
     @property
-    def owner(self):
+    def owner(self) -> PartialInfo:
+        """
+        Returns of the group
+        """
         return PartialInfo(
             name=self._groupss["owner"]["username"],
             id=self._groupss["owner"]["userId"])
 
     @property
-    def member_count(self):
+    def member_count(self) -> int:
+        """
+        Returns the member Count
+        """
         return self._groupss["memberCount"]
 
     @property
-    def is_private(self):
+    def is_private(self) -> bool:
+        """
+        Check if the group is private or not
+        """
         if self._groupss["publicEntryAllowed"] is True:
             return False
         else:
@@ -108,7 +138,9 @@ class GroupInfo:
 
     @property
     def shout(self):
-
+        """
+        Check if the group is private or not
+        """
         try:
             if self._groupss["shout"]["body"] == "":
                 return None
@@ -119,6 +151,10 @@ class GroupInfo:
 
     @property
     def shout_poster(self):
+        """
+        Returns shout poster
+        """
+
         try:
             if self._groupss["shout"]["body"] == "":
                 return None
@@ -129,17 +165,26 @@ class GroupInfo:
         except TypeError:
             return None
 
-    async def thumbnail(self):
+    async def thumbnail(self) -> str:
+        """
+        Gets the group tumbnail
+        """
         dc = await self.request.request(
             url=f"https://www.roblox.com/group-thumbnails?params=%5B%7BgroupId:{self._ID}%7D%5D", method='get')
         return dc[0]["thumbnailUrl"]
 
     @property
-    def direct_url(self):
+    def direct_url(self) -> str:
+        """
+        Returns Roblox URL to the bundle
+        """
         return f'https://www.roblox.com/groups/group.aspx?gid={self._ID}'
 
     @property
     def description(self):
+        """
+        Gets Group Description
+        """
         try:
             if self._groupss["description"] == "":
                 return None
@@ -148,7 +193,10 @@ class GroupInfo:
         except TypeError:
             return None
 
-    async def members(self):
+    async def members(self) -> list:
+        """
+        Returns a list of Group Members
+        """
         link = self._link
         parms = {"limit": 100, "sortOrder": "Asc"}
         mem = await self.request.request(url=link, parms=parms)
@@ -169,7 +217,9 @@ class GroupInfo:
         return _lists
 
     async def _stats_mem(self, format1):
-
+        """
+        Function Used by roblox_py.GroupInfo.latest_member & roblox_py.GroupInfo.oldest_member
+        """
         parms = {"limit": 100, "sortOrder": f"{format1}"}
         link = self._link
         mem = await self.request.request(link, parms=parms)
@@ -186,11 +236,17 @@ class GroupInfo:
         except IndexError:
             return None
 
-    async def latest_member(self):
+    async def newest_member(self):
+        """
+        Gets the newest Member of the group
+        """
         _lists = await self._stats_mem("Desc")
         return _lists
 
     async def oldest_member(self):
+        """
+        Gets the oldest Member of the group
+        """
         _lists = await self._stats_mem("Asc")
         return _lists
 
@@ -240,7 +296,10 @@ class GroupInfo:
         except IndexError:
             return None
 
-    async def games(self):
+    async def games(self) -> list:
+        """
+        Returns all game of the group
+        """
         parms = {"sortOrder": "Asc", "limit": 100}
         link = self._link2
         gam = await self.request.request(url=link, parms=parms)
@@ -261,7 +320,10 @@ class GroupInfo:
             gam = await self.request.request(link, parms=payload)
         return _lists
 
-    async def private_games(self):
+    async def private_games(self) -> list:
+        """
+        Returns all private game of the group
+        """
         parms = {"accessFilter": "Private", "sortOrder": "Asc", "limit": 100}
         link = self._link2
         gam = await self.request.request(url=link, parms=parms)
@@ -281,7 +343,10 @@ class GroupInfo:
             gam = await self.request.request(url=link, parms=payload)
         return _lists
 
-    async def public_games(self):
+    async def public_games(self) -> list:
+        """
+        Returns all public game of the group
+        """
         parms = {"accessFilter": "Public", "sortOrder": "Asc", "limit": 100}
         link = self._link2
         gam = await self.request.request(url=link, parms=parms)
@@ -301,31 +366,52 @@ class GroupInfo:
             gam = await self.request.request(url=link, parms=payload)
         return _lists
 
-    async def latest_game(self):
+    async def newest_game(self):
+        """
+        Returns the newest game of the group(not limited to public/private)
+        """
         _lists = await self._stats_games("Desc")
         return _lists
 
     async def oldest_game(self):
+        """
+        Returns the oldest game of the group(not limited to public/private)
+        """
         _lists = await self._stats_games("Asc")
         return _lists
 
-    async def latest_private_game(self):
+    async def newest_private_game(self):
+        """
+        Returns the newest private game of the group
+        """
         _lists = await self._stats_games_private("Desc")
         return _lists
 
     async def oldest_private_game(self):
+        """
+        Returns the oldest private game of the group
+        """
         _lists = await self._stats_games_private("Asc")
         return _lists
 
-    async def latest_public_game(self):
+    async def newest_public_game(self):
+        """
+        Returns the newest public game of the group
+        """
         _lists = await self._stats_games_public("Desc")
         return _lists
 
     async def oldest_public_game(self):
+        """
+        Returns the oldest public game of the group
+        """
         _lists = await self._stats_games_public("Asc")
         return _lists
 
-    async def get_users_in_role(self, roleid: int):
+    async def get_users_in_role(self, roleid: int) -> list:
+        """
+        Gets users in a specific role
+        """
         link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles/{roleid}/users"
         parm = {"sortOrder": "Asc", "limit": 100}
         res = await self.request.request(url=link, method='get', parms=parm)
@@ -345,7 +431,10 @@ class GroupInfo:
             res = await self.request.request(url=link, method='get', parms=payload)
         return _list
 
-    async def get_roles_info(self):
+    async def get_roles_info(self) -> list:
+        """
+        Gives list of roles in the group
+        """
         link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles"
         res = await self.request.request(url=link, method='get')
         _list = []

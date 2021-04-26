@@ -17,24 +17,45 @@ class PlaceInfo:
         self._json_obj = None
 
     async def update(self):
+        """
+        Must be called before using the class else the class will misbehave.
+        """
         r = await self.request.request(url=f'https://games.roblox.com/v1/games?universeIds={self.universe_id}')
         if 'rootPlaceId' not in r['data'][0]:
             raise GameNotFound()
         self._json_obj = r
 
-    def id(self):
+    def id(self) -> int:
+        """
+
+        Returns Place ID
+
+         """
         return self._json_obj['data'][0]['rootPlaceId']
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """
+
+        Returns Place Name
+
+         """
         return self._json_obj['data'][0]['name']
 
     @property
-    def description(self):
+    def description(self) -> str:
+        """
+
+        Returns Place Description
+
+         """
         return self._json_obj['data'][0]['description']
 
     @property
-    def creator(self):
+    def creator(self) -> PartialInfo:
+        """
+        Returns Creator Information
+        """
         if self._json_obj['data'][0]['creator']['type'] == 'User':
             return PartialInfo(
                 id=self._json_obj['data'][0]['creator']['id'],
@@ -46,39 +67,66 @@ class PlaceInfo:
                 name=self._json_obj['data'][0]['creator']['name'])
 
     @property
-    def price(self):
+    def price(self) -> int:
+        """
+        Returns Bundle Price( 0 if free)
+        """
         return self._json_obj['data'][0]['price']
 
     @property
-    def allowed_gear_genres(self):
+    def allowed_gear_genres(self) -> list:
+        """
+        Returns all the allowed Gear Genres
+        """
         return self._json_obj['data'][0]['allowedGearGenres']
 
     @property
-    def allowed_gear_categories(self):
+    def allowed_gear_categories(self) -> list:
+        """
+        Returns all the allowed Gear Categories
+        """
         return self._json_obj['data'][0]['allowedGearCategories']
 
     @property
-    def playing(self):
+    def number_of_playing(self) -> int:
+        """
+        Gets the number of people playing the game
+        """
         return self._json_obj['data'][0]['playing']
 
     @property
-    def visits(self):
+    def visits(self) -> int:
+        """
+        Gets Number of Visits
+        """
         return self._json_obj['data'][0]['visits']
 
     @property
-    def max_players(self):
+    def max_players(self) -> int:
+        """
+        Gets the  maximum capacity of server
+        """
         return self._json_obj['data'][0]['maxPlayers']
 
     @property
-    def created(self):
+    def created_at(self) -> str:
+        """
+        Gives the created date in iso8601 format
+        """
         return self._json_obj['data'][0]['created']
 
     @property
-    def updated(self):
+    def updated_at(self) -> str:
+        """
+        Gives the last updated date in iso8601 format
+        """
         return self._json_obj['data'][0]['updated']
 
-    def updated_age(self):
-        date_time_str = self.updated
+    def updated_age(self) -> Time:
+        """
+        Returns last updated time from current time
+        """
+        date_time_str = self.updated_at
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
         now = datetime.datetime.utcnow()
@@ -88,8 +136,11 @@ class PlaceInfo:
         yrs, months = divmod(months, 12)
         return Time(yrs=yrs, month=months, day=days)
 
-    def created_age(self):
-        date_time_str = self.created
+    def created_age(self) -> Time:
+        """
+        Returns last created time from current time
+        """
+        date_time_str = self.created_at
         noob = date_time_str[:10]
         strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
         now = datetime.datetime.utcnow()
@@ -100,22 +151,37 @@ class PlaceInfo:
         return Time(yrs=yrs, month=months, day=days)
 
     @property
-    def create_vip_servers_allowed(self):
+    def create_vip_servers_allowed(self) -> bool:
+        """
+        Checks if user is allowed to create vip servers
+        """
         return self._json_obj['data'][0]['createVipServersAllowed']
 
     @property
-    def genre(self):
+    def genre(self) -> str:
+        """
+        Gives Place Genre
+        """
         return self._json_obj['data'][0]['genre']
 
     @property
-    def api_access(self):
+    def api_access(self) -> str:
+        """
+        Checks if the Game is  allowed to use APIS
+        """
         return self._json_obj['data'][0]['studioAccessToApisAllowed']
 
     @property
-    def universe_avatar_type(self):
+    def universe_avatar_type(self) -> str:
+        """
+        Returns Universe Avatar Type
+        """
         return self._json_obj['data'][0]['universeAvatarType']
 
-    async def thumbnail(self):
+    async def thumbnail(self) -> str:
+        """
+
+        """
         r = await self.request.request(
             url=f'https://thumbnails.roblox.com/v1/games/icons?universeIds={self.universe_id}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false',
             method='get')
