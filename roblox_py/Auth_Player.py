@@ -12,16 +12,16 @@ class PlayerAuth:
     def __init__(self, request):
         self.request = request
         """
-        Parameters
+        **Parameters**
         ----------
         request : roblox_py.Requests
             Request class to request from
         """
 
-    async def get_self(self):
+    async def get_self(self) -> PlayerInfo:
         """ Returns Player Info class
 
-        Returns
+        **Returns**
         -------
         roblox_py.PlayerInfo
         """
@@ -34,10 +34,10 @@ class PlayerAuth:
         """
         Checks if the user is premium or not
 
-        Returns
+        **Returns**
         -------
         bool
-            Returns true if premium
+            **Returns** true if premium
 
         """
         e = await self.request.request(url=f'https://www.roblox.com/mobileapi/userinfo', method='get')
@@ -48,7 +48,7 @@ class PlayerAuth:
 
         Follows a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to follow
@@ -65,7 +65,7 @@ class PlayerAuth:
 
         Unfollows a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to unfollow
@@ -82,7 +82,7 @@ class PlayerAuth:
 
         Blocks a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to block
@@ -96,7 +96,7 @@ class PlayerAuth:
 
         Unblocks a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to block
@@ -113,7 +113,7 @@ class PlayerAuth:
 
         Sends friend request to a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to send request
@@ -132,7 +132,7 @@ class PlayerAuth:
 
         Unfriends a specific User
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to unfriend
@@ -150,7 +150,7 @@ class PlayerAuth:
 
         Returns number of friend request
 
-        Returns
+        **Returns**
         -------
         int
             Friend request number
@@ -164,7 +164,7 @@ class PlayerAuth:
 
         Declines a specific User Friend request
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to decline to
@@ -183,7 +183,7 @@ class PlayerAuth:
 
         Accepts a specific User Friend request
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to accept to
@@ -202,12 +202,12 @@ class PlayerAuth:
 
         Checks if the user is following another user
 
-        Parameters
+        **Parameters**
         ----------
         TargetId : int
             Target's Id to check
 
-        Returns
+        **Returns**
         -------
         bool
 
@@ -219,13 +219,13 @@ class PlayerAuth:
                                        data=data)
         return e['followings'][0]['isFollowing']
 
-    async def get_birth_date(self):
+    async def get_birth_date(self) -> Time:
         """
 
         Returns Autenticated User Birth date
 
 
-        Returns
+        **Returns**
         -------
         roblox_py.Classes.Time
 
@@ -241,7 +241,7 @@ class PlayerAuth:
 
         Changes User birth date
 
-        Parameters
+        **Parameters**
         ----------
         day : int
             Birth Day
@@ -264,7 +264,7 @@ class PlayerAuth:
         Returns Autenticated User Gender
 
 
-        Returns
+        **Returns**
         -------
         str
             Male/Female
@@ -283,7 +283,7 @@ class PlayerAuth:
 
         Changes Autenticated User birth date
 
-        Parameters
+        **Parameters**
         ----------
         gender : stc
             Male/Female
@@ -298,7 +298,7 @@ class PlayerAuth:
 
         Returns Autenticated User Phone number infomation
 
-        Returns
+        **Returns**
         ----------
         dict
 
@@ -312,7 +312,7 @@ class PlayerAuth:
 
                 Changes User birth date
 
-                Parameters
+                **Parameters**
                 ----------
                 code : int
                     Country code
@@ -336,7 +336,7 @@ class PlayerAuth:
         """
         Returns Meta Data About the Autenticated Account
 
-        Returns
+        **Returns**
         -------
         roblox_py.Classes.AccountInformationMetaData
 
@@ -349,7 +349,7 @@ class PlayerAuth:
         """
         Delete Phone From the account
 
-        Parameters
+        **Parameters**
         ----------
         code : int
             Country code
@@ -375,7 +375,7 @@ class PlayerAuth:
         """
         Verifies Phone
 
-        Parameters
+        **Parameters**
         ----------
         code : int
             Country code
@@ -390,7 +390,7 @@ class PlayerAuth:
         """
         Returns Pormotion Channel of the User
 
-        Returns
+        **Returns**
         -------
         roblox_py.Classes.PromotionChannel
 
@@ -801,4 +801,4 @@ class PlayerAuth:
                 return jj
         else:
             return json_text
-    # TODO: get friend request
+    # .. TODO: get friend request

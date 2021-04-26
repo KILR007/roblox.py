@@ -11,7 +11,7 @@ class GroupAuth:
 
     def __init__(self, request, groupID: int):
         """
-         Parameters
+         **Parameters**
         ----------
         request : roblox_py.Requests
             Request class to request from
@@ -24,7 +24,7 @@ class GroupAuth:
     async def group_info(self) -> GroupInfo:
         """ Returns Group Info class
 
-            Returns
+            **Returns**
             -------
             roblox.py.GroupInfo
         """
@@ -33,7 +33,7 @@ class GroupAuth:
     async def pay(self, user_id: int, amount: int):
         """ Pays the user robux from the group
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User's id to pay
@@ -58,7 +58,7 @@ class GroupAuth:
     async def change_description(self, description: str = None):
         """ Changes group description
 
-        Parameters
+        **Parameters**
         ----------
         description : str
             New description
@@ -72,7 +72,7 @@ class GroupAuth:
     async def change_shout(self, status: str = None):
         """ Posts a new group shout
 
-        Parameters
+        **Parameters**
         ----------
         status : str
             New shout
@@ -86,7 +86,7 @@ class GroupAuth:
     async def decline_join_request(self, user_id: int):
         """ Declines user join request
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User id
@@ -100,7 +100,7 @@ class GroupAuth:
     async def accept_join_request(self, user_id: int):
         """ Acceptes user join request
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User id
@@ -114,7 +114,7 @@ class GroupAuth:
     async def pay_percentage(self, user_id: int, percent: int):
         """ Pays the user robux percentage from the group
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User's id to pay
@@ -139,7 +139,7 @@ class GroupAuth:
     async def change_rank(self, user_id: int, roleId: int):
         """ Changes a user Role
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User's id to pay
@@ -158,7 +158,7 @@ class GroupAuth:
     async def get_funds(self) -> int:
         """ Gets Group's funds
 
-        Returns
+        **Returns**
         -------
         int
             Group's Robux
@@ -172,7 +172,7 @@ class GroupAuth:
         """ Changes Group Owner
 
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User id
@@ -188,7 +188,7 @@ class GroupAuth:
         """
         Removes User from a group
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User's id to remove
@@ -201,7 +201,7 @@ class GroupAuth:
         """
         Gets social links of the group
 
-        Returns
+        **Returns**
         -------
         dict
             Dict  containing all social links
@@ -216,7 +216,7 @@ class GroupAuth:
         """
         Posts a Social link
 
-        Parameters
+        **Parameters**
         ----------
         type : str
             Social link type (i.e facebook,twitter)
@@ -240,7 +240,7 @@ class GroupAuth:
         """
         Removes all post from the user
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             User's id to remove posts
@@ -253,7 +253,7 @@ class GroupAuth:
         """
         Removes all posts from the user & exiles him
 
-        Parameters
+        **Parameters**
         ----------
         user_id : int
             ID of the user
