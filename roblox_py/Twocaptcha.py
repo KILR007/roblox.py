@@ -4,8 +4,15 @@ from .exceptions import *
 
 
 class TwoCaptcha:
+    """
+    2Captcha Captcha Class
+
+    """
     def __init__(self, api_key):
         self.api_key = api_key
+        """
+        2Captcha API Key
+        """
 
     async def solve(self, ckey):
         """

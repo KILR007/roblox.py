@@ -22,7 +22,7 @@ class JoinGame:
             self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'
         else:
             self.main_game_path = roblox_folder_path
-
+        self.process  = None
         self._id = Game_ID
         self.request = request
         self.robloxLocalStoragePath = f'{self.main_game_path}/LocalStorage'
@@ -82,7 +82,7 @@ class JoinGame:
     async def join_game_server(self, server_id):
         """
 
-        Joins a specefic server by server ID
+        Joins a specific server by server ID
         Parameters
         ----------
         server_id : str

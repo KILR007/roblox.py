@@ -24,7 +24,7 @@ class Http:
     def fetch(self):
         """
 
-            Returns the Concurrent Session
+        Returns the Concurrent Session
 
         """
         return self._session

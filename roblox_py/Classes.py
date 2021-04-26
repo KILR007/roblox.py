@@ -2,7 +2,7 @@ class AccountInformationMetaData:
     def __init__(self, iteam):
         """
 
-        Account Infomation Meta Data Class
+        Account Information Meta Data Class
 
         """
 
