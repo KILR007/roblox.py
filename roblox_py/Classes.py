@@ -74,3 +74,18 @@ class PartialInfo:
 
     def __repr__(self):
         return self.name
+
+
+class UserPresences:
+    """
+    UserPresences Class
+    """
+    def __init__(self,**kwargs):
+        self.presenceType = kwargs.get("userPresenceType")
+        self.lastLocation = kwargs.get("lastLocation")
+        self.placeId = kwargs.get("placeId")
+        self.rootPlaceId = kwargs.get("rootPlaceId")
+        self.universeId = kwargs.get("universeId")
+        self.gameId = kwargs.get("gameId")
+        self.userId = kwargs.get("userId")
+        self.lastOnline = kwargs.get("lastOnline")

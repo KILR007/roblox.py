@@ -57,7 +57,8 @@ class PlayerAuth:
         data = {
             'targetUserId': TargetId
         }
-        e = await self.request.request(url=f'https://friends.roblox.com/v1/users/{TargetId}/follow', method='post', data=data)
+        e = await self.request.request(url=f'https://friends.roblox.com/v1/users/{TargetId}/follow', method='post',
+                                       data=data)
         return e
 
     async def unfollow(self, TargetId: int):
@@ -74,7 +75,8 @@ class PlayerAuth:
         data = {
             'targetUserId': TargetId
         }
-        e = await self.request.request(url=f'https://friends.roblox.com/v1/users/{TargetId}/unfollow', method='post', data=data)
+        e = await self.request.request(url=f'https://friends.roblox.com/v1/users/{TargetId}/unfollow', method='post',
+                                       data=data)
         return e
 
     async def block(self, TargetId: int):
@@ -88,7 +90,8 @@ class PlayerAuth:
             Target's Id to block
 
         """
-        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/users/{TargetId}/block', method='post')
+        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/users/{TargetId}/block',
+                                       method='post')
         return e
 
     async def unblock(self, TargetId: int):
@@ -232,9 +235,9 @@ class PlayerAuth:
         """
         e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/birthdate', method='get')
         return Time(
-    yrs=e['birthYear'],
-    month=e['birthMonth'],
-     day=e['birthDay'])
+            yrs=e['birthYear'],
+            month=e['birthMonth'],
+            day=e['birthDay'])
 
     async def change_birth_day(self, day, month, year):
         """
@@ -255,7 +258,8 @@ class PlayerAuth:
             "birthMonth": month,
             "birthDay": day,
             "birthYear": year}
-        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/birthdate', method='post', data=data)
+        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/birthdate', method='post',
+                                       data=data)
         return e
 
     async def get_gender(self):
@@ -332,7 +336,7 @@ class PlayerAuth:
         e = await self.request.request(url='https://accountinformation.roblox.com/v1/phone', method='post', data=data)
         return e
 
-    async def metadata(self) -> AccountInformationMetaData: 
+    async def metadata(self) -> AccountInformationMetaData:
         """
         Returns Meta Data About the Autenticated Account
 
@@ -404,7 +408,6 @@ class PlayerAuth:
         Changes User's Promotion Channel
 
         """
-
 
         facebook = kwargs.get('facebook', None)
         twitter = kwargs.get('twitter', None)
@@ -750,7 +753,6 @@ class PlayerAuth:
 
         """
 
-
         data = {}
 
         a = await self.request.just_request(url=f'https://groups.roblox.com/v1/groups/{group_id}/users', data=data,
@@ -801,4 +803,13 @@ class PlayerAuth:
                 return jj
         else:
             return json_text
+
+    async def change_display_name(self, display_name: str):
+        re = await self.request.request(url=f'https://users.roblox.com/v1/users/authenticated')
+        user_id = re['id']
+        data = {"newDisplayName": f"{display_name}"}
+        _ok = await self.request.request(url=f"https://users.roblox.com/v1/users/{user_id}/display-names", data=data,
+                                         method="patch")
+        return _ok
+
     # .. TODO: get friend request

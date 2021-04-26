@@ -581,9 +581,10 @@ class PlayerInfo:
         """
         Returns User Presence
         """
-        _online = await self.request.request(url=f'https://www.roblox.com/search/users/presence?userIds={self._Id}',
-                                             method='get')
-        return _online['PlayerPresences'][0]
+        data = {"userIds": [2323]}
+        _online = await self.request.request(url=f'https://presence.roblox.com/v1/presence/users',data=data,
+                                             method='post')
+        return UserPresences(iteam=_online['userPresences'][0])
 
     async def is_premium(self) -> bool:
         """
@@ -599,7 +600,7 @@ class PlayerInfo:
             r = None
         return r
 
-    async def status(self) -> str:
+    async def status(self):
         """
         Returns User Status
         """
