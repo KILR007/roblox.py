@@ -582,7 +582,7 @@ class PlayerInfo:
         Returns User Presence
         """
         data = {"userIds": [2323]}
-        _online = await self.request.request(url=f'https://presence.roblox.com/v1/presence/users',data=data,
+        _online = await self.request.request(url=f'https://presence.roblox.com/v1/presence/users', data=data,
                                              method='post')
         return UserPresences(iteam=_online['userPresences'][0])
 

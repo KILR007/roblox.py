@@ -158,7 +158,6 @@ class GamepassInfo:
 
     @property
     def direct_url(self) -> str:
-
         """
         Returns direct ROBLOX URL of the gamepass
         """

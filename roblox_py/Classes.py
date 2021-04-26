@@ -80,7 +80,8 @@ class UserPresences:
     """
     UserPresences Class
     """
-    def __init__(self,**kwargs):
+
+    def __init__(self, **kwargs):
         self.presenceType = kwargs.get("userPresenceType")
         self.lastLocation = kwargs.get("lastLocation")
         self.placeId = kwargs.get("placeId")

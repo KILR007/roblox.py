@@ -25,9 +25,9 @@ class JoinGame:
         self._id = game_id
         self.request = request
         # self.robloxLocalStoragePath = f'{self.main_game_path}/LocalStorage'
-        # self.brower_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
+        # self.browser_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
         # self.version_path = f'{self.main_game_path}/Versions'
-        # self.brower_track_id = None
+        # self.browser_track_id = None
 
         self.game_path = None
         templates = [

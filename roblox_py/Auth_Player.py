@@ -371,8 +371,7 @@ class PlayerAuth:
             "phone": phone,
             "password": password
         }
-        e = await self.request.request(url='https://accountinformation.roblox.com/v1/phone/delete', method='post'
-                                       , data=data)
+        e = await self.request.request(url='https://accountinformation.roblox.com/v1/phone/delete', method='post', data=data)
         return e
 
     async def verify_phone(self, code):
@@ -386,8 +385,7 @@ class PlayerAuth:
 
         """
         data = dict(code=code)
-        e = await self.request.request(url='https://accountinformation.roblox.com/v1/phone/verify', method='post'
-                                       , data=data)
+        e = await self.request.request(url='https://accountinformation.roblox.com/v1/phone/verify', method='post', data=data)
         return e
 
     async def get_promotion_channel(self) -> PromotionChannel:
@@ -433,8 +431,7 @@ class PlayerAuth:
         Returns which current star code a user uses
 
         """
-        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/star-code-affiliates'
-                                       , method='get')
+        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/star-code-affiliates', method='get')
         return e
 
     async def change_star_code(self, code):
@@ -445,12 +442,11 @@ class PlayerAuth:
         ---------
         code : str
             Star Code
-        
+
 
         """
         data = {"code": code}
-        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/star-code-affiliates'
-                                       , method='post', data=data)
+        e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/star-code-affiliates', method='post', data=data)
         return e
 
     async def delete_star_code(self):
@@ -482,13 +478,12 @@ class PlayerAuth:
         ---------
         privacy : str
             Privacy Level
-    
+
         """
         data = {
             "appChatPrivacy": privacy
         }
-        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/app-chat-privacy', method='post'
-                                       , data=data)
+        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/app-chat-privacy', method='post', data=data)
         return e
 
     async def get_game_app_privacy(self):
@@ -510,13 +505,12 @@ class PlayerAuth:
         ---------
         privacy : str
             Privacy Level
-    
+
         """
         data = {
             "gameChatPrivacy": privacy
         }
-        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/game-chat-privacy', method='post'
-                                       , data=data)
+        e = await self.request.request(url=f'https://accountsettings.roblox.com/v1/game-chat-privacy', method='post', data=data)
         return e
 
     async def get_inventory_privacy(self):
@@ -537,7 +531,7 @@ class PlayerAuth:
         ---------
         privacy : str
             Privacy Level
-    
+
         """
         data = {
             "inventoryPrivacy": privacy
@@ -552,8 +546,7 @@ class PlayerAuth:
         Returns  User Message Privacy Level
 
         """
-        e = await self.request.request(url=f"https://accountsettings.roblox.com/v1/private-message-privacy"
-                                       , method='get')
+        e = await self.request.request(url=f"https://accountsettings.roblox.com/v1/private-message-privacy", method='get')
         return e['privateMessagePrivacy']
 
     async def change_private_message_privacy(self, privacy):
@@ -564,11 +557,10 @@ class PlayerAuth:
         ---------
         privacy : str
             Privacy Level
-    
+
         """
         data = {"privateMessagePrivacy": privacy}
-        e = await self.request.request(url=f"https://accountsettings.roblox.com/v1/private-message-privacy"
-                                       , method='post', data=data)
+        e = await self.request.request(url=f"https://accountsettings.roblox.com/v1/private-message-privacy", method='post', data=data)
         return e
 
     async def get_email(self):
@@ -614,7 +606,7 @@ class PlayerAuth:
         ---------
         privacy : str
             Privacy Level
-    
+
         """
         data = {'tradePrivacy': privacy}
         e = await self.request.request(url=f"https://accountsettings.roblox.com/v1/private-message-privacy",
@@ -634,8 +626,7 @@ class PlayerAuth:
 
 
         """
-        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{group_id}/claim-ownership'
-                                       , method='post')
+        r = await self.request.request(url=f'https://groups.roblox.com/v1/groups/{group_id}/claim-ownership', method='post')
         return r
 
     async def set_primary_group(self, group_id: int):
@@ -647,7 +638,7 @@ class PlayerAuth:
         ---------
         group_id : int
             Group ID
-            
+
 
         """
         data = {
@@ -685,8 +676,9 @@ class PlayerAuth:
             Product ID
 
         """
-        ee = self.request.request(url=f'https://economy.roblox.com/v2/user-products/{product_id}/purchase'
-                                  , method='post')
+        ee = self.request.request(
+            url=f'https://economy.roblox.com/v2/user-products/{product_id}/purchase',
+            method='post')
         return ee
 
     async def change_username(self, new_username, password):
@@ -722,8 +714,7 @@ class PlayerAuth:
         """
         data = {"body": f"{message}"}
 
-        a = await self.request.just_request(url=f'https://groups.roblox.com/v2/groups/{group_id}/wall/posts', data=data
-                                            , method='post')
+        a = await self.request.just_request(url=f'https://groups.roblox.com/v2/groups/{group_id}/wall/posts', data=data, method='post')
         json_text = await a.json()
         if a.status == 403:
             if json_text['errors'][0]['message'] == "Captcha must be solved.":
@@ -741,7 +732,7 @@ class PlayerAuth:
 
     async def join_group(self, group_id, captcha_token=None):
         """
-        
+
         Joins A User Group
 
         Parameter
@@ -774,7 +765,7 @@ class PlayerAuth:
     async def redeem_gamecard(self, game_code, captcha_token):
 
         """
-        
+
         Redeems a game-card
 
         Parameter

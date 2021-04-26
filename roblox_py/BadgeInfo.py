@@ -113,7 +113,7 @@ class BadgeInfo:
         return self._json_obj['statistics']['awardedCount']
 
     @property
-    def win_rate(self) -> float :
+    def win_rate(self) -> float:
         """
         Win-rate Ratio
         """
@@ -138,5 +138,6 @@ class BadgeInfo:
         Returns Badge thumbnail
         """
         r = await self.request.request(
-            url=f'https://thumbnails.roblox.com/v1/badges/icons?badgeIds={self.id}&size=150x150&format=Png&isCircular=false')
+            url=f'https://thumbnails.roblox.com/v1/badges/icons?badgeIds={self.id}'
+                f'&size=150x150&format=Png&isCircular=false')
         return r['data'][0]['imageUrl']
