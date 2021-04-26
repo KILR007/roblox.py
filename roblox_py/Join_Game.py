@@ -1,5 +1,4 @@
 import os
-import time
 import getpass
 from .exceptions import *
 import subprocess
@@ -14,7 +13,7 @@ class JoinGame:
     def __init__(
             self,
             request,
-            Game_ID,
+            game_id,
             roblox_game_path=None,
             roblox_folder_path=None):
 
@@ -22,13 +21,13 @@ class JoinGame:
             self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'
         else:
             self.main_game_path = roblox_folder_path
-        self.process  = None
-        self._id = Game_ID
+        self.process = None
+        self._id = game_id
         self.request = request
-        self.robloxLocalStoragePath = f'{self.main_game_path}/LocalStorage'
-        self.brower_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
-        self.version_path = f'{self.main_game_path}/Versions'
-        self.brower_track_id = None
+        # self.robloxLocalStoragePath = f'{self.main_game_path}/LocalStorage'
+        # self.brower_track_id_path = f'{self.robloxLocalStoragePath}/appStorage.json'
+        # self.version_path = f'{self.main_game_path}/Versions'
+        # self.brower_track_id = None
 
         self.game_path = None
         templates = [
@@ -60,7 +59,8 @@ class JoinGame:
         Checks if Game exists
         """
 
-        e = await self.request.request(url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={self._id}', method='get')
+        e = await self.request.request(
+            url=f'https://games.roblox.com/v1/games/multiget-place-details?placeIds={self._id}', method='get')
         if 'placeId' not in e[0]:
             raise GameNotFound("Invalid Game")
         else:
@@ -96,7 +96,8 @@ class JoinGame:
             f"{self.main_game_path}",
             "-a", "https://auth.roblox.com/v1/authentication-ticket/redeem",
             "-t", await self.get_roblox_auth_ticket(),
-            "-j", f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
+            "-j",
+            f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
         ])
 
     async def kill_game(self):
