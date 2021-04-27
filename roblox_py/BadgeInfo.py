@@ -149,3 +149,6 @@ class BadgeInfo:
             url=f'https://thumbnails.roblox.com/v1/badges/icons?badgeIds={self.id}'
                 f'&size=150x150&format=Png&isCircular=false')
         return r['data'][0]['imageUrl']
+
+    def __repr__(self):
+        return self.name

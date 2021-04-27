@@ -114,7 +114,7 @@ class GroupInfo:
         """
         return self._groupss["name"]
 
-    def __str__(self):
+    def __repr__(self):
         return self.name
 
     @property

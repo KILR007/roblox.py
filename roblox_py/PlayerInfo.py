@@ -617,3 +617,6 @@ class PlayerInfo:
             return None
         else:
             return r['status']
+
+    def __repr__(self):
+        return self.name

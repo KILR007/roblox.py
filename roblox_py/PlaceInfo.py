@@ -195,3 +195,6 @@ class PlaceInfo:
                 f'&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false',
             method='get')
         return r['data'][0]['imageUrl']
+
+    def __repr__(self):
+        return self.name

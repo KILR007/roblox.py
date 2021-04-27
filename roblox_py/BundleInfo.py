@@ -41,7 +41,7 @@ class BundleInfo:
         idk = self._json_obj
         return idk["name"]
 
-    def __str__(self):
+    def __repr__(self):
         return self.name
 
     @property

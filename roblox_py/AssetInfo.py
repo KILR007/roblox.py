@@ -7,7 +7,7 @@ class AssetInfo:
 
     def __init__(self, request, asset_id: int):
         """
-        
+
         Represents a ROBLOX asset.
 
         **Parameter**
@@ -54,7 +54,7 @@ class AssetInfo:
         """
         return self._json_obj["TargetId"]
 
-    def __str__(self):
+    def __repr__(self):
         return self.name
 
     @property
