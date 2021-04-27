@@ -198,10 +198,9 @@ class GamepassInfo:
         """
         Returns Thumbnail image Link
         """
-        _ok = await self.request.request \
-            (url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}"
-                 f"&size=150x150&format=Png",
-             method='get')
+        _ok = await self.request.request(url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}"
+                                         f"&size=150x150&format=Png",
+                                         method='get')
         return _ok["data"][0]['imageUrl']
 
     @property

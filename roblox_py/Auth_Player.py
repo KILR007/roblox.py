@@ -9,7 +9,7 @@ class PlayerAuth:
     def __init__(self, request: Requests):
         self.request = request
         """
-        
+
         Represents a authenticated User.
 
         **Parameters**
