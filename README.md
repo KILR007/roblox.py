@@ -110,7 +110,7 @@ loop.run_until_complete(main())
 - [GitHub](https://github.com/KILR007/roblox.py)
 
 ### Dev Note
-- *docs is not written yet, the upcoming updates might include breaking code changes, so please consider joining discord support server*
+- *docs are not written yet, the upcoming updates might include breaking code/changes, so please consider joining discord support server*
 - the library is still in beta, bugs may occur
 
 ### Credits
