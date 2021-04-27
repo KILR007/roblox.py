@@ -2,16 +2,24 @@ from .Classes import PartialInfo
 from .exceptions import GameNotFound
 import datetime
 from .Classes import Time
+from .utils import Requests
 
 
 class PlaceInfo:
-    """
 
-    Represents a ROBLOX Place.
+    def __init__(self, universe_id: int, request: Requests):
+        """
+        Represents a ROBLOX Place.
 
-    """
+        **Parameter**
+        -------------
 
-    def __init__(self, universe_id, request):
+        universe_id : int
+            Universe ID
+
+        request : roblox_py.Requests
+            Requests Class to do to HTTP requests
+        """
         self.request = request
         self.universe_id = universe_id
         self._json_obj = None
@@ -28,7 +36,7 @@ class PlaceInfo:
     def id(self) -> int:
         """
 
-        Returns Place ID
+        Returns Place's ID
 
          """
         return self._json_obj['data'][0]['rootPlaceId']
@@ -37,7 +45,7 @@ class PlaceInfo:
     def name(self) -> str:
         """
 
-        Returns Place Name
+        Returns Place's Name
 
          """
         return self._json_obj['data'][0]['name']
@@ -46,7 +54,7 @@ class PlaceInfo:
     def description(self) -> str:
         """
 
-        Returns Place Description
+        Returns Place's Description
 
          """
         return self._json_obj['data'][0]['description']
@@ -54,7 +62,7 @@ class PlaceInfo:
     @property
     def creator(self) -> PartialInfo:
         """
-        Returns Creator Information
+        Returns a partial info instance which contains the Place creator's name and ID.
         """
         if self._json_obj['data'][0]['creator']['type'] == 'User':
             return PartialInfo(
@@ -124,7 +132,7 @@ class PlaceInfo:
 
     def updated_age(self) -> Time:
         """
-        Returns last updated time from current time
+        Returns a Time instance which contains the years, months, and days since the asset's last update.
         """
         date_time_str = self.updated_at
         noob = date_time_str[:10]
@@ -138,7 +146,7 @@ class PlaceInfo:
 
     def created_age(self) -> Time:
         """
-        Returns last created time from current time
+        Returns a Time instance which contains the years, months, and days since the Place created date.
         """
         date_time_str = self.created_at
         noob = date_time_str[:10]
@@ -153,7 +161,7 @@ class PlaceInfo:
     @property
     def create_vip_servers_allowed(self) -> bool:
         """
-        Checks if user is allowed to create vip servers
+        Checks if user is allowed to create vip servers or not
         """
         return self._json_obj['data'][0]['createVipServersAllowed']
 
@@ -167,7 +175,7 @@ class PlaceInfo:
     @property
     def api_access(self) -> str:
         """
-        Checks if the Game is  allowed to use APIS
+        Checks if the Game is  allowed to use APIs
         """
         return self._json_obj['data'][0]['studioAccessToApisAllowed']
 
@@ -180,9 +188,10 @@ class PlaceInfo:
 
     async def thumbnail(self) -> str:
         """
-
+        Returns Place's Thumbnail image link
         """
         r = await self.request.request(
-            url=f'https://thumbnails.roblox.com/v1/games/icons?universeIds={self.universe_id}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false',
+            url=f'https://thumbnails.roblox.com/v1/games/icons?universeIds={self.universe_id}'
+                f'&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false',
             method='get')
         return r['data'][0]['imageUrl']

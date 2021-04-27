@@ -1,15 +1,23 @@
 from .exceptions import BundleNotFound
 from .Classes import PartialInfo
+from .utils import Requests
 
 
 class BundleInfo:
-    """
 
-    Represents a ROBLOX Bundle.
+    def __init__(self, request: Requests, bundleID: int):
+        """
+        Represents a ROBLOX Bundle.
 
-    """
+        **Parameter**
+        -------------
 
-    def __init__(self, request, bundleID: int):
+        request : roblox_py.Requests
+            Requests Class To do HTTP Requests
+
+        bundleID : int
+            Bundle_Id
+        """
         self.request = request
 
         self._id = bundleID
@@ -19,15 +27,15 @@ class BundleInfo:
         """
         Must be called before using the class else the class will misbehave.
         """
-        Noob = await self.request.request(url=f"https://catalog.roblox.com/v1/bundles/{self._id}/details", method='get')
-        if "id" not in Noob.keys():
+        noob = await self.request.request(url=f"https://catalog.roblox.com/v1/bundles/{self._id}/details", method='get')
+        if "id" not in noob.keys():
             raise BundleNotFound
-        self._json_obj = Noob
+        self._json_obj = noob
 
     @property
     def name(self) -> str:
         """
-        Returns Bundle Name
+        Returns Bundle's Name
 
         """
         idk = self._json_obj
@@ -39,7 +47,7 @@ class BundleInfo:
     @property
     def id(self) -> int:
         """
-        Returns Badge ID
+        Returns Bundle's ID
 
         """
         return self._id
@@ -47,7 +55,7 @@ class BundleInfo:
     @property
     def description(self) -> str:
         """
-        Returns Bundle Description
+        Returns Bundle's Description
 
         """
         idk = self._json_obj
@@ -55,18 +63,19 @@ class BundleInfo:
 
     async def thumbnail(self) -> str:
         """
-        Return Bundle's thumbnail
+        Return Bundle's thumbnail image link
         """
         eep = await self.request.request(
-            url=f'https://thumbnails.roblox.com/v1/bundles/thumbnails?bundleIds={self._id}&size=420x420&format=Png&isCircular=false',
+            url=f'https://thumbnails.roblox.com/v1/bundles/thumbnails?bundleIds={self._id}'
+                f'&size=420x420&format=Png&isCircular=false',
             method='get'
         )
         return eep["data"][0]["imageUrl"]
 
     @property
-    def bundle_creator(self) -> PartialInfo:
+    def creator(self) -> PartialInfo:
         """
-        Returns Creator Information
+        Returns a partial info instance which contains the asset creator's name and ID.
         """
         idk = self._json_obj
         if idk["creator"]['type'] == "Group":
@@ -88,7 +97,7 @@ class BundleInfo:
     @property
     def price(self) -> int:
         """
-        Returns Bundle Price( 0 if free)
+        Returns Bundle Price(0 if free)
         """
         idk = self._json_obj
         return idk["product"]["priceInRobux"] if not None else 0
@@ -96,7 +105,7 @@ class BundleInfo:
     @property
     def is_for_sale(self) -> bool:
         """
-        Checks if the iteam is for sale
+        Checks if the item is for sale
         """
         idk = self._json_obj
         return idk["product"]["isForSale"]
@@ -112,7 +121,7 @@ class BundleInfo:
     @property
     def product_type(self) -> str:
         """
-        Bundles Type
+        Returns Bundle's Type
         """
         idk = self._json_obj
         return idk["bundleType"]
@@ -120,7 +129,7 @@ class BundleInfo:
     @property
     def creator_type(self) -> str:
         """
-        Returns Creator Type (Group/User)
+        Returns the asset creator's type (Group/User)
         """
         idk = self._json_obj
         return idk["creator"]["type"]

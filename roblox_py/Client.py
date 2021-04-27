@@ -21,11 +21,12 @@ class Client:
 
     """
 
-    def __init__(self, cookies=None):
+    def __init__(self, cookies: str = None):
         self.cookies = cookies
         self.request = Requests(cookies=cookies)
 
-    async def get_cookies_from_credentials(self, username_or_email, password, type, token):
+    @staticmethod
+    async def get_cookies_from_credentials(username_or_email, password, type, token):
         """
         Returns Cookies using Username/Email and Password
 
@@ -312,10 +313,10 @@ class Client:
         if idkdd:
             raise TypeError(f"{PlaceID} must be an integer")
         return JoinGame(
-            Game_ID=PlaceID,
+            game_id=PlaceID,
             request=self.request,
             roblox_folder_path=roblox_folder_path,
-            roblox_game_path=roblox_game_path)
+            roblox_game_folder_path=roblox_game_path)
 
     async def get_badge(self, badge_id: int):
         idkdd = isinstance(badge_id, str)

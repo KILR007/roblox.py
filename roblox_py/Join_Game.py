@@ -2,21 +2,33 @@ import os
 import getpass
 from .exceptions import *
 import subprocess
+from .utils import Requests
 
 
 class JoinGame:
-    """
-    Represents a Game Join class.
-
-    """
 
     def __init__(
             self,
-            request,
-            game_id,
-            roblox_game_path=None,
-            roblox_folder_path=None):
+            request: Requests,
+            game_id: int,
+            roblox_game_folder_path: str = None,
+            roblox_folder_path: str = None):
+        """
+        Represents a Game Join class.
 
+        **Parameters**
+        --------------
+        request : roblox_py.Requests
+            Requests Class for HTTP Requests
+        game_id : int
+            Game ID to join
+        roblox_game_path : str
+            Folder which contains RobloxPlayerBeta.exe
+        roblox_folder_path : str
+            Roblox Folder Path which contains other roblox Stuff ( textures, storage dir)
+
+
+        """
         if roblox_folder_path is None:
             self.main_game_path = f'C:/Users/{getpass.getuser()}/AppData/Local/Roblox'
         else:
@@ -36,14 +48,14 @@ class JoinGame:
             "C:/Program Files/Roblox/Versions",
             f"C:/Users/{getpass.getuser()}/AppData/Local/Roblox/Versions",
         ]
-        if roblox_game_path is None:
+        if roblox_game_folder_path is None:
             for a in templates:
                 for root, dirs, files in os.walk(a):
                     for names in files:
                         if names.startswith("RobloxPlayerBeta"):
                             self.game_path = f"{root}"
         else:
-            self.game_path = f"{roblox_game_path}"
+            self.game_path = f"{roblox_game_folder_path}"
 
     async def get_roblox_auth_ticket(self):
         """
@@ -79,7 +91,7 @@ class JoinGame:
                   f"&isPlayTogetherGame=false\"",
         ])
 
-    async def join_game_server(self, server_id):
+    async def join_game_server(self, server_id: str):
         """
 
         Joins a specific server by server ID
@@ -97,7 +109,8 @@ class JoinGame:
             "-a", "https://auth.roblox.com/v1/authentication-ticket/redeem",
             "-t", await self.get_roblox_auth_ticket(),
             "-j",
-            f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
+            f"\"https://assetgame.roblox.com/game/PlaceLauncher.ashx?"
+            f"request=RequestGameJob&placeId={self._id}&gameId={server_id}&isPlayTogetherGame=false\"",
         ])
 
     async def kill_game(self):

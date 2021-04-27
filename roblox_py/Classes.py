@@ -1,16 +1,16 @@
 class AccountInformationMetaData:
-    def __init__(self, iteam):
+    def __init__(self, item: dict):
         """
 
         Account Information Meta Data Class
 
         """
 
-        self.is_account_settings_policy_enabled = iteam["isAccountSettingsPolicyEnabled"]
-        self.is_phone_number_enabled = iteam["isPhoneNumberEnabled"]
-        self.max_user_description_length = iteam["MaxUserDescriptionLength"]
-        self.is_user_description_enabled = iteam["isUserDescriptionEnabled"]
-        self.is_user_block_endpoints_updated = iteam["isUserBlockEndpointsUpdated"]
+        self.is_account_settings_policy_enabled = item["isAccountSettingsPolicyEnabled"]
+        self.is_phone_number_enabled = item["isPhoneNumberEnabled"]
+        self.max_user_description_length = item["MaxUserDescriptionLength"]
+        self.is_user_description_enabled = item["isUserDescriptionEnabled"]
+        self.is_user_block_endpoints_updated = item["isUserBlockEndpointsUpdated"]
 
 
 class PromotionChannel:
@@ -39,14 +39,14 @@ class Time:
     def __init__(self, yrs, month, day):
         """
         Parameters
-    ----------
-    yrs : int
-        Name of the Object
-    month : str
-        ID of the Object
-    day : int
-        Date
-    """
+        ----------
+        yrs : int
+            Name of the Object
+        month : int
+            ID of the Object
+        day : int
+            Date
+        """
         self.years = yrs
         self.months = month
         self.days = day

@@ -1,5 +1,6 @@
 from .exceptions import GroupNotFound
 from .Classes import PartialInfo
+from .utils import Requests
 
 
 class GroupInfo:
@@ -9,7 +10,20 @@ class GroupInfo:
 
     """
 
-    def __init__(self, request, groupID: int):
+    def __init__(self, request: Requests, groupID: int):
+        """
+
+        Represents a ROBLOX Group.
+
+        **Parameters**
+        --------------
+        request : roblox_py.Requests
+            Requests Class to do HTTP Requests
+        groupID : int
+            Group ID
+
+
+        """
         self.request = request
         idkdd = isinstance(groupID, str)
         if idkdd:
@@ -37,7 +51,8 @@ class GroupInfo:
         """
         if self._allies is None:
             self._allies = await self.request.request(
-                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",
+                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?"
+                    f"model.startRowIndex=0&model.maxRows=1",
                 method='get')
         lala = self._allies
         return lala['totalGroupCount']
@@ -48,7 +63,8 @@ class GroupInfo:
         """
         if self._enemies is None:
             self._enemies = await self.request.request(
-                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",
+                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?"
+                    f"model.startRowIndex=0&model.maxRows=1",
                 method='get')
         lala = self._enemies
         return lala['totalGroupCount']
@@ -59,7 +75,8 @@ class GroupInfo:
         """
         if self._allies is None:
             self._allies = await self.request.request(
-                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?model.startRowIndex=0&model.maxRows=1",
+                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/allies?"
+                    f"model.startRowIndex=0&model.maxRows=1",
                 method='get')
         lala = self._allies
         if lala["relatedGroups"] is []:
@@ -77,7 +94,8 @@ class GroupInfo:
         """
         if self._enemies is None:
             self._enemies = await self.request.request(
-                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?model.startRowIndex=0&model.maxRows=1",
+                url=f"https://groups.roblox.com/v1/groups/{self._ID}/relationships/enemies?"
+                    f"model.startRowIndex=0&model.maxRows=1",
                 method='get')
         lala = self._enemies
         if lala["relatedGroups"] is []:
@@ -167,7 +185,7 @@ class GroupInfo:
 
     async def thumbnail(self) -> str:
         """
-        Gets the group tumbnail
+        Gets the group thumbnail image link
         """
         dc = await self.request.request(
             url=f"https://www.roblox.com/group-thumbnails?params=%5B%7BgroupId:{self._ID}%7D%5D", method='get')
@@ -408,19 +426,19 @@ class GroupInfo:
         _lists = await self._stats_games_public("Asc")
         return _lists
 
-    async def get_users_in_role(self, roleid: int) -> list:
+    async def get_users_in_role(self, role_id: int) -> list:
         """
         Gets users in a specific role
         """
-        link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles/{roleid}/users"
+        link = f"https://groups.roblox.com/v1/groups/{self._ID}/roles/{role_id}/users"
         parm = {"sortOrder": "Asc", "limit": 100}
         res = await self.request.request(url=link, method='get', parms=parm)
         _list = []
         while True:
             for info in res['data']:
                 username = info.get('username')
-                userID = info.get('userId')
-                inst = PartialInfo(name=username, id=userID)
+                user_id = info.get('userId')
+                inst = PartialInfo(name=username, id=user_id)
                 _list.append(inst)
             if res["nextPageCursor"] is None or res["nextPageCursor"] == "null":
                 break
@@ -440,7 +458,7 @@ class GroupInfo:
         _list = []
         for stuff in res['roles']:
             name = stuff.get('name')
-            id = stuff.get('id')
-            inst = PartialInfo(name=name, id=id)
+            role_id = stuff.get('id')
+            inst = PartialInfo(name=name, id=role_id)
             _list.append(inst)
         return _list

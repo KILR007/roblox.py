@@ -2,15 +2,23 @@ from .exceptions import BadgeNotFound
 from .PlaceInfo import PlaceInfo
 import datetime
 from .Classes import Time
+from .utils import Requests
 
 
 class BadgeInfo:
-    """
-    Represents a ROBLOX Badge.
 
-    """
+    def __init__(self, badge_id, request: Requests):
+        """
 
-    def __init__(self, badge_id, request):
+        Represents a ROBLOX Badge.
+
+        **Parameter**
+        -------------
+
+        badge_id : int
+            Badge Id
+        request : roblox_py.Requests
+        """
         self.request = request
         self.badge_id = badge_id
         self._json_obj = None
@@ -27,7 +35,7 @@ class BadgeInfo:
     @property
     def name(self) -> str:
         """
-        Returns Badge Name
+        Returns Badge's Name
 
         """
         return self._json_obj['name']
@@ -35,22 +43,21 @@ class BadgeInfo:
     @property
     def id(self) -> int:
         """
-        Returns Badge ID
-
+        Returns Badge's ID
         """
         return self._json_obj['id']
 
     @property
     def description(self) -> str:
         """
-        Badge Description
+        Returns Badge's Description
         """
         return self._json_obj['description']
 
     @property
     def is_enabled(self) -> bool:
         """
-        Checks if the badge is enabled
+        Checks if the badge is enabled or not
 
         """
 
@@ -72,7 +79,7 @@ class BadgeInfo:
 
     def updated_age(self) -> Time:
         """
-        Returns last updated time from current time
+        Returns a Time instance which contains the years, months, and days since the badge's last update.
         """
         date_time_str = self.updated_at
         noob = date_time_str[:10]
@@ -86,7 +93,7 @@ class BadgeInfo:
 
     def created_age(self) -> Time:
         """
-        Returns last created time from current time
+        Returns a Time instance which contains the years, months, and days the account has been up for.
         """
         date_time_str = self.created_at
         noob = date_time_str[:10]
@@ -115,27 +122,28 @@ class BadgeInfo:
     @property
     def win_rate(self) -> float:
         """
-        Win-rate Ratio
+        Returns Win-rate Ratio of the badge
         """
         return self._json_obj['statistics']['winRatePercentage']
 
-    @property
-    def game(self) -> PlaceInfo:
+    async def game(self) -> PlaceInfo:
         """
-        Returns  Place info
+        Returns Place info instance which contains more info about the badge's game
 
         **Returns**
         -----------
 
         roblox_py.PlaceInfo
         """
-        return PlaceInfo(
+        game = PlaceInfo(
             universe_id=self._json_obj['awardingUniverse']['id'],
             request=self.request)
+        await game.update()
+        return game
 
     async def thumbnail(self) -> str:
         """
-        Returns Badge thumbnail
+        Returns the badge's thumbnail image link.
         """
         r = await self.request.request(
             url=f'https://thumbnails.roblox.com/v1/badges/icons?badgeIds={self.id}'

@@ -9,7 +9,7 @@ class TwoCaptcha:
 
     """
 
-    def __init__(self, api_key):
+    def __init__(self, api_key: str):
         self.api_key = api_key
         """
         2Captcha API Key
@@ -22,7 +22,8 @@ class TwoCaptcha:
 
         """
 
-        url = f'https://2captcha.com/in.php?key={self.api_key}&method=funcaptcha&publickey={public_key}&surl=https://roblox-api.arkoselabs.com&pageurl=https://www.roblox.com&json=1'
+        url = f'https://2captcha.com/in.php?key={self.api_key}&method=funcaptcha&publickey={public_key}' \
+              f'&surl=https://roblox-api.arkoselabs.com&pageurl=https://www.roblox.com&json=1'
         async with aiohttp.ClientSession() as f:
             async with f.post(url) as aa:
                 data = await aa.json()

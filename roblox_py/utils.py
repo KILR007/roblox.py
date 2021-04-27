@@ -11,7 +11,7 @@ class Requests:
 
     """
 
-    def __init__(self, cookies=None):
+    def __init__(self, cookies: str = None):
         self.cookies = cookies
         cookies_list = {'.ROBLOSECURITY': self.cookies}
 
@@ -440,7 +440,7 @@ class Requests:
                         raise BadRequest()
                 return rep.headers
 
-    async def just_request(self, url, method=None, data=None, parms=None):
+    async def just_request(self, url, method=None, data=None, parms: dict = None):
 
         if method is None:
             method = 'get'

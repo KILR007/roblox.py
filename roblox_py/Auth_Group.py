@@ -1,16 +1,14 @@
 from .GroupInfo import GroupInfo
 from .Classes import PartialInfo
+from .utils import Requests
 
 
 class GroupAuth:
-    """
 
-    Represents a authenticated Group.
-
-    """
-
-    def __init__(self, request, groupID: int):
+    def __init__(self, request: Requests, groupID: int):
         """
+        Represents a authenticated Group.
+
          **Parameters**
         ----------
         request : roblox_py.Requests
@@ -22,13 +20,15 @@ class GroupAuth:
         self.Target_grp_id = groupID
 
     async def group_info(self) -> GroupInfo:
-        """ Returns Group Info class
+        """ Returns Group Info class which contains more info about the group
 
             **Returns**
             -------
             roblox.py.GroupInfo
         """
-        return GroupInfo(groupID=self.Target_grp_id, request=self.request)
+        group = GroupInfo(groupID=self.Target_grp_id, request=self.request)
+        await group.update()
+        return group
 
     async def pay(self, user_id: int, amount: int):
         """ Pays the user robux from the group
@@ -98,7 +98,7 @@ class GroupAuth:
         return e
 
     async def accept_join_request(self, user_id: int):
-        """ Acceptes user join request
+        """ Accepts user join request
 
         **Parameters**
         ----------
@@ -207,18 +207,18 @@ class GroupAuth:
             Dict  containing all social links
 
         """
-        r = self.request.request(
+        r = await self.request.request(
             url=f'https://groups.roblox.com/v1/groups/{self.Target_grp_id}/social-links',
             method='get')
         return r['data'][0]
 
-    async def change_social_link(self, type: str, url: str, title: str):
+    async def change_social_link(self, social_type: str, url: str, title: str):
         """
         Posts a Social link
 
         **Parameters**
         ----------
-        type : str
+        social_type : str
             Social link type (i.e facebook,twitter)
         url : str
             Social Media link
@@ -226,7 +226,7 @@ class GroupAuth:
             Social Media Title
         """
         data = {
-            "type": type,
+            "type": social_type,
             "url": url,
             "title": title
         }
@@ -262,14 +262,17 @@ class GroupAuth:
         exile_user = await self.exile(user_id=user_id)
         return exile_user, remove_res
 
-    async def get_roles_info(self):
+    async def get_roles_info(self) -> list:
+        """
+        Gets group's role info (ID,name)
+        """
         link = f"https://groups.roblox.com/v1/groups/{self.Target_grp_id}/roles"
         res = await self.request.request(url=link, method='get')
         _list = []
         for stuff in res['roles']:
             name = stuff.get('name')
-            id = stuff.get('id')
-            inst = PartialInfo(name=name, id=id)
+            role_id = stuff.get('id')
+            inst = PartialInfo(name=name, id=role_id)
             _list.append(inst)
         return _list
 

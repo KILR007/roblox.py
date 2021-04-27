@@ -1,18 +1,25 @@
-
-
 import datetime
 from .exceptions import GamePassNotFound
 from .Classes import Time, PartialInfo
+from .utils import Requests
 
 
 class GamepassInfo:
-    """
 
-    Represents a ROBLOX Game Pass.
+    def __init__(self, request: Requests, gamepassID: int):
+        """
 
-    """
+        Represents a ROBLOX Game Pass.
 
-    def __init__(self, request, gamepassID: int):
+        **Parameter**
+        -------------
+
+        request : roblox_py.Requests
+            Requests Class to do to HTTP requests
+
+        gamepass_ID : int
+            Game_Pass ID
+        """
         self.request = request
         idkdd = isinstance(gamepassID, str)
         if idkdd:
@@ -22,19 +29,27 @@ class GamepassInfo:
         self._json_obj = None
 
     async def update(self):
-        r = await self.request.request(url=f"http://api.roblox.com/marketplace/game-pass-product-info?gamePassId={self._id}", method='get')
+        """
+        Must be called before using the class else the class will misbehave.
+        """
+        r = await self.request.request(url=f"http://api.roblox.com/marketplace/game-pass-product-info"
+                                           f"?gamePassId={self._id}",
+                                       method='get')
         if "TargetId" not in r.keys():
             raise GamePassNotFound
         self._json_obj = r
 
     @property
     def product_type(self):
+        """
+        Returns Product Type
+        """
         return self._json_obj["ProductType"]
 
     @property
     def name(self) -> str:
         """
-        Returns Game-pass Name
+        Returns Game-pass's Name
 
         """
         return self._json_obj["Name"]
@@ -42,7 +57,7 @@ class GamepassInfo:
     @property
     def id(self) -> int:
         """
-        Returns Game-pass ID
+        Returns Game-pass's ID
 
         """
         return self._json_obj["TargetId"]
@@ -53,7 +68,7 @@ class GamepassInfo:
     @property
     def description(self) -> str:
         """
-        Returns Game-pass Description
+        Returns Game-pass's Description
 
         """
         return self._json_obj["Description"]
@@ -61,7 +76,7 @@ class GamepassInfo:
     @property
     def creator(self) -> PartialInfo:
         """
-        Returns Creator Information
+        Returns a partial info instance which contains the asset creator's name and ID.
         """
         if self._json_obj["Creator"]['CreatorType'] == "Group":
 
@@ -76,7 +91,7 @@ class GamepassInfo:
     @property
     def creator_type(self) -> str:
         """
-        Returns Creator Type (Group/User)
+        Returns Creator's Type (Group/User)
         """
         return self._json_obj["Creator"]["CreatorType"]
 
@@ -96,7 +111,7 @@ class GamepassInfo:
 
     def created_age(self) -> Time:
         """
-        Returns last created time from current time
+        Returns a Time instance which contains the years, months, and days since the created date.
         """
         date_time_str = self._json_obj["Created"]
         noob = date_time_str[:10]
@@ -118,7 +133,7 @@ class GamepassInfo:
     @property
     def update_age(self):
         """
-        Returns last updated time from current time
+        Returns a Time instance which contains the years, months, and days since the asset's last update.
         """
         date_time_str = self._json_obj["Updated"]
         noob = date_time_str[:10]
@@ -159,14 +174,14 @@ class GamepassInfo:
     @property
     def direct_url(self) -> str:
         """
-        Returns direct ROBLOX URL of the gamepass
+        Returns direct ROBLOX URL of the Game-pass
         """
         return f'https://www.roblox.com/game-pass/{self._id}/'
 
     @property
     def is_limited_unique(self) -> bool:
         """
-        Check if the item is limited
+        Check if the item is limited or not
 
         """
         return self._json_obj["IsLimitedUnique"]
@@ -174,16 +189,19 @@ class GamepassInfo:
     @property
     def remaining(self):
         """
-        Returns Remaining
+        Returns how many of the Game-pass are left. Will return None if the Game-pass is not limited.
         """
         return self._json_obj["Remaining"]
 
     @property
     async def thumbnail(self) -> str:
         """
-        Returns Thumbnail Link
+        Returns Thumbnail image Link
         """
-        _ok = await self.request.request(url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}&size=150x150&format=Png", method='get')
+        _ok = await self.request.request \
+            (url=f"https://thumbnails.roblox.com/v1/game-passes?gamePassIds={self._id}"
+                 f"&size=150x150&format=Png",
+             method='get')
         return _ok["data"][0]['imageUrl']
 
     @property

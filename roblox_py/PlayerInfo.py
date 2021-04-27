@@ -1,16 +1,24 @@
 import datetime
 from .exceptions import PlayerNotFound
 from .Classes import *
+from .utils import Requests
 
 
 class PlayerInfo:
-    """
 
-    Represents a ROBLOX User.
+    def __init__(self, request: Requests, playerID: int):
+        """
+        Represents a ROBLOX User.
 
-    """
+        **Parameter**
+        -------------
 
-    def __init__(self, request, playerID: int):
+        playerID : int
+            player ID
+
+        request : roblox_py.Requests
+            Requests Class to do to HTTP requests
+        """
         self.request = request
         self._Id = playerID
         self._Ascsss = None
@@ -55,14 +63,14 @@ class PlayerInfo:
     @property
     def id(self) -> int:
         """
-        Returns User ID
+        Returns User's ID
         """
         return self._Id
 
     @property
     def description(self):
         """
-        Returns User Description
+        Returns User's Description
         """
         oof = self._Ascsss["description"]
         if oof == "":
@@ -109,7 +117,7 @@ class PlayerInfo:
 
     async def avatar(self) -> str:
         """
-        Returns User Avatar
+        Returns User's Avatar
         """
         p = {
             "size": "720x720",
@@ -121,7 +129,7 @@ class PlayerInfo:
 
     async def thumbnail(self) -> str:
         """
-        Returns User Thumbnail
+        Returns User's Thumbnail image link
         """
         f = self._Id
         noob = await self.request.request(
@@ -130,7 +138,7 @@ class PlayerInfo:
 
     async def promotion_channel(self) -> PromotionChannel:
         """
-        Returns User Promotion Channel
+        Returns User's Promotion Channel
         """
         f = self._Id
         e = await self.request.request(url=f'https://accountinformation.roblox.com/v1/users/{f}/promotion-channels')
@@ -138,7 +146,7 @@ class PlayerInfo:
 
     async def get_public_games(self, limit=None):
         """
-        Gets User Public Game
+        Gets User's Public Game
         """
 
         if limit == 0:
@@ -186,7 +194,7 @@ class PlayerInfo:
 
     async def oldest_public_game(self):
         """
-        Returns User Oldest Public Game
+        Returns User's Oldest Public Game
         """
         _lists = await self._stats_games_public("Asc")
         try:
@@ -196,7 +204,7 @@ class PlayerInfo:
 
     async def newest_public_game(self):
         """
-        Returns User Newest Public Game
+        Returns User's Newest Public Game
         """
         _lists = await self._stats_games_public("Desc")
         try:
@@ -206,7 +214,7 @@ class PlayerInfo:
 
     async def friends(self) -> list:
         """
-        Returns User Friends
+        Returns User's Friends
         """
         if self._friendship is None:
             self._friendship = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/friends")
@@ -231,25 +239,25 @@ class PlayerInfo:
 
     async def friends_count(self) -> int:
         """
-        Gets User Friend Count
+        Gets User's Friend Count
         """
         ff = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/friends/count")
         return ff["count"]
 
     async def oldest_friend(self):
         """
-         Gets User Oldest Friend
-         """
+        Gets User's Oldest Friend
+        """
         if self._friendship is None:
             self._friendship = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/friends")
         f = self._friendship
         if len(f["data"]) == 0:
             return None
         else:
-            D = len(f["data"]) - 1
+            d = len(f["data"]) - 1
             return PartialInfo(
-                id=self._friendship["data"][D]["id"],
-                name=self._friendship['data'][D]['name'])
+                id=self._friendship["data"][d]["id"],
+                name=self._friendship['data'][d]['name'])
 
     async def _stats_following(self, format1):
         parms = {"limit": 100, "sortOrder": f"{format1}"}
@@ -267,7 +275,7 @@ class PlayerInfo:
 
     async def following(self, limit=None):
         """
-        Gets User  Following
+        Gets User's  Following
         """
         if limit == 0:
             return
@@ -303,7 +311,7 @@ class PlayerInfo:
 
     async def newest_following(self):
         """
-        Gets User Newest Following
+        Gets User's Newest Following
         """
         _lists = await self._stats_following("Desc")
         if _lists is None:
@@ -315,7 +323,7 @@ class PlayerInfo:
 
     async def oldest_following(self):
         """
-          Gets User Oldest Following
+          Gets User's Oldest Following
           """
         _lists = await self._stats_following("Asc")
         if _lists is None:
@@ -327,7 +335,7 @@ class PlayerInfo:
 
     async def following_count(self) -> int:
         """
-        Gets User Number of Following
+        Gets User's Number of Following
         """
 
         _count = await self.request.request(url=f"https://friends.roblox.com/v1/users/{self._Id}/followings/count")
@@ -335,7 +343,7 @@ class PlayerInfo:
 
     async def groups(self):
         """
-        Gets User Group
+        Gets User's Group
         """
         if self._groups is None:
             self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
@@ -352,7 +360,7 @@ class PlayerInfo:
 
     async def newest_group(self):
         """
-        Gets User Newest Group
+        Gets User's Newest Group
         """
         if self._groups is None:
             self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
@@ -367,7 +375,7 @@ class PlayerInfo:
 
     async def oldest_group(self):
         """
-        Gets User Oldest Group
+        Gets User's Oldest Group
         """
         if self._groups is None:
             self._groups = await self.request.request(url=f"https://groups.roblox.com/v2/users/{self._Id}/groups/roles")
@@ -376,10 +384,10 @@ class PlayerInfo:
         if len(n) == 0:
             return None
         else:
-            D = len(n) - 1
+            d = len(n) - 1
             return PartialInfo(
-                id=n[D]['group']['id'],
-                name=n[D]['group']['name'])
+                id=n[d]['group']['id'],
+                name=n[d]['group']['name'])
 
     async def group_count(self) -> int:
         """
@@ -579,7 +587,7 @@ class PlayerInfo:
 
     async def presence(self):
         """
-        Returns User Presence
+        Returns User's Presence
         """
         data = {"userIds": [2323]}
         _online = await self.request.request(url=f'https://presence.roblox.com/v1/presence/users', data=data,
@@ -602,7 +610,7 @@ class PlayerInfo:
 
     async def status(self):
         """
-        Returns User Status
+        Returns User's Status
         """
         r = await self.request.request(url=f'https://users.roblox.com/v1/users/{self._Id}/status', method='get')
         if r['status'] == "":
