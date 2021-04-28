@@ -51,6 +51,9 @@ class Time:
         self.months = month
         self.days = day
 
+    def __repr__(self):
+        return f"{self.years}/{self.months}/{self.days}"
+
 
 class PartialInfo:
     """
