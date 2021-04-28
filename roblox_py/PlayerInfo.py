@@ -6,21 +6,21 @@ from .utils import Requests
 
 class PlayerInfo:
 
-    def __init__(self, request: Requests, playerID: int):
+    def __init__(self, request: Requests, player_id: int):
         """
         Represents a ROBLOX User.
 
         **Parameter**
         -------------
 
-        playerID : int
+        player_id : int
             player ID
 
         request : roblox_py.Requests
             Requests Class to do to HTTP requests
         """
         self.request = request
-        self._Id = playerID
+        self._Id = player_id
         self._Ascsss = None
         self._following = None
         self._badges = None

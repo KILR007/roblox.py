@@ -114,7 +114,7 @@ class Client:
         idkdd = isinstance(group_id, str)
         if idkdd:
             raise TypeError(f"{group_id} must be an integer")
-        yes = GroupInfo(groupID=group_id, request=self.request)
+        yes = GroupInfo(group_id=group_id, request=self.request)
         await yes.update()
         return yes
 
@@ -168,7 +168,7 @@ class Client:
         if "Id" not in json1.keys():
             raise PlayerNotFound("Username is Invalid")
         else:
-            e = PlayerInfo(playerID=json1['Id'], request=self.request)
+            e = PlayerInfo(player_id=json1['Id'], request=self.request)
             await e.update()
             return e
 
@@ -190,7 +190,7 @@ class Client:
         idkdd = isinstance(Player_Id, str)
         if idkdd:
             raise TypeError(f"{Player_Id} must be an integer")
-        yes = PlayerInfo(playerID=Player_Id, request=self.request)
+        yes = PlayerInfo(player_id=Player_Id, request=self.request)
         await yes.update()
         return yes
 
@@ -222,7 +222,7 @@ class Client:
         idkdd = isinstance(Group_Id, str)
         if idkdd:
             raise TypeError(f"{Group_Id} must be an integer")
-        return GroupAuth(groupID=Group_Id, request=self.request)
+        return GroupAuth(group_id=Group_Id, request=self.request)
 
     async def get_bundle(self, Bundle_ID: int) -> BundleInfo:
         """
@@ -241,7 +241,7 @@ class Client:
         idkdd = isinstance(Bundle_ID, str)
         if idkdd:
             raise TypeError(f"{Bundle_ID} must be an integer")
-        yes = BundleInfo(bundleID=Bundle_ID, request=self.request)
+        yes = BundleInfo(bundle_id=Bundle_ID, request=self.request)
         await yes.update()
         return yes
 
@@ -285,7 +285,7 @@ class Client:
         idkdd = isinstance(gamepass_id, str)
         if idkdd:
             raise TypeError(f"{gamepass_id} must be an integer")
-        yes = GamepassInfo(gamepassID=gamepass_id, request=self.request)
+        yes = GamepassInfo(gamepass_id=gamepass_id, request=self.request)
         await yes.update()
         return yes
 

@@ -6,7 +6,7 @@ from .utils import Requests
 
 class GamepassInfo:
 
-    def __init__(self, request: Requests, gamepassID: int):
+    def __init__(self, request: Requests, gamepass_id: int):
         """
 
         Represents a ROBLOX Game Pass.
@@ -21,11 +21,11 @@ class GamepassInfo:
             Game_Pass ID
         """
         self.request = request
-        idkdd = isinstance(gamepassID, str)
+        idkdd = isinstance(gamepass_id, str)
         if idkdd:
-            raise TypeError(f"{gamepassID} must be an integer")
+            raise TypeError(f"{gamepass_id} must be an integer")
 
-        self._id = gamepassID
+        self._id = gamepass_id
         self._json_obj = None
 
     async def update(self):

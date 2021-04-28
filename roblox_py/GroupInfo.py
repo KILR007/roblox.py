@@ -10,7 +10,7 @@ class GroupInfo:
 
     """
 
-    def __init__(self, request: Requests, groupID: int):
+    def __init__(self, request: Requests, group_id: int):
         """
 
         Represents a ROBLOX Group.
@@ -19,22 +19,22 @@ class GroupInfo:
         --------------
         request : roblox_py.Requests
             Requests Class to do HTTP Requests
-        groupID : int
+        group_id : int
             Group ID
 
 
         """
         self.request = request
-        idkdd = isinstance(groupID, str)
+        idkdd = isinstance(group_id, str)
         if idkdd:
-            raise TypeError(f"{groupID} must be an integer")
-        groupID = str(groupID).strip()
-        self._ID = groupID
+            raise TypeError(f"{group_id} must be an integer")
+        group_id = str(group_id).strip()
+        self._ID = group_id
         self._allies = None
         self._enemies = None
         self._groupss = None
-        self._link = f"https://groups.roblox.com/v1/groups/{groupID}/users"
-        self._link2 = f"https://games.roblox.com/v2/groups/{groupID}/games"
+        self._link = f"https://groups.roblox.com/v1/groups/{group_id}/users"
+        self._link2 = f"https://games.roblox.com/v2/groups/{group_id}/games"
 
     async def update(self):
         """

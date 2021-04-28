@@ -5,7 +5,7 @@ from .utils import Requests
 
 class GroupAuth:
 
-    def __init__(self, request: Requests, groupID: int):
+    def __init__(self, request: Requests, group_id: int):
         """
         Represents a authenticated Group.
 
@@ -13,11 +13,11 @@ class GroupAuth:
         ----------
         request : roblox_py.Requests
             Request class to request from
-        groupID : int
+        group_id : int
             Group Id
         """
         self.request = request
-        self.Target_grp_id = groupID
+        self.Target_grp_id = group_id
 
     async def group_info(self) -> GroupInfo:
         """ Returns Group Info class which contains more info about the group
@@ -26,7 +26,7 @@ class GroupAuth:
             -------
             roblox.py.GroupInfo
         """
-        group = GroupInfo(groupID=self.Target_grp_id, request=self.request)
+        group = GroupInfo(group_id=self.Target_grp_id, request=self.request)
         await group.update()
         return group
 

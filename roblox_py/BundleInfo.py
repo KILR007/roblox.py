@@ -5,7 +5,7 @@ from .utils import Requests
 
 class BundleInfo:
 
-    def __init__(self, request: Requests, bundleID: int):
+    def __init__(self, request: Requests, bundle_id: int):
         """
         Represents a ROBLOX Bundle.
 
@@ -15,12 +15,12 @@ class BundleInfo:
         request : roblox_py.Requests
             Requests Class To do HTTP Requests
 
-        bundleID : int
+        bundle_id : int
             Bundle_Id
         """
         self.request = request
 
-        self._id = bundleID
+        self._id = bundle_id
         self._json_obj = None
 
     async def update(self) -> None:
