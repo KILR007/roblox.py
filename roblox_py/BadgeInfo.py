@@ -70,12 +70,30 @@ class BadgeInfo:
         """
         return self._json_obj['created']
 
+    def created_at_formatted(self) -> Time:
+        """
+        Returns Formatted Badge Creation Date
+        """
+        date_time_str = self.created_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
+
     @property
     def updated_at(self):
         """
         Gives the last updated date in iso8601 format
         """
         return self._json_obj['updated']
+
+    def updated_at_formatted(self) -> Time:
+        """
+        Returns a Time instance which contains the years, months, and days which contains formatted date
+        """
+        date_time_str = self.updated_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
 
     def updated_age(self) -> Time:
         """

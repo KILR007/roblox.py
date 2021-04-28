@@ -123,6 +123,15 @@ class PlaceInfo:
         """
         return self._json_obj['data'][0]['created']
 
+    def created_at_formatted(self) -> Time:
+        """
+        Returns Formatted Place Creation Date
+        """
+        date_time_str = self.created_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
+
     @property
     def updated_at(self) -> str:
         """
@@ -143,6 +152,15 @@ class PlaceInfo:
         months, days = divmod(days, 30)
         yrs, months = divmod(months, 12)
         return Time(yrs=yrs, month=months, day=days)
+
+    def updated_at_formatted(self) -> Time:
+        """
+        Returns a Time instance which contains the years, months, and days which contains formatted date
+        """
+        date_time_str = self.updated_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
 
     def created_age(self) -> Time:
         """

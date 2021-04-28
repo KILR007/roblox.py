@@ -37,7 +37,7 @@ class Client:
         password : str
             Password of the account
         type : str
-            If Choosen "email"  - "username_or_email" will be considered as Email
+            If Chosen "email"  - "username_or_email" will be considered as Email
         token : stc
             roblox_py.TwoCaptcha
 
@@ -263,7 +263,7 @@ class Client:
         idkdd = isinstance(Asset_id, str)
         if idkdd:
             raise TypeError(f"{Asset_id} must be an integer")
-        yes = AssetInfo(assetID=Asset_id, request=self.request)
+        yes = AssetInfo(asset_id=Asset_id, request=self.request)
         await yes.update()
         return yes
 

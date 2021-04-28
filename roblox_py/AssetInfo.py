@@ -99,6 +99,15 @@ class AssetInfo:
         """
         return self._json_obj["Created"]
 
+    def created_at_formatted(self) -> Time:
+        """
+        Returns Formatted Asset Creation Date
+        """
+        date_time_str = self.created_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
+
     def created_age(self):
         """
         Will return how long the asset has been up for.
@@ -119,6 +128,15 @@ class AssetInfo:
         Gives the last updated date in iso8601 format
         """
         return self._json_obj["Updated"]
+
+    def updated_at_formatted(self) -> Time:
+        """
+        Returns a Time instance which contains the years, months, and days which contains formatted date
+        """
+        date_time_str = self.updated_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
 
     def update_age(self):
         """

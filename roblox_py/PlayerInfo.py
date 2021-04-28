@@ -94,6 +94,15 @@ class PlayerInfo:
             return None
         return oof
 
+    def created_at_formatted(self):
+        """
+        Returns Formatted User Join date
+        """
+        date_time_str = self.created_at
+        noob = date_time_str[:10]
+        strp = datetime.datetime.strptime(noob, '%Y-%m-%d')
+        return Time(yrs=strp.year, month=strp.month, day=strp.day)
+
     def account_age(self) -> Time:
         """
         Returns Account Join Date time from current time
