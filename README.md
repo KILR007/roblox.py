@@ -1,3 +1,4 @@
+
 # **roblox.py**
 
 [![Support Server](https://img.shields.io/discord/591914197219016707.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/vpEv3HJ)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/KILR007/pyrblx/blob/master/LICENSE.txt)  [![Downloads](https://static.pepy.tech/badge/roblox.py)](https://static.pepy.tech/badge/roblox.py)  
@@ -12,10 +13,14 @@
 
 #### Installation
 ###### [PIP INSTALLATION](https://pypi.org/project/roblox.py/)
-`pip install roblox.py`
+````bash
+pip install roblox.py
+````
 
 ###### [Source Installation](https://github.com/KILR007/roblox.py/)
-`pip install git+pip install git+https://github.com/KILR007/roblox.py`  
+````bash
+pip install git+https://github.com/KILR007/roblox.py
+````  
 *[git](https://git-scm.com/) is required to install from source, please install it [here](https://git-scm.com/downloads)*
 
 ### Quick Examples
