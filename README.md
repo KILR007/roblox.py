@@ -10,7 +10,7 @@
 - Alot of Features
 - Asynchronous
 - Game client support
-- Less Dependencies
+- Few Dependencies
 
 #### Installation
 ###### [PIP INSTALLATION](https://pypi.org/project/roblox.py/)
