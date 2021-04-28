@@ -17,7 +17,7 @@
 `pip install roblox.py`
 
 ###### [Source Installation](https://github.com/KILR007/roblox.py/)
-`pip install git+pip install git+https://github.com/KILR007/roblox.py`
+`pip install git+pip install git+https://github.com/KILR007/roblox.py`  
 *[git](https://git-scm.com/) is required to install from source, please install it [here](https://git-scm.com/downloads)*
 
 ### Quick Examples
