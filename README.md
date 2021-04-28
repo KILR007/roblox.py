@@ -13,7 +13,7 @@
 - Less Dependencies
 
 #### Installation
-###### [PIP EASY INSTALLATION](https://pypi.org/project/roblox.py/)
+###### [PIP INSTALLATION](https://pypi.org/project/roblox.py/)
 `pip install roblox.py`
 
 ###### [Source Installation](https://github.com/KILR007/roblox.py/)
