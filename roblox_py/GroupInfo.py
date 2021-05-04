@@ -125,10 +125,12 @@ class GroupInfo:
         return self._groupss["id"]
 
     @property
-    def owner(self) -> PartialInfo:
+    def owner(self):
         """
-        Returns of the group
+        Returns the group owner
         """
+        if self._groupss["owner"] is None:
+            return None
         return PartialInfo(
             name=self._groupss["owner"]["username"],
             id=self._groupss["owner"]["userId"])
