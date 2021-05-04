@@ -346,7 +346,15 @@ class Client:
             roblox_folder_path=roblox_folder_path,
             roblox_game_folder_path=roblox_game_path)
 
-    async def get_badge(self, badge_id: int):
+    async def get_badge(self, badge_id: int) -&gt; BadgeInfo:
+        &#34;&#34;&#34;
+        Returns Badge Info Class - Also Calls the update Function
+
+
+        Returns
+        -------
+        roblox_py.BadgeInfo
+        &#34;&#34;&#34;
         idkdd = isinstance(badge_id, str)
         if idkdd:
             raise TypeError(f&#34;{badge_id} must be an integer&#34;)
@@ -354,12 +362,26 @@ class Client:
         await e.update()
         return e
 
-    async def get_place(self, unverise_id):
+    async def get_place(self, unverise_id) -&gt; PlaceInfo:
+        &#34;&#34;&#34;
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        &#34;&#34;&#34;
         e = PlaceInfo(universe_id=unverise_id, request=self.request)
         await e.update()
         return e
 
-    async def get_place_by_id(self, place_id: int):
+    async def get_place_by_id(self, place_id: int) -&gt; PlaceInfo:
+        &#34;&#34;&#34;
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        &#34;&#34;&#34;
         idkdd = isinstance(place_id, str)
         if idkdd:
             raise TypeError(f&#34;{place_id} must be an integer&#34;)
@@ -696,7 +718,15 @@ class Client:
             roblox_folder_path=roblox_folder_path,
             roblox_game_folder_path=roblox_game_path)
 
-    async def get_badge(self, badge_id: int):
+    async def get_badge(self, badge_id: int) -&gt; BadgeInfo:
+        &#34;&#34;&#34;
+        Returns Badge Info Class - Also Calls the update Function
+
+
+        Returns
+        -------
+        roblox_py.BadgeInfo
+        &#34;&#34;&#34;
         idkdd = isinstance(badge_id, str)
         if idkdd:
             raise TypeError(f&#34;{badge_id} must be an integer&#34;)
@@ -704,12 +734,26 @@ class Client:
         await e.update()
         return e
 
-    async def get_place(self, unverise_id):
+    async def get_place(self, unverise_id) -&gt; PlaceInfo:
+        &#34;&#34;&#34;
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        &#34;&#34;&#34;
         e = PlaceInfo(universe_id=unverise_id, request=self.request)
         await e.update()
         return e
 
-    async def get_place_by_id(self, place_id: int):
+    async def get_place_by_id(self, place_id: int) -&gt; PlaceInfo:
+        &#34;&#34;&#34;
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        &#34;&#34;&#34;
         idkdd = isinstance(place_id, str)
         if idkdd:
             raise TypeError(f&#34;{place_id} must be an integer&#34;)
@@ -927,15 +971,28 @@ async def get_cookies_from_credentials(username_or_email, password, type, token)
 </details>
 </dd>
 <dt id="roblox_py.Client.Client.get_badge"><code class="name flex">
-<span>async def <span class="ident">get_badge</span></span>(<span>self, badge_id: int)</span>
+<span>async def <span class="ident">get_badge</span></span>(<span>self, badge_id: int) ‑> <a title="roblox_py.BadgeInfo.BadgeInfo" href="BadgeInfo.html#roblox_py.BadgeInfo.BadgeInfo">BadgeInfo</a></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns Badge Info Class - Also Calls the update Function</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="roblox_py.BadgeInfo" href="BadgeInfo.html">roblox_py.BadgeInfo</a></code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">async def get_badge(self, badge_id: int):
+<pre><code class="python">async def get_badge(self, badge_id: int) -&gt; BadgeInfo:
+    &#34;&#34;&#34;
+    Returns Badge Info Class - Also Calls the update Function
+
+
+    Returns
+    -------
+    roblox_py.BadgeInfo
+    &#34;&#34;&#34;
     idkdd = isinstance(badge_id, str)
     if idkdd:
         raise TypeError(f&#34;{badge_id} must be an integer&#34;)
@@ -1120,30 +1177,54 @@ async def get_cookies_from_credentials(username_or_email, password, type, token)
 </details>
 </dd>
 <dt id="roblox_py.Client.Client.get_place"><code class="name flex">
-<span>async def <span class="ident">get_place</span></span>(<span>self, unverise_id)</span>
+<span>async def <span class="ident">get_place</span></span>(<span>self, unverise_id) ‑> <a title="roblox_py.PlaceInfo.PlaceInfo" href="PlaceInfo.html#roblox_py.PlaceInfo.PlaceInfo">PlaceInfo</a></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns Place Info Class - Also Calls the update Function</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="roblox_py.PlaceInfo" href="PlaceInfo.html">roblox_py.PlaceInfo</a></code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">async def get_place(self, unverise_id):
+<pre><code class="python">async def get_place(self, unverise_id) -&gt; PlaceInfo:
+    &#34;&#34;&#34;
+    Returns Place Info Class - Also Calls the update Function
+
+    Returns
+    -------
+    roblox_py.PlaceInfo
+    &#34;&#34;&#34;
     e = PlaceInfo(universe_id=unverise_id, request=self.request)
     await e.update()
     return e</code></pre>
 </details>
 </dd>
 <dt id="roblox_py.Client.Client.get_place_by_id"><code class="name flex">
-<span>async def <span class="ident">get_place_by_id</span></span>(<span>self, place_id: int)</span>
+<span>async def <span class="ident">get_place_by_id</span></span>(<span>self, place_id: int) ‑> <a title="roblox_py.PlaceInfo.PlaceInfo" href="PlaceInfo.html#roblox_py.PlaceInfo.PlaceInfo">PlaceInfo</a></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns Place Info Class - Also Calls the update Function</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="roblox_py.PlaceInfo" href="PlaceInfo.html">roblox_py.PlaceInfo</a></code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">async def get_place_by_id(self, place_id: int):
+<pre><code class="python">async def get_place_by_id(self, place_id: int) -&gt; PlaceInfo:
+    &#34;&#34;&#34;
+    Returns Place Info Class - Also Calls the update Function
+
+    Returns
+    -------
+    roblox_py.PlaceInfo
+    &#34;&#34;&#34;
     idkdd = isinstance(place_id, str)
     if idkdd:
         raise TypeError(f&#34;{place_id} must be an integer&#34;)

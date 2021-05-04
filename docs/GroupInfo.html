@@ -153,10 +153,12 @@ class GroupInfo:
         return self._groupss[&#34;id&#34;]
 
     @property
-    def owner(self) -&gt; PartialInfo:
+    def owner(self):
         &#34;&#34;&#34;
-        Returns of the group
+        Returns the group owner
         &#34;&#34;&#34;
+        if self._groupss[&#34;owner&#34;] is None:
+            return None
         return PartialInfo(
             name=self._groupss[&#34;owner&#34;][&#34;username&#34;],
             id=self._groupss[&#34;owner&#34;][&#34;userId&#34;])
@@ -639,10 +641,12 @@ Group ID</p></div>
         return self._groupss[&#34;id&#34;]
 
     @property
-    def owner(self) -&gt; PartialInfo:
+    def owner(self):
         &#34;&#34;&#34;
-        Returns of the group
+        Returns the group owner
         &#34;&#34;&#34;
+        if self._groupss[&#34;owner&#34;] is None:
+            return None
         return PartialInfo(
             name=self._groupss[&#34;owner&#34;][&#34;username&#34;],
             id=self._groupss[&#34;owner&#34;][&#34;userId&#34;])
@@ -1090,18 +1094,20 @@ def name(self) -&gt; str:
     return self._groupss[&#34;name&#34;]</code></pre>
 </details>
 </dd>
-<dt id="roblox_py.GroupInfo.GroupInfo.owner"><code class="name">var <span class="ident">owner</span> : <a title="roblox_py.Classes.PartialInfo" href="Classes.html#roblox_py.Classes.PartialInfo">PartialInfo</a></code></dt>
+<dt id="roblox_py.GroupInfo.GroupInfo.owner"><code class="name">var <span class="ident">owner</span></code></dt>
 <dd>
-<div class="desc"><p>Returns of the group</p></div>
+<div class="desc"><p>Returns the group owner</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def owner(self) -&gt; PartialInfo:
+def owner(self):
     &#34;&#34;&#34;
-    Returns of the group
+    Returns the group owner
     &#34;&#34;&#34;
+    if self._groupss[&#34;owner&#34;] is None:
+        return None
     return PartialInfo(
         name=self._groupss[&#34;owner&#34;][&#34;username&#34;],
         id=self._groupss[&#34;owner&#34;][&#34;userId&#34;])</code></pre>

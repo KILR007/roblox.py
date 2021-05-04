@@ -318,7 +318,15 @@ class Client:
             roblox_folder_path=roblox_folder_path,
             roblox_game_folder_path=roblox_game_path)
 
-    async def get_badge(self, badge_id: int):
+    async def get_badge(self, badge_id: int) -> BadgeInfo:
+        """
+        Returns Badge Info Class - Also Calls the update Function
+
+
+        Returns
+        -------
+        roblox_py.BadgeInfo
+        """
         idkdd = isinstance(badge_id, str)
         if idkdd:
             raise TypeError(f"{badge_id} must be an integer")
@@ -326,12 +334,26 @@ class Client:
         await e.update()
         return e
 
-    async def get_place(self, unverise_id):
+    async def get_place(self, unverise_id) -> PlaceInfo:
+        """
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        """
         e = PlaceInfo(universe_id=unverise_id, request=self.request)
         await e.update()
         return e
 
-    async def get_place_by_id(self, place_id: int):
+    async def get_place_by_id(self, place_id: int) -> PlaceInfo:
+        """
+        Returns Place Info Class - Also Calls the update Function
+
+        Returns
+        -------
+        roblox_py.PlaceInfo
+        """
         idkdd = isinstance(place_id, str)
         if idkdd:
             raise TypeError(f"{place_id} must be an integer")
