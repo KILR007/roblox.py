@@ -29,6 +29,7 @@ from .Auth_Player import PlayerAuth
 from .http_session import Http
 from .utils import Requests
 from .Twocaptcha import TwoCaptcha
+from .Join_Game import JoinGame
 __title__ = 'roblox_py'
 __author__ = 'KILR'
 __license__ = 'MIT'

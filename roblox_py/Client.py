@@ -172,7 +172,7 @@ class Client:
             await e.update()
             return e
 
-    async def get_user_info(self, Player_Id: int):
+    async def get_user_info(self, Player_Id: int) -> PlayerInfo:
         """
 
         Returns Player Info Class - Also Calls the update Function

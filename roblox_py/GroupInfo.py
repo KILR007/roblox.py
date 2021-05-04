@@ -127,7 +127,7 @@ class GroupInfo:
     @property
     def owner(self):
         """
-        Returns the group owner
+        Returns the group owner, Returns None if owner NotFound
         """
         if self._groupss["owner"] is None:
             return None

@@ -200,7 +200,7 @@ class Client:
             await e.update()
             return e
 
-    async def get_user_info(self, Player_Id: int):
+    async def get_user_info(self, Player_Id: int) -&gt; PlayerInfo:
         &#34;&#34;&#34;
 
         Returns Player Info Class - Also Calls the update Function
@@ -572,7 +572,7 @@ class Client:
             await e.update()
             return e
 
-    async def get_user_info(self, Player_Id: int):
+    async def get_user_info(self, Player_Id: int) -&gt; PlayerInfo:
         &#34;&#34;&#34;
 
         Returns Player Info Class - Also Calls the update Function
@@ -1284,7 +1284,7 @@ async def get_cookies_from_credentials(username_or_email, password, type, token)
 </details>
 </dd>
 <dt id="roblox_py.Client.Client.get_user_info"><code class="name flex">
-<span>async def <span class="ident">get_user_info</span></span>(<span>self, Player_Id: int)</span>
+<span>async def <span class="ident">get_user_info</span></span>(<span>self, Player_Id: int) ‑> <a title="roblox_py.PlayerInfo.PlayerInfo" href="PlayerInfo.html#roblox_py.PlayerInfo.PlayerInfo">PlayerInfo</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns Player Info Class - Also Calls the update Function</p>
@@ -1302,7 +1302,7 @@ async def get_cookies_from_credentials(username_or_email, password, type, token)
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">async def get_user_info(self, Player_Id: int):
+<pre><code class="python">async def get_user_info(self, Player_Id: int) -&gt; PlayerInfo:
     &#34;&#34;&#34;
 
     Returns Player Info Class - Also Calls the update Function
